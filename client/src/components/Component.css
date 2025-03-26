@@ -149,13 +149,14 @@ html {
 .account-overlay {
     position: absolute;
     top: 100%;
-    left: -50%;
+    left: -15%;
     background-color: white;
+    border-color: var(--secondary);
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1001;
-    width: 8em;
+    width: 9em;
     /* Ensure it stays above the semi-transparent background */
     display: flex;
     flex-direction: column;
@@ -190,7 +191,8 @@ html {
     flex-direction: column;
     position: absolute;
     top: 4em;
-    right: 0;
+    right: -1%;
+    width: 20em;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -198,6 +200,14 @@ html {
     gap: 1em;
     z-index: 10;
     /* Ensure it stays above other elements */
+}
+
+.notification-badge {
+    color: var(--secondary);
+}
+
+.notification-icon svg{
+    color: var(--secondary);
 }
 
 /* Search Bar Container */
@@ -340,8 +350,8 @@ html {
     display:flex;
 
     /* Border */
-    width: 50em;
-    height: 40em;
+    width: 60em;
+    height: 50em;
     border: 15px solid var(--secondary);
     padding-left: 4em;
     

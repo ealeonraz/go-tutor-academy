@@ -1,40 +1,4 @@
 /* Main Layout Container */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensures the full height of the viewport */
-}
-
-/* Navbar */
-.nav-main {
-  height: 60px; /* Adjust as needed */
-  background-color: #0070f3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-}
-
-/* Home Content */
-.home-content {
-  flex: 1; /* Ensures it takes remaining space */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: red;
-}
-
-/* Footer */
-.footer-main {
-  height: 50px;
-  background-color: green;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* Media Queries */
 @media screen and (max-width: 768px) {
   .student-dashboard-container {
@@ -52,7 +16,8 @@
 .student-dashboard-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures the full height of the viewport */
+  min-height: 100vh;
+  /* Ensures the full height of the viewport */
 }
 
 /* Student Dashboard Content */
@@ -60,7 +25,8 @@
   align-items: center;
   background-color: var(--primary);
   display: flex;
-  flex: 1; /* Ensures it takes remaining space */
+  flex: 1;
+  /* Ensures it takes remaining space */
   flex-direction: column;
   justify-content: center;
   padding: 2em;
@@ -99,15 +65,18 @@
 
 /* Search Bar */
 .search-bar {
-  border: 1px solid var(--secondary); /* Use your secondary color */
+  border: 1px solid var(--secondary);
+  /* Use your secondary color */
   border-radius: 5px;
   font-size: 16px;
-  max-width: 100%; /* Ensure it doesn't overflow on smaller screens */
+  max-width: 100%;
+  /* Ensure it doesn't overflow on smaller screens */
   outline: none;
   padding: 10px 15px;
   text-align: left;
   transition: box-shadow 0.3s ease;
-  width: 45em; /* Match the width of the student-welcome-box */
+  width: 45em;
+  /* Match the width of the student-welcome-box */
 }
 
 .search-bar::placeholder {
@@ -116,7 +85,8 @@
 
 .search-bar:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 5px var(--primary); /* Highlight the input on focus */
+  box-shadow: 0 0 5px var(--primary);
+  /* Highlight the input on focus */
 }
 
 /* Search Bar Container */
@@ -125,8 +95,10 @@
   display: flex;
   justify-content: center;
   margin-bottom: 30em;
-  margin-top: 2em; /* Add spacing between the welcome box and the search bar */
-  width: 100%; /* Ensure it spans the full width of the container */
+  margin-top: 2em;
+  /* Add spacing between the welcome box and the search bar */
+  width: 100%;
+  /* Ensure it spans the full width of the container */
 }
 
 /* Student Welcome Box */
@@ -165,19 +137,44 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1em 0; /* Add spacing between the welcome box and the search bar */
+  margin: 1em 0;
+  /* Add spacing between the welcome box and the search bar */
 }
 
 /* Typewriter Text */
 .typewriter-text {
   font-size: 1.5em;
-  color: var(--secondary); /* Use your secondary color */
+  color: var(--secondary);
+  /* Use your secondary color */
   font-weight: bold;
-  overflow: hidden; /* Hide the overflowing text */
-  white-space: nowrap; /* Prevent text from wrapping */
-  border-right: 2px solid var(--secondary); /* Add a blinking cursor effect */
-  width: 0; /* Start with no visible text */
+  overflow: hidden;
+  /* Hide the overflowing text */
+  white-space: nowrap;
+  /* Prevent text from wrapping */
+  border-right: 2px solid var(--secondary);
+  /* Add a blinking cursor effect */
+  width: 0;
+  /* Start with no visible text */
   animation: typing 3s steps(40, end), blink 0.5s step-end infinite;
+}
+
+.your-tutors-content {
+  align-items: center;
+  background-color: var(--primary);
+  display: flex;
+  flex: 1;
+  /* Ensures it takes remaining space */
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+}
+
+.your-tutors-box {
+
+}
+
+.tutors-card-group {
+  
 }
 
 /* Typing Animation */
@@ -185,8 +182,10 @@
   from {
     width: 0;
   }
+
   to {
-    width: 100%; /* Reveal the full text */
+    width: 100%;
+    /* Reveal the full text */
   }
 }
 
@@ -195,6 +194,7 @@
   from {
     border-color: transparent;
   }
+
   to {
     border-color: var(--secondary);
   }

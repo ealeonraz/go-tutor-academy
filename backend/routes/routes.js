@@ -119,35 +119,6 @@ router.post("/login", async (req, res) => {
 
 });
 
-/**
- * @route   GET /About
- * @desc    Retrieve all students from the database
- * @access  Public
- */
-
-router.get("/reviews", async (req, res) => {
-  try {
-      // Connect to the database
-      const db = await connectDB(); 
-      
-      // Access the "students" collection(Students table in the database)
-      const collection = db.collection("reviews"); 
-      
-      // Retrieve all student records and convert them to an array
-      const results = await collection.find({}).toArray();
-      
-      // Send the retrieved student data back to '/About' as a JSON response
-      res.status(200).json(results);
-  } catch (error) {
-      console.error("Error fetching students:", error);
-      
-      // Send a 500 Internal Server Error response if something goes wrong
-      res.status(500).json({ error: "Failed to fetch students" });
-  }
-});
-
-
-
 
 router.get('/api/users/:email', async (req, res) => {
   try {
@@ -169,6 +140,15 @@ router.get('/api/users/:email', async (req, res) => {
   }
 });
 
+router.get('/api/tutors', async (req, res) => {
+  try{
+    const tutors = await Tutor.find({ role: "tutor"});
+    res.json(tutors);
+  }catch (error){
+    console.error("Error fetching tutors: ",error);
+    res.status(500).json({ error: "Internal Server Error"});
+  }
+});
 
 
 export default router;
