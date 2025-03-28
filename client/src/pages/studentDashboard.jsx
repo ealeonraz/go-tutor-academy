@@ -3,6 +3,7 @@ import Footer from '../components/Footer';
 import StudentDashboardNavbar from '../components/dashboardNavbar';
 import Navbar from '../components/logged-in-main-navbar';
 import profilePic from '../assets/gohan-pic.webp';  // Default profile picture in case the avatar is missing
+import { useLocation } from 'react-router-dom';
 
 import './Page.css';
 
@@ -64,7 +65,7 @@ function StudentDashboardHome() {
         }, 1000);
 
         return () => clearInterval(intervalId);
-    }, []);
+    }, [user]);
 
     // Function to fetch user data
     const fetchUserData = async (email) => {
@@ -106,12 +107,10 @@ function StudentDashboardHome() {
                     </div>
                 </div>
 
-                {/* Typewriter Effect */}
                 <div className="typewriter-container">
                     <p className="typwriter-text">What are we searching for this time?</p>
                 </div>
 
-                {/* Search Bar */}
                 <div className="search-bar-container">
                     <input
                         type="text"
