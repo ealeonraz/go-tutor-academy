@@ -65,7 +65,25 @@ function StudentDashboardHome() {
         }, 1000);
 
         return () => clearInterval(intervalId);
-    }, [user]);
+    }, []);
+
+    // Function to fetch user data
+    const fetchUserData = async (email) => {
+        try {
+            setLoading(true);  // Start loading
+            const response = await fetch(`http://localhost:4000/api/users/${email}`);  // Modify the URL as per your API route
+            if (response.ok) {
+                const data = await response.json();
+                setUserInfo(data);  // Store the user info, including avatar URL
+            } else {
+                console.error("Error fetching user data.");
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        } finally {
+            setLoading(false);  // Stop loading after fetch is complete
+        }
+    };
 
     // Function to fetch user data
     const fetchUserData = async (email) => {
@@ -107,10 +125,12 @@ function StudentDashboardHome() {
                     </div>
                 </div>
 
+                {/* Typewriter Effect */}
                 <div className="typewriter-container">
                     <p className="typwriter-text">What are we searching for this time?</p>
                 </div>
 
+                {/* Search Bar */}
                 <div className="search-bar-container">
                     <input
                         type="text"
