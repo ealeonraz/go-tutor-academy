@@ -16,10 +16,8 @@ import "./Page.css";
 /**
  * Home Component
  * This component serves as the homepage layout.
- * It includes:
- * - A navigation bar (Navbar)
- * - A main content section
- * - A footer (Footer)
+ * It includes a navigation bar, main content, and footer.
+ * On load, if a valid JWT exists and the role is "student", the user is navigated to the student dashboard.
  */
 
 function parseJwt(token) {
@@ -46,13 +44,35 @@ function Home() {
   const ctaToggle = () => {
     setShowPopup(true)
   }
+  
+  const navigate = useNavigate();
 
-  const closePopup=()=>{
+  const closePopup = () => {
     setShowPopup(false);
-  }
+  };
 
- 
-    
+  // Check if the user is logged in and redirect accordingly
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log("I am here");
+    if (token) {
+      try {
+        const decoded = parseJwt(token);
+        if (decoded.role === "student") {
+          console.log(decoded.role)
+          navigate("/");
+        } else {
+          console.error("Unknown User role:", decoded.role);
+          navigate("/studentDashboard/");
+        }
+      } catch (error) {
+        console.error("Error: Failed to get user info", error);
+        localStorage.removeItem('token');
+        navigate("/");
+      }
+    }
+  }, [navigate]);
+
   return (
     <div className="home-container">
       {/* Navigation Bar */}
