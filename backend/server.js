@@ -4,7 +4,7 @@ import routes from "./routes/routes.js";
 import connectDB from "./database/db.js"; // Import the database connection function
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 app.use(cors());
 app.use(express.json());
