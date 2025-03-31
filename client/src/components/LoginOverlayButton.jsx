@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./Overlay.css";
 
-const LoginOverlay = () => {
+const LoginOverlayButton = () => {
   const dialogRef = useRef(null);
   const [loginData, setLoginData] = useState({
     email: "",
@@ -32,31 +32,38 @@ const LoginOverlay = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
-
+  
     try {
       const response = await fetch("http://localhost:4000/login", {
         method: "POST", // Using POST to send login credentials
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(loginData),
       });
       if (!response.ok) {
         throw new Error("Failed to login");
       }
-
+  
       const result = await response.json();
-
+  
       // Assume result includes a property called 'token'
       localStorage.setItem("token", result.token);
       console.log("Login successful, token stored:", result.token);
       closeDialog();
+  
+      // Forcefully redirect to student dashboard
+      window.location.href = "/studentDashboard";  // Redirect to student dashboard
+      
+  
+      // Optionally, call the success handler to update login state
+      onLoginSuccess(); // This is still useful for managing state on the parent component
+  
     } catch (error) {
       console.error("Error logging in:", error);
       setErrorMessage("Login failed. Please check your credentials.");
     }
   };
-
   return (
     <>
       {/* Login Button */}
@@ -119,4 +126,4 @@ const LoginOverlay = () => {
   );
 };
 
-export default LoginOverlay;
+export default LoginOverlayButton;

@@ -13,11 +13,22 @@ import Book from '../assets/Book.webp';
 import "./Page.css";
 
 
+import React, { useEffect, useState } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import LoginOverlayButton from "../components/LoginOverlayButton";
+import RegisterOverlayButton from "../components/RegisterOverlayButton";
+import "./Page.css";
+import { useNavigate } from 'react-router-dom';
+
+
 /**
  * Home Component
  * This component serves as the homepage layout.
- * It includes a navigation bar, main content, and footer.
- * On load, if a valid JWT exists and the role is "student", the user is navigated to the student dashboard.
+ * It includes:
+ * - A navigation bar (Navbar)
+ * - A main content section
+ * - A footer (Footer)
  */
 
 function parseJwt(token) {
@@ -38,6 +49,10 @@ function parseJwt(token) {
 }
 
 function Home() {
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
+
+  const closePopup = () => {
   
   
   const[showPopup, setShowPopup] = useState(false);
@@ -73,10 +88,38 @@ function Home() {
     }
   }, [navigate]);
 
+  };
+
+  // Check if the user is logged in and redirect accordingly
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log("I am here");
+    if (token) {
+      try {
+        const decoded = parseJwt(token);
+        if (decoded.role === "student") {
+          console.log(decoded.role)
+          navigate("/");
+        } else {
+          console.error("Unknown User role:", decoded.role);
+          navigate("/studentDashboard/");
+        }
+      } catch (error) {
+        console.error("Error: Failed to get user info", error);
+        localStorage.removeItem('token');
+        navigate("/");
+      }
+    }
+  }, [navigate]);
+
   return (
     <div className="home-container">
       {/* Navigation Bar */}
       <Navbar />
+      <LoginOverlayButton />
+      <RegisterOverlayButton />
+
+      {/* Main Content Section */}
       
       <main className="home-content">
         <div className="home-section-main">
@@ -92,6 +135,7 @@ function Home() {
           <div className = "home-image">
           <img src = {HomeImage}></img>
           </div>
+          MAIN {/* Placeholder for main content */}
         </div>
       </main>
 
@@ -124,6 +168,13 @@ function Home() {
             <img src={Book}alt="Easy Booking" />
             <h4>Easy Booking</h4>
             <p>Students can quickly book sessions and connect with the right tutors.</p>
+      {/* Popup Display when showPopup state is true */}
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Student List</h2>
+            <p>No student data available.</p>
+            <button onClick={closePopup}>Close</button>
           </div>
         </div>
       </section>
@@ -132,6 +183,8 @@ function Home() {
       {showPopup && <RegisterOverlay closePopup={closePopup} />}
 
       
+      )}
+
       {/* Footer */}
       <Footer />
     </div>
@@ -139,3 +192,4 @@ function Home() {
 }
 
 export default Home;
+

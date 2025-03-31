@@ -147,6 +147,30 @@ router.get('/api/tutors', async (req, res) => {
   }catch (error){
     console.error("Error fetching tutors: ",error);
     res.status(500).json({ error: "Internal Server Error"});
+    
+/**
+ * @route   POST /feedback
+ * @desc    Save tutor session feedback to the database
+ * @access  Public
+ */
+router.post("/feedback", async (req, res) => {
+  try {
+    // Connect to the database
+    const db = await connectDB();
+    // Access the "feedback" collection (creates it if it doesn't exist)
+    const collection = db.collection("feedback");
+    // Retrieve the feedback data from the request body
+    const feedbackData = req.body;
+    // Insert the data into the collection
+    const result = await collection.insertOne(feedbackData);
+    // Respond with a success message and the inserted document's ID
+    res.status(201).json({
+      message: "Feedback submitted successfully",
+      id: result.insertedId,
+    });
+  } catch (err) {
+    console.error("Unable to create new feedback", err);
+    res.status(500).json({ error: "Failed to submit feedback" });
   }
 });
 

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import RegisterOverlay from '../components/RegisterOverlayButton'
 import './Overlay.css'
-import LoginOverlay from '../components/LoginOverlayButton'
+import LoginOverlayButton from '../components/LoginOverlayButton'
 import WebsiteLogo from '../assets/WebsiteLogo.webp'
 
 
@@ -12,6 +12,10 @@ export default function Navbar() {
     if(aboutSection){
       aboutSection.scrollIntoView({behavior:"smooth"});
     }
+    
+  };
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);  // Update login status after login
   };
     return (
       <div className="nav-main">
@@ -23,7 +27,7 @@ export default function Navbar() {
          {/* Buttons container on the right */}
     <div className="nav-buttons-container">
       <RegisterOverlay />
-      <LoginOverlay />
+      <LoginOverlayButton onLoginSuccess={handleLoginSuccess} />
       <button className="what-we-offer-button" onClick={scrollToOffer}>
         What We Offer
       </button>
