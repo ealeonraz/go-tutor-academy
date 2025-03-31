@@ -1,36 +1,29 @@
-import React,{ useEffect, useState} from 'react';
-import Navbar from '../components/Navbar'; 
-import Footer from '../components/Footer'; 
-import "./Home.css";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// Components
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import ReviewSection from '../components/ReviewSection';
-import HomeImage from '../assets/HomeImage131.webp'
 import RegisterOverlay from '../components/RegisterOverlayButton';
 import CtaButtonOverlay from '../components/CtaButtonOverlay';
-import SmartSceduling from '../assets/SmartSceduling.webp';
+import LoginOverlayButton from "../components/LoginOverlayButton";
+import RegisterOverlayButton from "../components/RegisterOverlayButton";
+
+// Images
+import HomeImage from '../assets/HomeImage131.webp';
+import SmartScheduling from '../assets/SmartSceduling.webp';
 import PTracking from '../assets/PTracking.webp';
 import Pay from '../assets/Pay.webp';
 import Book from '../assets/Book.webp';
+
+// Styles
+import "./Home.css";
 import "./Page.css";
-
-
-import React, { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import LoginOverlayButton from "../components/LoginOverlayButton";
-import RegisterOverlayButton from "../components/RegisterOverlayButton";
-import "./Page.css";
-import { useNavigate } from 'react-router-dom';
-
 
 /**
- * Home Component
- * This component serves as the homepage layout.
- * It includes:
- * - A navigation bar (Navbar)
- * - A main content section
- * - A footer (Footer)
+ * Function to parse JWT token
  */
-
 function parseJwt(token) {
   try {
     const base64url = token.split(".")[1];
@@ -52,15 +45,9 @@ function Home() {
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
-  const closePopup = () => {
-  
-  
-  const[showPopup, setShowPopup] = useState(false);
   const ctaToggle = () => {
-    setShowPopup(true)
-  }
-  
-  const navigate = useNavigate();
+    setShowPopup(true);
+  };
 
   const closePopup = () => {
     setShowPopup(false);
@@ -69,40 +56,15 @@ function Home() {
   // Check if the user is logged in and redirect accordingly
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log("I am here");
     if (token) {
       try {
         const decoded = parseJwt(token);
+        console.log("User role:", decoded.role);
         if (decoded.role === "student") {
-          console.log(decoded.role)
-          navigate("/");
+          navigate("/studentDashboard/");
         } else {
           console.error("Unknown User role:", decoded.role);
-          navigate("/studentDashboard/");
-        }
-      } catch (error) {
-        console.error("Error: Failed to get user info", error);
-        localStorage.removeItem('token');
-        navigate("/");
-      }
-    }
-  }, [navigate]);
-
-  };
-
-  // Check if the user is logged in and redirect accordingly
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    console.log("I am here");
-    if (token) {
-      try {
-        const decoded = parseJwt(token);
-        if (decoded.role === "student") {
-          console.log(decoded.role)
           navigate("/");
-        } else {
-          console.error("Unknown User role:", decoded.role);
-          navigate("/studentDashboard/");
         }
       } catch (error) {
         console.error("Error: Failed to get user info", error);
@@ -120,40 +82,39 @@ function Home() {
       <RegisterOverlayButton />
 
       {/* Main Content Section */}
-      
       <main className="home-content">
         <div className="home-section-main">
           {/* Left Side Call to Action */}
-          <div className = "home-text">
-          <h1 className="cta-heading">Learn More, <br/> Teach with Ease</h1>
-          <p className="cta-description">
-            A platform built for tutors and students to succeed by simplifying scheduling, 
-            tracking progress, and streamlining communication.
-          </p>
-          <CtaButtonOverlay/>
+          <div className="home-text">
+            <h1 className="cta-heading">Learn More, <br /> Teach with Ease</h1>
+            <p className="cta-description">
+              A platform built for tutors and students to succeed by simplifying scheduling, 
+              tracking progress, and streamlining communication.
+            </p>
+            <CtaButtonOverlay />
           </div>
-          <div className = "home-image">
-          <img src = {HomeImage}></img>
+          {/* Right Side Image */}
+          <div className="home-image">
+            <img src={HomeImage} alt="Learning Platform" />
           </div>
-          MAIN {/* Placeholder for main content */}
         </div>
       </main>
 
+      {/* Review Section */}
+      <ReviewSection />
 
-
-      <ReviewSection/>      
-      {/* What we offer section*/}
-      <section id = "what-we-offer" className = "what-we-offer">
+      {/* What We Offer Section */}
+      <section id="what-we-offer" className="what-we-offer">
         <h2>What We Offer</h2>
         <div className="about-us-cards">
           <div className="about-card">
-            <img src= {SmartSceduling} alt="Smart Scheduling"/>
+            <img src={SmartScheduling} alt="Smart Scheduling" />
             <h4>Smart Scheduling</h4>
             <p>Our automated scheduling system eliminates conflicts and ensures smooth session planning.</p>
           </div>
 
           <div className="about-card">
-            <img src= {PTracking} alt="Performance Tracking" />
+            <img src={PTracking} alt="Performance Tracking" />
             <h4>Performance Tracking</h4>
             <p>Students and tutors can track progress with insightful analytics and feedback tools.</p>
           </div>
@@ -165,9 +126,13 @@ function Home() {
           </div>
 
           <div className="about-card">
-            <img src={Book}alt="Easy Booking" />
+            <img src={Book} alt="Easy Booking" />
             <h4>Easy Booking</h4>
             <p>Students can quickly book sessions and connect with the right tutors.</p>
+          </div>
+        </div>
+      </section>
+
       {/* Popup Display when showPopup state is true */}
       {showPopup && (
         <div className="popup">
@@ -177,13 +142,10 @@ function Home() {
             <button onClick={closePopup}>Close</button>
           </div>
         </div>
-      </section>
+      )}
 
       {/* Register Overlay - Only shows if showPopup is true */}
       {showPopup && <RegisterOverlay closePopup={closePopup} />}
-
-      
-      )}
 
       {/* Footer */}
       <Footer />
@@ -192,4 +154,3 @@ function Home() {
 }
 
 export default Home;
-
