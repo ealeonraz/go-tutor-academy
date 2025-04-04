@@ -1,106 +1,129 @@
-
-.register-button,.login-button {
-    width: 120px; 
-    height: 50px;
-    border-radius: 25px; 
-    background-color: blueviolet;
-    color: white; 
-    border: 2px solid black; 
-    font-size: 18px; 
-    line-height: 50px; 
-    text-align: center; 
-    font-weight: semi-bold; 
-    margin-top: 5px; 
-    margin-bottom: 5px;
-    cursor: pointer; 
-  }
-  
-  
-.register-button:hover {
-    background-color:black;
-}
-.login-button:hover {
-    background-color:black;
+.register-button,
+.login-button,
+.what-we-offer-button {
+  min-width: 150px; 
+  padding: 0 20px;
+  height: 50px;
+  border-radius: 25px; 
+  background-color: blueviolet;
+  color: white; 
+  border: 2px solid black; 
+  font-size: 18px; 
+  line-height: 50px; 
+  text-align: center; 
+  font-weight: 600; 
+  margin-top: 5px; 
+  margin-bottom: 5px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
 }
 
+.register-button:hover,
+.login-button:hover,
+.what-we-offer-button:hover {
+  background-color: black;
+}
 
 .overlay-center {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    margin: auto;
-    
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
 }
+
 dialog {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-    width: 320px;
-    border-radius: 8px;
-    border-width: 0px;
-    margin:auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+  width: 320px;
+  border-radius: 8px;
+  border-width: 0px;
+  margin: auto;
 }
 
 h1 {
-    margin:auto;
-    margin-bottom: 1em;
+  margin: auto;
+  margin-bottom: 1em;
 }
 
 .login-flex {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 8px;
-    border-color: white;
-    padding: 20px 25px;
-    line-height: 1.4em;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  border-color: white;
+  padding: 20px 25px;
+  line-height: 1.4em;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-flex * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 input {
-    width: 100%;
-    height: 40px;
-    padding: 16px;
-    padding-top: 16px;
-    border-radius: 8px;
-    border-width: 2px;
-    border-color: #D9D9D9;
-    border-style: solid;
-    font-size: 16px;
-    margin-top: 4px;
-    margin-bottom: 16px;
+  width: 100%;
+  height: 40px;
+  padding: 16px;
+  border-radius: 8px;
+  border-width: 2px;
+  border-color: #D9D9D9;
+  border-style: solid;
+  font-size: 16px;
+  margin-top: 4px;
+  margin-bottom: 16px;
 }
 
+.what-we-offer-button  {
+  /* This now uses the shared button styling above */
+  min-width: 150px; 
+  padding: 0 20px;
+  height: 50px;
+  border-radius: 25px; 
+  background-color: blueviolet;
+  color: white; 
+  border: 2px solid black; 
+  font-size: 18px; 
+  line-height: 50px; 
+  text-align: center; 
+  font-weight: 600; 
+  margin-top: 5px; 
+  margin-bottom: 5px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+.what-we-offer-button:hover {
+  background-color: black;
+}
 
 .wide-black {
-    background-color: black;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
-    height: 40px;
-    width: 100%;
-    border-width: 0px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.wide-black:hover {
-    background-color: rgb(181, 129, 230);
-    color: black;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  height: 40px;
+  width: 100%;
+  border-width: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.login-link{
-    margin-top: 8px;
-    margin-bottom: 20px;
-    text-decoration: underline;
+.wide-black:hover {
+  background-color: rgb(181, 129, 230);
+  color: black;
 }
+
+.login-link {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+
 .login-link:hover {
-    color: blueviolet;
+  color: blueviolet;
 }
 
 .error-message {
-    color: rgb(255, 82, 82);
+  color: rgb(255, 82, 82);
 }
