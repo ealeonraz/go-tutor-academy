@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import {getTutorNotes} from "../controllers/noteController.js";
-import { storeTutorNote } from "../controllers/noteController.js";
+import { storeTutorNote } from "../models/Note.js";
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
