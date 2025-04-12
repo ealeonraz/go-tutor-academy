@@ -1,0 +1,487 @@
+:root {
+    /* Light purple */
+    --primary: #D0BCFF;
+    /* Vibrant purple */
+    --secondary: #925FE2;
+}
+
+/* Reset & Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-nav-main {
+    padding-top: 0.5em;
+    height: 4em;
+    /* Adjust as needed */
+    background-image: linear-gradient(to top, var(--primary), white);
+    /* Gradient from light purple to vibrant yellow */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-button {
+    height: 100%;
+    width: 8em;
+    background-color: var(--primary);
+    /* Vibrant yellow */
+    border-style: groove;
+    border-color: var(--secondary);
+    flex: 4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 8px var(--primary);
+}
+
+.dashboard-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 20px var(--secondary);
+}
+
+.dashboard-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px #925FE2;
+}
+
+.dashboard-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent,
+            rgba(111, 0, 255, 0.6),
+            transparent);
+    transition: left 0.5s;
+}
+
+.dashboard-button:hover::before {
+    left: 100%;
+}
+
+.dashboard-buttons-group {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--secondary);
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Center the buttons horizontally */
+    align-items: center;
+    /* Center the buttons vertically */
+    width: auto;
+}
+
+body,
+html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Main Navbar */
+.logged-in-main-navbar {
+    height: 4em;
+    background-color: white;
+    position: relative;
+    display: flex;
+    top: 0;
+    justify-content: space-between;
+    /* Space out the logo and account overlay */
+    align-items: center;
+    /* Vertically center all elements */
+    padding: 0 20px;
+    /* Add padding for spacing on the left and right */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Optional: Add a subtle shadow for better visibility */
+}
+
+/* Ensure the parent container is positioned relative */
+.account-arrow-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Add spacing between the icon and text */
+}
+
+.account-arrow-button img {
+    width: 1.5em;
+    height: 1.5em;
+    transition: transform 0.3s ease;
+}
+
+.account-arrow-button[aria-expanded="true"] img {
+    transform: rotate(180deg);
+}
+
+.account-arrow-button button:active {
+    transform: rotate(180deg);
+
+    /* Reset the rotation on click */
+}
+
+.account-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+/* Account Overlay */
+.account-overlay {
+    position: absolute;
+    top: 100%;
+    left: -15%;
+    background-color: white;
+    border-color: var(--secondary);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    width: 9em;
+    /* Ensure it stays above the semi-transparent background */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.3 ease, transform 0.3 ease;
+}
+
+.account-overlay.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Account Picture */
+.account-picture img {
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    /* Make the image circular */
+    object-fit: cover;
+    /* Ensure the image scales properly */
+    border: .2em solid var(--secondary);
+    /* Optional: Add a border for better visibility */
+}
+
+.notification-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 4em;
+    right: -1%;
+    width: 20em;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    gap: 0.75em;
+    z-index: 10;
+    /* Ensure it stays above other elements */
+}
+
+.notification-badge {
+    color: var(--secondary);
+}
+
+.notification-icon svg{
+    color: var(--secondary);
+}
+
+.notification-list{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.notification-item{
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    min-height: 36px;
+}
+
+.notification-header-title {
+    display: block;
+    font-size: 20px;
+    line-height: 36px;
+}
+
+
+.notification-mark-read {
+    background-color: var(--secondary); /* Use your primary color */
+    color: white;
+    border: none;
+    margin-top: 0.5em;
+    padding: 0.5em 1em;
+    border: 2px solid black;
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.notification-mark-read:hover {
+    background-color: black;
+    color: white;
+}
+
+.notification-mark-read-all {
+    background-color: var(--secondary); /* Use your primary color */
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border: 2px solid black;
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+    align-self: center;
+}
+
+.notification-mark-read:hover {
+    background-color: black;
+    color: white;
+}
+
+/* Search Bar Container */
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Add spacing between the welcome box and the search bar */
+    gap: 10px; /* Add spacing between the input and the button */
+}
+
+/* Search Bar Input */
+.search-bar {
+    width: 60%; /* Adjust width as needed */
+    padding: 10px 15px;
+    border: 1px solid var(--secondary); /* Use your secondary color */
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+    box-shadow: 0 0 5px var(--primary); /* Highlight the input on focus */
+    border-color: var(--primary);
+}
+
+/* Search Button */
+.search-button {
+    background-color: var(--primary); /* Use your primary color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: var(--secondary); /* Use your secondary color for hover */
+}
+
+/* Popup Button */
+.popup-button {
+    background-color: var(--primary);
+    /* Use your primary color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+    /* Align text to the left */
+    width: 100%;
+    /* Make the button take the full width of the popup */
+    font-size: 14px;
+    position: relative;
+    /* Required for the ::before pseudo-element */
+    overflow: hidden;
+    /* Ensure the gradient stays within the button */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.popup-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px var(--secondary);
+}
+
+/* Gradient Animation for Hover */
+.popup-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    /* Start the gradient off-screen */
+    width: 200%;
+    /* Make the gradient wide enough to cover the button */
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(111, 0, 255, 0.6), transparent);
+    opacity: 0;
+    transition: left 0.5s ease;
+    /* Smooth transition for the gradient */
+}
+
+.popup-button:hover::before {
+    left: 0;
+    /* Move the gradient into view */
+}
+
+/* Optional: Style the popup content */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* This is the name/text of the popup buttons */
+.popup-content button {
+    background-color: var(--primary);
+    color: black;
+    border-style: groove;
+    border-color: var(--secondary);
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: var(--secondary);
+    color: white;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+    padding-left: 10px;
+    /* Adjust padding for spacing */
+    flex: 0 0 auto;
+    /* Prevent the logo from taking too much space */
+}
+
+.tutors-card {
+    width: 12em;
+    height: 14em;
+    background-color: blue;
+}
+
+.tutors-card-group {
+    align-items: center;
+    gap: 1em;
+}
+
+.your-tutors-box {
+    position: relative;
+    display:flex;
+
+    /* Border */
+    width: 60em;
+    height: 50em;
+    border: 15px solid var(--secondary);
+    padding-left: 4em;
+    
+    margin: 0.5em;
+    border-radius: 5px;
+
+    /* Inside box */
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.students-card {
+    width: 12em;
+    height: 14em;
+    background-color: blue;
+}
+
+.students-card-group {
+    align-items: center;
+    gap: 1em;
+}
+
+.your-students-box {
+    position: relative;
+    display:flex;
+
+    /* Border */
+    width: 60em;
+    height: 50em;
+    border: 15px solid var(--secondary);
+    padding-left: 4em;
+    
+    margin: 0.5em;
+    border-radius: 5px;
+
+    /* Inside box */
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .logged-in-main-navbar {
+        flex-direction: row;
+        /* Keep elements in a row on smaller screens */
+        height: auto;
+        /* Allow height to adjust dynamically */
+        padding: 10px;
+        /* Add padding for smaller screens */
+    }
+
+    .logo {
+        justify-content: flex-start;
+        /* Keep the logo aligned to the left */
+        padding-left: 0;
+        /* Remove extra padding */
+    }
+
+    .dashboard-buttons-group {
+        justify-content: center;
+        /* Center the buttons */
+        flex-wrap: wrap;
+        /* Allow buttons to wrap on smaller screens */
+    }
+
+    .account-overlay {
+        justify-content: flex-end;
+        /* Keep the account overlay aligned to the right */
+    }
+}
