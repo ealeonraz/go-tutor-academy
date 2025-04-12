@@ -52,13 +52,13 @@ function TutorDashboardHome() {
             const currentHour = new Date().getHours();
             if (currentHour >= 5 && currentHour < 12) {
                 setCurrentTime("Good Morning, ");
-                setTimeMessage("Let's start the day off great in your studies!");
+                setTimeMessage("Ready to inspire minds and guide students today?");
             } else if (currentHour >= 12 && currentHour < 18) {
                 setCurrentTime("Good Afternoon, ");
-                setTimeMessage("A good study session happens right after Lunch");
+                setTimeMessage("A great time to check in and help students succeed!");
             } else {
                 setCurrentTime("Good Evening, ");
-                setTimeMessage("The night is still young, keep studying!");
+                setTimeMessage("Ready to wrap up and prepare for tomorrow?");
             }
             setCurrentDate(new Date());
         }, 1000);
