@@ -15,24 +15,22 @@ const JWT_SECRET = process.env.JWT_SECRET;
  * @access  Public
  */
 router.get("/", async (req, res) => {
-    try {
-        // Connect to the database
-        const db = await connectDB(); 
-        
-        // Access the "students" collection(Students table in the database)
-        const collection = db.collection("students"); 
-        
-        // Retrieve all student records and convert them to an array
-        const results = await collection.find({}).toArray();
-        
-        // Send the retrieved student data back to '/About' as a JSON response
-        res.status(200).json(results);
-    } catch (error) {
-        console.error("Error fetching students:", error);
-        
-        // Send a 500 Internal Server Error response if something goes wrong
-        res.status(500).json({ error: "Failed to fetch students" });
-    }
+  try {
+    // Connect to the database
+    const db = await connectDB(); 
+    
+    // Access the "students" collection (Students table in the database)
+    const collection = db.collection("students"); 
+    
+    // Retrieve all student records and convert them to an array
+    const results = await collection.find({}).toArray();
+    
+    // Send the retrieved student data back to '/About' as a JSON response
+    res.status(200).json(results);
+  } catch (error) {
+    console.error("Error fetching students:", error);
+    res.status(500).json({ error: "Failed to fetch students" });
+  }
 });
 
 /**
@@ -43,18 +41,18 @@ router.get("/", async (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const db = await connectDB();
-
     const collection = db.collection("users");
 
-    const{first, last, email, password, confirmPassword} = req.body;
+    const { first, last, email, password, confirmPassword } = req.body;
 
     // Case 1 - account exists
-    const existingStudent = await collection.findOne({email});
-    if(existingStudent) {
-      res.status(400).json({
+    const existingStudent = await collection.findOne({ email });
+    if (existingStudent) {
+      return res.status(400).json({
         error: "Email already in use",
-      })
+      });
     }
+    
     // Case 2 - new account
     const hashedPassword = bcrypt.hashSync(password, 10);
     const newStudent = {
@@ -64,106 +62,92 @@ router.post("/register", async (req, res) => {
       password: hashedPassword,
       role: "student",
       tutor: null,
-    } 
+    }; 
     const result = await collection.insertOne(newStudent);
     res.status(201).json({
       message: "Feedback submit",
       id: result.insertedId,
     });
-    // Case 3 - invalid email
-    // Case 4 - passwords don't match
-
-    
-  }
-  catch (error) {
-    console.error("Failed to create account");
-    res.status(500).json({ error: "Failed to create account"});
+    // Note: You may want to handle cases for invalid email and password mismatches
+  } catch (error) {
+    console.error("Failed to create account", error);
+    res.status(500).json({ error: "Failed to create account" });
   }
 });
 
+/**
+ * @route   POST /login
+ * @desc    Log into an account and receive a JWT token
+ * @access  Public
+ */
 router.post("/login", async (req, res) => {
   try {
-
-    const{email, password} = req.body;
-
-    // connect to db
+    const { email, password } = req.body;
     const db = await connectDB();
     const collection = db.collection("users");
 
-    // find the user
-    const user = await collection.findOne({email});
+    // Find the user
+    const user = await collection.findOne({ email });
     if (!user) {
-      return res.status(401).json({ error: "Invaild credentials (email)"});
+      return res.status(401).json({ error: "Invalid credentials (email)" });
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({ error: "Invaild credentials (password)"});
+      return res.status(401).json({ error: "Invalid credentials (password)" });
     }
 
-    // payload
+    // Payload for JWT
     const payload = {
       id: user._id,
       email: user.email,
       role: user.role,
-    }
+    };
 
-    // create token
+    // Create token
     const token = jwt.sign(payload, JWT_SECRET, {
       expiresIn: "1h"
     });
 
-    // send status
-    res.status(200).json({ message: "Login successful", token: token});
-
-  } catch(error) {
-    res.status(500).json({ error: "Failed to log into account"});
+    res.status(200).json({ message: "Login successful", token: token });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Failed to log into account" });
   }
-
 });
 
 /**
- * @route   GET /About
- * @desc    Retrieve all students from the database
+ * @route   GET /reviews
+ * @desc    Retrieve all reviews from the database
  * @access  Public
  */
-
 router.get("/reviews", async (req, res) => {
   try {
-      // Connect to the database
-      const db = await connectDB(); 
-      
-      // Access the "students" collection(Students table in the database)
-      const collection = db.collection("reviews"); 
-      
-      // Retrieve all student records and convert them to an array
-      const results = await collection.find({}).toArray();
-      
-      // Send the retrieved student data back to '/About' as a JSON response
-      res.status(200).json(results);
+    const db = await connectDB(); 
+    const collection = db.collection("reviews"); 
+    const results = await collection.find({}).toArray();
+    res.status(200).json(results);
   } catch (error) {
-      console.error("Error fetching students:", error);
-      
-      // Send a 500 Internal Server Error response if something goes wrong
-      res.status(500).json({ error: "Failed to fetch students" });
+    console.error("Error fetching reviews:", error);
+    res.status(500).json({ error: "Failed to fetch reviews" });
   }
 });
 
-
-
-
-router.get('/api/users/:email', async (req, res) => {
+/**
+ * @route   GET /api/users/:email
+ * @desc    Retrieve a specific user by email
+ * @access  Public
+ */
+router.get("/api/users/:email", async (req, res) => {
   try {
-    // Connect to the database
     const db = await connectDB();
     const collection = db.collection("users");
 
     // Find user by email
     const user = await collection.findOne({ email: req.params.email });
-
     if (user) {
-      res.json(user);  // Send the user data, including avatar URL
+      res.json(user);
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
     console.error("Error fetching user:", error);

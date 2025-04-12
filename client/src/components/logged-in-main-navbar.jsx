@@ -2,6 +2,7 @@ import logo from "../assets/go-tutor-academy-logo.png";
 import profilepic from "../assets/gohan-pic.webp";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import NotificationBell from "./NotificationBell";
 
 import "./Component.css";
 
@@ -48,6 +49,7 @@ export default function LoggedInMainNavbar() {
                 <div className="account-picture">
                     <img src={profilepic} alt="Profile" />
                 </div>
+                <NotificationBell />
                 <button className="account-arrow-button" onClick={togglePopup} aria-expanded={showAccountPopup}>
                     <img src={downarrow} alt="Arrow" />
                 </button>

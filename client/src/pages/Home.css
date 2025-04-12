@@ -1,126 +1,521 @@
-
-  /* Main Layout Container */
-  .home-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensures the full height of the viewport */
-    overflow: auto;
-  }
-  
-  /* Navbar (Assuming it should stay at the top) */
-  .nav-main nav {
-    height: 80px; 
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    min-height: 80px;
-    width: 100%;
-  }
-  .nav-buttons-container {
-    display: flex;
-    gap: 30px; /* Adds spacing between buttons */
-    align-items: center;
-  }
-  
-  .website-logo img{
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  
-
-.nav-buttons:nth-child(1) { order: 1; } /* Register Button */
-.nav-buttons:nth-child(2) { order: 2; } /* Login Button */
-.nav-buttons:nth-child(3) { order: 3; } /* What We Offer Button */
-
-
-  
-  
-  /* Main Content */
-  .home-content {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0px 20px;
-    min-height: 400px;
-    height: 100vh;
-    background-color: white;
-    
-    
-  }
-
-  .home-text{
-    flex: 1;
-    text-align: left;
-    padding: 20px;
-    max-width: 500px;
-    margin-top: -6%; 
-  }
-
-  .cta-heading{
-    font-size: 48px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 30px !important;
-  }
-
-  .cta-description{
-    font-size: 18px;
-    font-weight: 500;
-    color: #333;
-    margin-top: 45px !important;
-    margin-bottom: 30px !important;
-  }
-
-
-
-  .cta-button{
-    background-color: blueviolet;
-    color: white;
-    border: 3px solid black;
-    padding: 20px;
-    font-size: 18px;
-    font-family: 'Arial', sans-serif;
-    cursor: pointer;
-    text-align: center;
-    width: 250px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: -6px 6px 10px rgba(0, 0, 0, 0.7); 
-    transition: background-color 0.3s ease-in-out;
-  }
-
-  .cta-button:hover {
-    background-color: black; 
+/* ------------------ Variables ------------------ */
+:root {
+  /* Light purple */
+  --primary: #D0BCFF;
+  /* Vibrant purple */
+  --secondary: #925FE2;
 }
 
-  .home-image img{
-    width: 420x;
-    height: 420px;
-    display: block;
-    object-fit: cover;
+/* ------------------ Main Layout Container ------------------ */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: auto;
+  background-color: #fff;
+}
+
+/* ------------------ Navbar ------------------ */
+.nav-main nav {
+  height: 80px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.nav-buttons-container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+/* ------------------ Home (Hero) Section ------------------ */
+.home-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: #fff;
+  flex: 1;
+}
+
+.home-section-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.home-text {
+  flex: 1;
+  text-align: left;
+  padding: 20px;
+  max-width: 500px;
+}
+
+.cta-heading {
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.cta-description {
+  font-size: 18px;
+  font-weight: 500;
+  color: #555;
+  margin: 20px 0 30px;
+}
+
+.cta-button {
+  background-color: var(--secondary);
+  color: white;
+  border: 3px solid black;
+  padding: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;
+  width: 250px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: -6px 6px 10px rgba(0, 0, 0, 0.7);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cta-button:hover {
+  background-color: black;
+}
+
+.home-image img {
+  width: 420px;
+  height: 420px;
+  object-fit: cover;
+}
+
+/* ------------------ About & Subjects Section ------------------ */
+.about-section {
+  background-color: #8a2ce2;
+  color: #fff;
+  min-height: 90vh;
+  padding: 120px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.about-content,
+.subjects-list {
+  flex: 1 1 45%;
+  min-width: 300px;
+  box-sizing: border-box;
+}
+
+.about-content h2,
+.subjects-list h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+.about-content p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  margin-bottom: 1em;
+  max-width: 600px;
+}
+
+/* ------------------ About & Subjects Section (Reverted Layout) ------------------ */
+.about-section {
+  background-color: #8a2ce2;
+  color: #fff;
+  padding: 120px 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 40px;
+  justify-content: center;
+}
+
+.about-content,
+.subjects-list {
+  flex: 1;
+  min-width: 300px;
+  box-sizing: border-box;
+}
+
+.about-content h2,
+.subjects-list h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+.about-content p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  margin-bottom: 1em;
+  max-width: 600px;
+}
+
+.subjects-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em 2em;
+}
+
+.subjects-list li {
+  display: flex;
+  align-items: center;
+}
+
+.subjects-list li svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.subjects-list li span {
+  margin-left: 0.8em;
+  font-size: 1.2rem;
+}
+
+/* ------------------ Responsive: stack on smaller screens ------------------ */
+@media (max-width: 768px) {
+  .about-section {
+    flex-wrap: wrap;
+    padding: 60px 20px;
   }
-
-
-
-  .home-section-main{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    width: 100%;
+  .about-content, 
+  .subjects-list {
+    flex: 1 1 100%;
+    margin-bottom: 40px;
   }
+  .subjects-list ul {
+    grid-template-columns: 1fr;
+  }
+}
 
-  /* Footer styles */
+.about-illustration img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------ What We Offer Section ------------------ */
+.what-we-offer {
+  padding: 100px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.what-we-offer h2 {
+  font-size: 36px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 60px;
+}
+
+.about-us-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-card {
+  width: 260px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+  border-radius: 25px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 0 40px blueviolet;
+}
+
+.about-card img {
+  width: 80px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0px 0px 10px rgba(221, 0, 255, 0.6));
+}
+
+.about-card h4 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.about-card p {
+  font-size: 0.95rem;
+}
+
+/* ------------------ Impact Section ------------------ */
+.impact-section {
+  background-color: #8a2ce2;
+  padding: 100px 20px;
+  text-align: left;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(250px, 300px);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.impact-text h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.impact-text p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.impact-btn {
+  background: #fff;
+  color: #8a2ce2;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.impact-btn:hover {
+  background: #e0e0e0;
+}
+
+.impact-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-self: center;
+}
+
+.counter {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 30px 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.counter .number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.counter .label {
+  display: block;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+/* ------------------ Testimonials Section ------------------ */
+.testimonials-container {
+  background-color: #fff;
+  text-align: center;
+}
+
+.testimonials-container h2 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.testimonials-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.testimonial-item {
+  background-color: #8a2ce2;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 350px;
+  flex: 1 1 320px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  color: #fff;
+  text-align: left;
+}
+
+.testimonial-item:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #7a25c2;
+}
+
+.testimonial-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 20px;
+  border: 2px solid #ddd;
+}
+
+.testimonial-item h3 {
+  font-size: 20px;
+  color: #fff;
+  margin: 10px 0;
+}
+
+.testimonial-item .testimonial-role {
+  font-size: 16px;
+  color: #f0f0f0;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.testimonial-item p {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ------------------ Tutor Spotlight Section (Optional) ------------------ */
+.tutor-spotlight {
+  background-color: #f7f7f7;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.tutor-spotlight-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tutor-spotlight h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.tutor-spotlight p {
+  font-size: 18px;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.tutor-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.tutor-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  width: 260px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.tutor-card:hover {
+  transform: translateY(-5px);
+}
+
+.tutor-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.tutor-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.tutor-card p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* ------------------ Utility Classes ------------------ */
+.section {
+  padding: 80px 20px;
+}
+
+.section-white {
+  background: #fff;
+  color: #333;
+}
+
+.section-purple {
+  background: #8a2ce2;
+  color: #fff;
+}
+
+.section-purple .about-btn,
+.section-purple .impact-btn {
+  background: #fff;
+  color: #8a2ce2;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.section-purple .about-btn:hover,
+.section-purple .impact-btn:hover {
+  background: #e0e0e0;
+}
+
+.section-purple h2 {
+  color: #fff;
+}
+
+.section-purple p {
+  color: #f0f0f0;
+}
+
+/* ------------------ Footer ------------------ */
 .footer {
-  background-color: white;
-  color: black;
+  background: #fff;
+  color: #333;
   padding: 20px;
   text-align: center;
+  border-top: 1px solid #ddd;
 }
 
 .footer-content {
@@ -130,17 +525,17 @@
   flex-wrap: wrap;
 }
 
-
 .footer-logo img {
- height: 100%;
- width: auto;
+  height: 50px;
+  width: auto;
 }
 
 .footer-contact {
   font-size: 14px;
 }
 
-.footer-phone, .footer-email {
+.footer-phone,
+.footer-email {
   margin: 5px 0;
 }
 
@@ -148,204 +543,18 @@
   font-size: 12px;
   margin-top: 10px;
 }
-  /* what we offer Button Style */
-  .what-we-offer-button{
-    width: 170px;
-    height: 50px; 
-    border-radius: 25px; 
-    background-color: blueviolet;
-    color: white; 
-    border: none; 
-    font-size: 18px; 
-    line-height: 50px;
-    text-align: center; 
-    font-weight: semi-bold; 
-    margin-top: 5px; 
-    margin-bottom: 5px; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease;
-    border: 2px solid black; 
 
-  }
-  
-  .what-we-offer-button:hover{
-    background-color: black;
-  }
-
-  /*What we offer section Style */
-  .what-we-offer{
-    padding: 50px;
-    background-color: #ffffff;
-    text-align: center;
-    display: flex;
+/* ------------------ Responsive ------------------ */
+@media (max-width: 768px) {
+  .about-section {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    font-size: 24px;
+    padding: 2rem;
   }
-  
-
-  .what-we-offer h2{
-    font-size: 36px;
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
-    color: #333;
-    margin-top: 0px;
-    margin-bottom: 80px;
-    }
-
-/* Testimonials Section */
-  .testimonials-container {
-    text-align: center;
-    padding: 60px 20px;
-    background-color: white; 
-    color: black; 
+  .about-content,
+  .subjects-list {
+    flex: 1 1 100%;
   }
-
-/* Section Title */
-.testimonials-container h2 {
-  font-size: 36px;
-  font-weight: bold;
-  color: black; 
-  margin-top: 40px;
-  margin-bottom: 80px;
-  
-}
-
-/* Testimonial List */
-.testimonials-list {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: center; 
-  gap: 20px; 
-  max-width: 1200px; 
-  margin: 0 auto; 
-  padding: 20px;
-}
-
-/* Individual Testimonial Card */
-.testimonial-item {
-  background: blueviolet;
-  padding: 20px;
-  border-radius: 12px;
-  border: 3px solid black;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  width: 300px; 
-  transition: transform 0.3s ease-in-out;
-  color: white;
-  margin-bottom: 40px;
-  margin-right: 40px; 
-}
-
-.testimonial-item:hover {
-  transform: scale(1.05);
-}
-
-/* Avatar Styling */
-.testimonial-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  border: 3px solid white; 
-}
-
-/* Name and Role */
-.testimonial-item h3 {
-  font-size: 20px;
-  color: white; 
-  margin: 10px 0 5px;
-}
-
-.testimonial-item p {
-  font-size: 16px;
-  color: white; 
-  line-height: 1.5;
-  opacity: 0.9;
-}
-
-.overlay-center {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  margin: auto;
-  
-}
-dialog {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-  width: 320px;
-  border-radius: 8px;
-  border-width: 0px;
-  margin:auto;
-}
-
-h1 {
-  margin:auto;
-  margin-bottom: 1em;
-}
-
-.login-flex {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 8px;
-  border-color: white;
-  padding: 20px 25px;
-  line-height: 1.4em;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-flex * {
-  box-sizing: border-box;
-}
-
-input {
-  width: 100%;
-  height: 40px;
-  padding: 16px;
-  padding-top: 16px;
-  border-radius: 8px;
-  border-width: 2px;
-  border-color: #D9D9D9;
-  border-style: solid;
-  font-size: 16px;
-  margin-top: 4px;
-  margin-bottom: 16px;
-}
-
-
-.wide-black {
-  background-color: black;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  height: 40px;
-  width: 100%;
-  border-width: 0px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-.wide-black:hover {
-  background-color: rgb(181, 129, 230);
-  color: black;
-}
-
-.login-link{
-  margin-top: 8px;
-  margin-bottom: 20px;
-  text-decoration: underline;
-}
-.login-link:hover {
-  color: blueviolet;
-}
-
-.error-message {
-  color: rgb(255, 82, 82);
-}
-#Schedule{
-color: blueviolet;
+  .subjects-list ul {
+    grid-template-columns: 1fr;
+  }
 }
