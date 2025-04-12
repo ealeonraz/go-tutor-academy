@@ -40,7 +40,7 @@ export default function LoggedInMainNavbar() {
 
     const handleDashboard = () => {
         console.log("Dashboard button clicked");
-        navigate("/studentDashboard"); // Redirect to account settings page
+        navigate("/student-dashboard"); // Redirect to account settings page
     }
 
     /* Sending user to homepage with account logged-in */

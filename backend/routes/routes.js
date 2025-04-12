@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import { getTutorNotes } from "../controllers/noteController.js";
 import { storeTutorNote } from "../models/Note.js";
+import { authenticateToken } from "../middleware/authMiddleware.js"; // Import the authentication middleware
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -160,5 +161,73 @@ router.get("/tutor-notes", getTutorNotes);
 
 // Store tutor notes
 router.post("/tutor-notes", storeTutorNote);
+
+//POSTing appointments
+router.post("/appointments", authenticateToken, async (req, res) => {
+  const { tutorId, subject, date, startTime, endTime, tutorNotes } = req.body;
+  const studentId = req.user.id;
+
+  if (!tutorId || !subject || !date || !startTime || !endTime) {
+    return res.status(400).json({ error: "Missing fields" });
+  }
+
+  const db = await connectDB();
+  const collection = db.collection("appointments");
+
+  const start = new Date(startTime);
+  const end = new Date(endTime);
+
+  // Check for overlap for that tutor
+  const conflict = await collection.findOne({
+    tutorId: new ObjectId(tutorId),
+    startTime: { $lt: end },
+    endTime: { $gt: start },
+  });
+
+  if (conflict) {
+    return res.status(409).json({ error: "Time slot already booked" });
+  }
+
+  const appointment = {
+    studentId: new ObjectId(studentId),
+    tutorId: new ObjectId(tutorId),
+    subject,
+    date: new Date(date),
+    startTime: start,
+    endTime: end,
+    status: "pending",
+    confirmationCode: generateConfirmationCode(),
+    tutorNotes: tutorNotes || "",
+  };
+
+  await collection.insertOne(appointment);
+  res.status(201).json({ message: "Appointment created" });
+});
+
+function generateConfirmationCode() {
+  return Math.random().toString(36).substring(2, 7).toUpperCase(); // e.g. "GNCHX"
+}
+
+// Get all appointments for a specific student
+router.get("/appointments", authenticateToken, async (req, res) => {
+  const db = await connectDB();
+  const collection = db.collection("appointments");
+
+  const userId = new ObjectId(req.user.id);
+  const role = req.user.role;
+
+  let filter = {};
+  if (role === "student") {
+    filter.studentId = userId;
+  } else if (role === "tutor") {
+    filter.tutorId = userId;
+  } else {
+    return res.status(403).json({ error: "Unauthorized role" });
+  }
+
+  const appointments = await collection.find(filter).sort({ date: 1 }).toArray();
+  res.json(appointments);
+});
+
 
 export default router;

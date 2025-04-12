@@ -13,7 +13,11 @@ async function startServer() {
   try {
     const db = await connectDB(); // Connect to MongoDB
     
-    app.use(routes); // Use routes after database is connected
+    app.use((req, res, next) => {
+      console.log("Incoming request:", req.method,req.url);
+      next();
+    }); // Middleware to log incoming requests
+    app.use("/api",routes); // Use routes after database is connected
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
