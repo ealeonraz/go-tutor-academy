@@ -1,6 +1,5 @@
 import logo from "../assets/go-tutor-academy-logo.png";
 import profilepic from "../assets/gohan-pic.webp";
-import downarrow from "../assets/down-arrow.png";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NotificationBell from "./NotificationBell";

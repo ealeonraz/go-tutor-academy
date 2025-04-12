@@ -7,6 +7,7 @@ import SDH_yourTutors from './pages/SDH-yourTutors';
 import TDH_yourStudents from './pages/TDH-yourStudents';
 import "./App.css";
 import Layout from './components/Layout';
+import NotesPage from './pages/NotesPage';
 import SearchTutorResults from './pages/Search-Tutor-Results';
 import SearchStudentResults from './pages/Search-Student-Results';
 
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/studentDashboard" element={<StudentDashboardHome />} />
       <Route path="/studentDashboard/yourTutors" element={<SDH_yourTutors />} />
+      <Route path="/notes" element={<NotesPage />} />
       <Route path="/studentDashboard/SearchTutorResults" element={<SearchTutorResults />} />
       <Route path="/tutorDashboard" element={<TutorDashboardHome />} />
       <Route path="/tutorDashboard/yourStudents" element={<TDH_yourStudents />} />
