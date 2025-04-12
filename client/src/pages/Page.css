@@ -32,6 +32,40 @@
   padding: 2em;
 }
 
+/* Main Layout Container */
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .tutor-dashboard-container {
+    margin-top: 60px;
+  }
+
+  .tutor-welcome-box {
+    height: 100%;
+    margin-bottom: 0;
+    width: 100%;
+  }
+}
+
+/* Tutor Dashboard Container */
+.tutor-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Ensures the full height of the viewport */
+}
+
+/* Tutor Dashboard Content */
+.tutor-dashboard-content {
+  align-items: center;
+  background-color: var(--primary);
+  display: flex;
+  flex: 1;
+  /* Ensures it takes remaining space */
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+}
+
 /* Date */
 .date {
   color: white;
@@ -116,6 +150,21 @@
   width: 45em;
 }
 
+/* Tutor Welcome Box */
+.tutor-welcome-box {
+  align-items: none;
+  background-image: linear-gradient(to right, #925FE2, var(--secondary));
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  height: 25em;
+  justify-content: center;
+  padding: 1.5em;
+  padding-top: 2.5em;
+  position: relative;
+  width: 45em;
+}
+
 /* User Picture */
 .user-picture {
   padding-left: 25em;
@@ -174,6 +223,25 @@
 }
 
 .tutors-card-group {
+  
+}
+
+.your-students-content {
+  align-items: center;
+  background-color: var(--primary);
+  display: flex;
+  flex: 1;
+  /* Ensures it takes remaining space */
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+}
+
+.your-students-box {
+
+}
+
+.students-card-group {
   
 }
 
