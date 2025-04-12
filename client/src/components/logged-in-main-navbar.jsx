@@ -33,6 +33,16 @@ export default function LoggedInMainNavbar() {
         navigate("/");
     }
 
+    const handleAccountSettings = () => {
+        console.log("Account Settings clicked");
+        navigate("/account-settings"); // Redirect to account settings page
+    }
+
+    const handleDashboard = () => {
+        console.log("Dashboard button clicked");
+        navigate("/studentDashboard"); // Redirect to account settings page
+    }
+
     /* Sending user to homepage with account logged-in */
     const sendToMain = () => {
         console.log("navigating to Main Page");
@@ -58,7 +68,10 @@ export default function LoggedInMainNavbar() {
                 {/* Always render the overlay */}
                 <div className={`account-overlay ${showAccountPopup ? "show" : ""}`}>
                     <div className="popup-content">
-                        <button className="popup-button" onClick={() => console.log("Account Settings clicked")}>
+                        <button className="popup-button" onClick={handleDashboard}>
+                            My Dashboard
+                        </button>
+                        <button className="popup-button" onClick={handleAccountSettings}>
                             Account Settings
                         </button>
                         <button className="popup-button" onClick={handleLogout}>
