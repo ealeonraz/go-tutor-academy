@@ -1,6 +1,6 @@
 .notes-page {
     font-family: Arial, sans-serif;
-    background-color: white;
+    background-color: var(--primary);
     color: black;
     margin: 0;
     padding: 0;

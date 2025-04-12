@@ -16,13 +16,13 @@ function App() {
 
     <Routes element={<Layout />}>
       <Route path="/" element={<Home />} />
-      <Route path="/studentDashboard" element={<StudentDashboardHome />} />
-      <Route path="/studentDashboard/yourTutors" element={<SDH_yourTutors />} />
-      <Route path="/notes" element={<NotesPage />} />
-      <Route path="/studentDashboard/SearchTutorResults" element={<SearchTutorResults />} />
-      <Route path="/tutorDashboard" element={<TutorDashboardHome />} />
-      <Route path="/tutorDashboard/yourStudents" element={<TDH_yourStudents />} />
-      <Route path="/tutorDashboard/SearchStudentResults" element={<SearchStudentResults />} />
+      <Route path="/student-dashboard" element={<StudentDashboardHome />} />
+      <Route path="/student-dashboard/your-tutors" element={<SDH_yourTutors />} />
+      <Route path="/student-dashboard/search-tutor-results" element={<SearchTutorResults />} />
+      <Route path="/tutor-dashboard" element={<TutorDashboardHome />} />
+      <Route path="/tutor-dashboard/your-students" element={<TDH_yourStudents />} />
+      <Route path="/tutor-dashboard/search-student-results" element={<SearchStudentResults />} />
+      <Route path="/tutor-dashboard/notes" element={<NotesPage />} />
     </Routes>
   );
 }

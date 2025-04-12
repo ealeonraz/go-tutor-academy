@@ -25,13 +25,19 @@ export default function TutorDashboardNavbar() {
   
     const sendToHome = () => {
       console.log("navigating to User's Homepage");
-      navigate("/tutorDashboard/");
+      navigate("/tutor-dashboard/");
     }
   
     const sendToYourStudents = () => {
       console.log("navigating to Your Students page");
-      navigate("/tutorDashboard/yourStudents");
+      navigate("/tutor-dashboard/your-students");
     }
+
+    const sendToStudentIndex = () => {
+      console.log("navigating to Student Index");
+      navigate("/tutor-dashboard/notes");
+    }
+
     if (!isLoggedIn) {
       return <div>Error! You are not supposed to see this page.</div>
     }
@@ -50,8 +56,8 @@ export default function TutorDashboardNavbar() {
           <div className="dashboard-button">
             Calendar
           </div>
-          <div className="dashboard-button">
-            Events
+          <div className="dashboard-button" onClick={sendToStudentIndex}>
+            Student Index
           </div>
         </div>
       </div>

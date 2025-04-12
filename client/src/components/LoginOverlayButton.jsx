@@ -53,7 +53,7 @@ const LoginOverlayButton = () => {
       closeDialog();
   
       // Forcefully redirect to student dashboard
-      window.location.href = "/studentDashboard";  // Redirect to student dashboard
+      window.location.href = "/student-dashboard";  // Redirect to student dashboard
       
   
       // Optionally, call the success handler to update login state

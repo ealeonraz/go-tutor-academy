@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import './NotesPage.css';
 import './Home.css';
-import { TutorDashboardNavbar } from "../components/dashboardNavbar";
+import '../components/Component.css';
+import Navbar from '../components/logged-in-main-navbar';
+import TutorDashboardNavbar from "../components/TutorDashboardNavbar";
 import Footer from "../components/Footer";
 
+import './Page.css';  
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
@@ -34,8 +37,10 @@ const NotesPage = () => {
     }, [search, date, subject, studentName]);
   
     return (
+      <>
+      <Navbar />
+      <TutorDashboardNavbar /> 
         <div className="notes-page">
-             <TutorDashboardNavbar /> 
           <h1>View Notes Left on Students</h1>
       
           <div className="filters-wrapper">
@@ -100,8 +105,10 @@ const NotesPage = () => {
          
           )}
           {/* Footer */}
-        <Footer />
+        
         </div>
+        <Footer />
+        </>
       );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
-import StudentDashboardNavbar from '../components/dashboardNavbar';
+import StudentDashboardNavbar from '../components/DashboardNavbar';
 import Navbar from '../components/logged-in-main-navbar';
 import profilePic from '../assets/gohan-pic.webp';  // Default profile picture in case the avatar is missing
 

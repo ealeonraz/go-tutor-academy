@@ -25,12 +25,12 @@ export default function StudentDashboardNavbar() {
 
   const sendToHome = () => {
     console.log("navigating to User's Homepage");
-    navigate("/studentDashboard/");
+    navigate("/student-dashboard/");
   }
 
   const sendToYourTutors = () => {
     console.log("navigating to Your Tutors page");
-    navigate("/studentDashboard/yourTutors");
+    navigate("/student-dashboard/your-tutors");
   }
   if (!isLoggedIn) {
     return <div>Error! You are not suppose to see this page.</div>
