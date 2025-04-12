@@ -5,6 +5,7 @@ import StudentDashboardHome from './pages/studentDashboard';
 import SDH_yourTutors from './pages/SDH-yourTutors';
 import "./App.css";
 import Layout from './components/Layout';
+import NotesPage from './pages/NotesPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/studentDashboard" element={<StudentDashboardHome />} />
       <Route path="/studentDashboard/yourTutors" element={<SDH_yourTutors />} />
+      <Route path="/notes" element={<NotesPage />} />
     </Routes>
   );
 }

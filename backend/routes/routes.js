@@ -3,6 +3,8 @@ import connectDB from "../database/db.js"; // Import the database connection fun
 import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
+import {getTutorNotes} from "../controllers/noteController.js";
+import { storeTutorNote } from "../controllers/noteController.js";
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -169,6 +171,10 @@ router.get('/api/users/:email', async (req, res) => {
   }
 });
 
+// Get tutor notes (with filters)
+router.get("/tutor-notes", getTutorNotes);
 
+// Store tutor notes
+router.post("/tutor-notes", storeTutorNote);
 
 export default router;
