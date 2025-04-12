@@ -1,3 +1,10 @@
+:root {
+  /* Light purple */
+  --primary: #D0BCFF;
+  /* Vibrant purple */
+  --secondary: #925FE2;
+}
+
 /* ------------------ Community Modal (CommunityButton) ------------------ */
 .modal-overlay {
     position: fixed;
@@ -71,12 +78,14 @@
   }
   
   .wide-black {
-    background-color: blueviolet;
+    background-color: var(--secondary);
     color: white;
     font-size: 18px;
     border-radius: 25px;
     height: 50px;
     width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
     border: 2px solid black;
     cursor: pointer;
     transition: background 0.3s ease;
@@ -84,6 +93,7 @@
   
   .wide-black:hover {
     background-color: black;
+    color: white;
   }
   
   .error-message {

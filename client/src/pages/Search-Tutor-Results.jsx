@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
-import StudentDashboardNavbar from '../components/dashboardNavbar';
+import StudentDashboardNavbar from '../components/DashboardNavbar';
 import Navbar from '../components/logged-in-main-navbar';
 
 import './Page.css';
