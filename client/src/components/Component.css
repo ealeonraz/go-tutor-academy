@@ -425,6 +425,36 @@ html {
     justify-content: center;
 }
 
+.students-card {
+    width: 12em;
+    height: 14em;
+    background-color: blue;
+}
+
+.students-card-group {
+    align-items: center;
+    gap: 1em;
+}
+
+.your-students-box {
+    position: relative;
+    display:flex;
+
+    /* Border */
+    width: 60em;
+    height: 50em;
+    border: 15px solid var(--secondary);
+    padding-left: 4em;
+    
+    margin: 0.5em;
+    border-radius: 5px;
+
+    /* Inside box */
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Responsiveness */
 @media (max-width: 768px) {
     .logged-in-main-navbar {
