@@ -2,9 +2,7 @@ import express from "express";
 import connectDB from "../database/db.js"; // Import the database connection function
 import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
-import { getTutorNotes } from "../controllers/noteController.js";
-import { storeTutorNote } from "../models/Note.js";
+import jwt from "jsonwebtoken";
 
 
 
@@ -31,26 +29,12 @@ router.get("/api/users/:email", async (req, res) => {
   }
 });
 
-/**
- * @route   POST /feedback
- * @desc    Save tutor session feedback to the database
- * @access  Public
- */
-router.post("/feedback", async (req, res) => {
-  try {
-    const db = await connectDB();
-    const collection = db.collection("feedback");
-    const feedbackData = req.body;
-    const result = await collection.insertOne(feedbackData);
-    res.status(201).json({
-      message: "Feedback submitted successfully",
-      id: result.insertedId,
-    });
-  } catch (err) {
-    console.error("Unable to create new feedback", err);
-    res.status(500).json({ error: "Failed to submit feedback" });
-  }
-});
+// Get tutor notes (with filters)
+router.get("/tutor-notes", getTutorNotes);
+
+// Store tutor notes
+router.post("/tutor-notes", storeTutorNote);
+
 
 router.get("/search", async (req, res) => {
   try {
