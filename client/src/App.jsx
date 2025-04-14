@@ -17,13 +17,19 @@ function App() {
 
     <Routes element={<Layout />}>
       <Route path="/" element={<Home />} />
-      <Route path="/student-dashboard" element={<StudentDashboardHome />} />
+      <Route element = {<PrivateRoute/>}>
+        <Route path="/studentdashboard" element={<StudentDashboardHome />} />
+        <Route path="/student-dashboard" element={<StudentDashboardHome />} />
       <Route path="/student-dashboard/your-tutors" element={<SDH_yourTutors />} />
       <Route path="/student-dashboard/search-tutor-results" element={<SearchTutorResults />} />
       <Route path="/tutor-dashboard" element={<TutorDashboardHome />} />
       <Route path="/tutor-dashboard/your-students" element={<TDH_yourStudents />} />
       <Route path="/tutor-dashboard/search-student-results" element={<SearchStudentResults />} />
       <Route path="/tutor-dashboard/notes" element={<NotesPage />} />
+      <Route path="/account-settings" element={<AccountSettings />} /> {/* Add this line for account settings */}
+      </Route>
+      <Route path="/studentdashboard/yourutors" element={<SDH_yourTutors />} />
+      <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
       <Route path="/account-settings" element={<AccountSettings />} /> {/* Add this line for account settings */}
     </Routes>
   );
