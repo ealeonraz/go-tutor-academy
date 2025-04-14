@@ -4,6 +4,7 @@ import downarrow from "../assets/down-arrow.png";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NotificationBell from "./NotificationBell";
+import { useAuth } from "../context/AuthContext";
 
 import "./Component.css";
 
@@ -11,6 +12,7 @@ export default function LoggedInMainNavbar() {
     const [showAccountPopup, setShowAccountPopup] = useState(false);
     const accountButtonRef = useRef(null);
     const navigate = useNavigate();
+    const auth = useAuth();
 
     const togglePopup = () => {
         setShowAccountPopup((prev) => !prev);
@@ -29,8 +31,7 @@ export default function LoggedInMainNavbar() {
 
     /* Sending user to Homepage after logging out */
     const handleLogout = () => {
-        console.log("logout clicked");
-        navigate("/");
+        auth.logout();
     }
 
     /* Sending user to homepage with account logged-in */

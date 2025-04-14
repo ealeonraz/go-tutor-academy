@@ -6,15 +6,18 @@ import SDH_yourTutors from './pages/SDH-yourTutors';
 import "./App.css";
 import Layout from './components/Layout';
 import SearchTutorResults from './pages/Search-Tutor-Results';
+import PrivateRoute from "./context/PrivateRoutes"
 
 function App() {
   return (
 
     <Routes element={<Layout />}>
       <Route path="/" element={<Home />} />
-      <Route path="/studentDashboard" element={<StudentDashboardHome />} />
-      <Route path="/studentDashboard/yourTutors" element={<SDH_yourTutors />} />
-      <Route path="/studentDashboard/SearchTutorResults" element={<SearchTutorResults />} />
+      <Route element = {<PrivateRoute/>}>
+        <Route path="/studentdashboard" element={<StudentDashboardHome />} />
+      </Route>
+      <Route path="/studentdashboard/yourutors" element={<SDH_yourTutors />} />
+      <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
     </Routes>
   );
 }
