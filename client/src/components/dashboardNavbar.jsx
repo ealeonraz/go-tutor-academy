@@ -11,9 +11,7 @@ export default function StudentDashboardNavbar() {
     console.log("navigating to Your Tutors page");
     navigate("/student-dashboard/your-tutors");
   }
-  if (!isLoggedIn) {
-    return <div>Error! You are not suppose to see this page.</div>
-  }
+
   return (
     <div className="dashboard-nav-main">
       <div className="dashboard-buttons-group">

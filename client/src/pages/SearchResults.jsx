@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Navbar from '../components/logged-in-main-navbar';
+import Navbar from '../components/LoggedInNavbar';
 import Footer from '../components/Footer';
 import './SearchResults.css'; // Optional CSS for styling
 

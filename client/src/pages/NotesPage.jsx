@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import './NotesPage.css';
 import './Home.css';
 import '../components/Component.css';
-import Navbar from '../components/logged-in-main-navbar';
+import Navbar from '../components/LoggedInNavbar';
 import TutorDashboardNavbar from "../components/TutorDashboardNavbar";
 import Footer from "../components/Footer";
 

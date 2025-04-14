@@ -10,6 +10,7 @@ import Layout from './components/Layout';
 import NotesPage from './pages/NotesPage';
 import SearchTutorResults from './pages/Search-Tutor-Results';
 import SearchStudentResults from './pages/Search-Student-Results';
+import PrivateRoute from "./context/PrivateRoutes.jsx"
 
 function App() {
   return (
