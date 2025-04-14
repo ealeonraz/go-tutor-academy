@@ -2,7 +2,9 @@ import express from "express";
 import connectDB from "../database/db.js"; // Import the database connection function
 import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"
+import { getTutorNotes } from "../controllers/noteController.js";
+import { storeTutorNote } from "../models/Note.js";
 
 
 
