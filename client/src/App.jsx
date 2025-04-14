@@ -2,11 +2,14 @@ import React, { useLayoutEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import StudentDashboardHome from './pages/studentDashboard';
+import TutorDashboardHome from './pages/TutorDashboard';
 import SDH_yourTutors from './pages/SDH-yourTutors';
+import TDH_yourStudents from './pages/TDH-yourStudents';
 import "./App.css";
 import Layout from './components/Layout';
+import NotesPage from './pages/NotesPage';
 import SearchTutorResults from './pages/Search-Tutor-Results';
-import PrivateRoute from "./context/PrivateRoutes"
+import SearchStudentResults from './pages/Search-Student-Results';
 
 function App() {
   return (

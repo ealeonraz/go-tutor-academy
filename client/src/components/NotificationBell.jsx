@@ -80,9 +80,9 @@ function NotificationBell() {
       {isDropdownOpen && (
         <div className="notification-dropdown">
           <div className="notification-header">
-            <strong>Notifications</strong>
+            <strong className="notification-header-title">Notifications</strong>
             {unreadCount > 0 && (
-              <button className="notification-mark-all" onClick={markAllAsRead}>
+              <button className="notification-mark-read-all" onClick={markAllAsRead}>
                 Mark all as read
               </button>
             )}
@@ -99,7 +99,7 @@ function NotificationBell() {
                 >
                   <p>{notif.message}</p>
                   {!notif.read && (
-                    <button onClick={() => markAsRead(notif.id)}>
+                    <button className="notification-mark-read" onClick={() => markAsRead(notif.id)}>
                       Mark as read
                     </button>
                   )}

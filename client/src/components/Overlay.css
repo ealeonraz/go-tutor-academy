@@ -1,3 +1,10 @@
+:root {
+  /* Light purple */
+  --primary: #D0BCFF;
+  /* Vibrant purple */
+  --secondary: #925FE2;
+}
+
 .register-button,
 .login-button,
 .what-we-offer-button {
@@ -5,7 +12,7 @@
   padding: 0 20px;
   height: 50px;
   border-radius: 25px; 
-  background-color: blueviolet;
+  background-color: var(--secondary);
   color: white; 
   border: 2px solid black; 
   font-size: 18px; 
@@ -39,10 +46,6 @@ dialog {
   margin: auto;
 }
 
-h1 {
-  margin: auto;
-  margin-bottom: 1em;
-}
 
 .login-flex {
   display: flex;
@@ -50,11 +53,12 @@ h1 {
   background-color: white;
   border-radius: 8px;
   border-color: white;
-  padding: 20px 25px;
+  padding: 25px 25px;
   line-height: 1.4em;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
+  gap: 12px;
 }
 
 .login-flex * {
@@ -74,54 +78,19 @@ input {
   margin-bottom: 16px;
 }
 
-.what-we-offer-button  {
-  /* This now uses the shared button styling above */
-  min-width: 150px; 
-  padding: 0 20px;
-  height: 50px;
-  border-radius: 25px; 
-  background-color: blueviolet;
-  color: white; 
-  border: 2px solid black; 
-  font-size: 18px; 
-  line-height: 50px; 
-  text-align: center; 
-  font-weight: 600; 
-  margin-top: 5px; 
-  margin-bottom: 5px;
-  cursor: pointer; 
-  transition: background-color 0.3s ease;
-}
 
 .what-we-offer-button:hover {
   background-color: black;
 }
 
-.wide-black {
-  background-color: black;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  height: 40px;
-  width: 100%;
-  border-width: 0px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.wide-black:hover {
-  background-color: rgb(181, 129, 230);
-  color: black;
-}
-
 .login-link {
   margin-top: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   text-decoration: underline;
 }
 
 .login-link:hover {
-  color: blueviolet;
+  color: var(--secondary);
 }
 
 .error-message {

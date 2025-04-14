@@ -72,7 +72,7 @@ function Home() {
         const decoded = parseJwt(token);
         console.log("User role:", decoded.role);
         if (decoded.role === "student") {
-          navigate("/studentDashboard/");
+          navigate("/student-dashboard/");
         } else {
           console.error("Unknown User role:", decoded.role);
           navigate("/");
