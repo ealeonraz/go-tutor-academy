@@ -1,17 +1,20 @@
 import express from "express";
-import { connectDB } from "../database/db.js"; // Your database connection
+import db from "../models/index.js";
+
 const router = express.Router();
 
-// Route to handle feedback submission
-router.post("/feedback", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const db = await connectDB();
-    const collection = db.collection("feedback");
     const feedbackData = req.body;
-    const result = await collection.insertOne(feedbackData);
+
+    // store the insertOne return value in `result`
+    const result = await db.mongoose.connection.db
+      .collection("feedback")
+      .insertOne(feedbackData);
+
     res.status(201).json({
       message: "Feedback submitted successfully",
-      id: result.insertedId,
+      id: result.insertedId,          // now this exists
     });
   } catch (err) {
     console.error("Unable to create new feedback", err);

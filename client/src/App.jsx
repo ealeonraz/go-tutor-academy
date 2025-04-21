@@ -11,6 +11,7 @@ import NotesPage from './pages/NotesPage';
 import SearchTutorResults from './pages/Search-Tutor-Results';
 import SearchStudentResults from './pages/Search-Student-Results';
 import PrivateRoute from "./context/PrivateRoutes.jsx"
+import StudentDashboardCalendar from './pages/StudentDashboardCalendar.jsx';
 
 function App() {
   return (
@@ -18,10 +19,11 @@ function App() {
     <Routes element={<Layout />}>
       <Route path="/" element={<Home />} />
       <Route element = {<PrivateRoute/>}>
-        <Route path="/studentdashboard" element={<StudentDashboardHome />} />
+        <Route path="/student-dashboard" element={<StudentDashboardHome />} />
+        <Route path="/student-dashboard/calendar" element={<StudentDashboardCalendar/>}/>
+        <Route path="/studentdashboard/yourutors" element={<SDH_yourTutors />} />
+        <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
       </Route>
-      <Route path="/studentdashboard/yourutors" element={<SDH_yourTutors />} />
-      <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
     </Routes>
   );
 }

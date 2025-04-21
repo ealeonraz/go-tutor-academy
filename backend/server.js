@@ -4,6 +4,8 @@ import db from "./models/index.js";
 import authRoutes from "./routes/auth.routes.js";  // Authentication routes
 import userRoutes from "./routes/user.routes.js";  // User routes
 import reviewRoutes from "./routes/reviews.routes.js";  // Reviews routes (if added)
+import feedbackRoutes from "./routes/feedback.routes.js"
+import appointmentRoutes from "./routes/appointment.routes.js"
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -23,7 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 // Routes setup
 app.use("/api/auth", authRoutes);
 app.use("/api/test", userRoutes);
-app.use("/api/reviews", reviewRoutes);  // Register reviews route (if added)
+app.use("/api/reviews", reviewRoutes);  
+app.use("/api/feedback", feedbackRoutes);
+app.use("/api/appointments", appointmentRoutes);
 
 // Connect to MongoDB
 db.mongoose
