@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import * as jwtDecodeModule from "jwt-decode";
 
 export default function StudentDashboardNavbar() {
+  const navigate = useNavigate();
+
   const sendToHome = () => {
     console.log("navigating to User's Homepage");
     navigate("/student-dashboard/");
@@ -10,6 +12,10 @@ export default function StudentDashboardNavbar() {
   const sendToYourTutors = () => {
     console.log("navigating to Your Tutors page");
     navigate("/student-dashboard/your-tutors");
+  }
+
+  const sendToCalendar = () => {
+    navigate("/student-dashboard/calendar");
   }
 
   return (
@@ -24,7 +30,7 @@ export default function StudentDashboardNavbar() {
         <div className="dashboard-button" onClick={sendToHome}>
           Home
         </div>
-        <div className="dashboard-button">
+        <div className="dashboard-button" onClick={sendToCalendar}>
           Calendar
         </div>
         <div className="dashboard-button">

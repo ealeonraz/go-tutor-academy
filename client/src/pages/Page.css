@@ -1,4 +1,7 @@
-
+.student-dashboard-container{
+  --primary:   #D0BCFF;
+  --secondary: #925FE2;
+}
 /* Media Queries */
 @media screen and (max-width: 768px) {
   .student-dashboard-container {

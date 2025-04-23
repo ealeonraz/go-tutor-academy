@@ -40,50 +40,10 @@ import {
 import "./Home.css";
 import "./Page.css";
 
-/**
- * Function to parse JWT token
- */
-function parseJwt(token) {
-  try {
-    const base64url = token.split(".")[1];
-    const base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    );
-    return JSON.parse(jsonPayload);
-  } catch (error) {
-    console.error("Failed to parse JWT", error);
-    return null;
-  }
-}
-
 function Home() {
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
-  // Token check to redirect logged-in users
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const decoded = parseJwt(token);
-        console.log("User role:", decoded.role);
-        if (decoded.role === "student") {
-          navigate("/student-dashboard/");
-        } else {
-          console.error("Unknown User role:", decoded.role);
-          navigate("/");
-        }
-      } catch (error) {
-        console.error("Error: Failed to get user info", error);
-        localStorage.removeItem('token');
-        navigate("/");
-      }
-    }
-  }, [navigate]);
 
   const closePopup = () => {
     setShowPopup(false);
