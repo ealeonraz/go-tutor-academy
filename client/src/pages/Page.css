@@ -66,6 +66,40 @@
   padding: 2em;
 }
 
+/* Main Layout Container */
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .admin-dashboard-container {
+    margin-top: 60px;
+  }
+
+  .admin-welcome-box {
+    height: 100%;
+    margin-bottom: 0;
+    width: 100%;
+  }
+}
+
+/* Admin Dashboard Container */
+.admin-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Ensures the full height of the viewport */
+}
+
+/* Admin Dashboard Content */
+.admin-dashboard-content {
+  align-items: center;
+  background-color: var(--primary);
+  display: flex;
+  flex: 1;
+  /* Ensures it takes remaining space */
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+}
+
 /* Date */
 .date {
   color: white;
@@ -152,6 +186,21 @@
 
 /* Tutor Welcome Box */
 .tutor-welcome-box {
+  align-items: none;
+  background-image: linear-gradient(to right, #925FE2, var(--secondary));
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  height: 25em;
+  justify-content: center;
+  padding: 1.5em;
+  padding-top: 2.5em;
+  position: relative;
+  width: 45em;
+}
+
+/* Admin Welcome Box */
+.admin-welcome-box {
   align-items: none;
   background-image: linear-gradient(to right, #925FE2, var(--secondary));
   border-radius: 1em;
