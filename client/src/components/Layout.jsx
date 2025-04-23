@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './logged-in-main-navbar';
+import Navbar from './LoggedInNavbar';
 import Footer from './Footer';
 
 import "./Component.css"

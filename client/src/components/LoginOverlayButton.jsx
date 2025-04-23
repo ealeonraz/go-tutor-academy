@@ -1,26 +1,33 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import { useAuth } from "../context/AuthContext";
 import "./Overlay.css";
 
 const LoginOverlayButton = () => {
   const dialogRef = useRef(null);
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
+
+  const auth = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Opens the dialog/modal
   const openDialog = () => {
     if (dialogRef.current && !dialogRef.current.open) {
       dialogRef.current.showModal();
     }
   };
 
+  // Closes the dialog/modal
   const closeDialog = () => {
     if (dialogRef.current) {
       dialogRef.current.close();
     }
   };
 
+  // Update form state when an input value changes
   const updateForm = (e) => {
     const { name, value } = e.target;
     setLoginData((prev) => ({
@@ -29,55 +36,33 @@ const LoginOverlayButton = () => {
     }));
   };
 
-  const onSubmit = async (e) => {
+  // Submission handler for the login form
+  const onSubmit = (e) => {
     e.preventDefault();
-    setErrorMessage("");
-  
-    try {
-      const response = await fetch("http://localhost:4000/login", {
-        method: "POST", // Using POST to send login credentials
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to login");
-      }
-  
-      const result = await response.json();
-  
-      // Assume result includes a property called 'token'
-      localStorage.setItem("token", result.token);
-      console.log("Login successful, token stored:", result.token);
-      closeDialog();
-  
-      // Forcefully redirect to student dashboard
-      window.location.href = "/studentDashboard";  // Redirect to student dashboard
-      
-  
-      // Optionally, call the success handler to update login state
-      onLoginSuccess(); // This is still useful for managing state on the parent component
-  
-    } catch (error) {
-      console.error("Error logging in:", error);
-      setErrorMessage("Login failed. Please check your credentials.");
+    setErrorMessage(""); // Reset any previous error message
+
+    if(loginData.email != "" && loginData.password != "") {
+      auth.login(loginData);
+      return;
     }
-  };
+    setErrorMessage("Login failed. Please check your credentials.");
+  }
+
   return (
     <>
-      {/* Login Button */}
+      {/* Button that opens the login overlay */}
       <div className="nav-buttons">
         <button onClick={openDialog} className="login-button">
           Log in
         </button>
       </div>
 
-      {/* Login Overlay */}
+      {/* The overlay centered in the viewport */}
       <div className="overlay-center">
         <dialog
           ref={dialogRef}
           onClick={(e) => {
+            // If the user clicks outside the modal content, close the dialog
             if (e.target === dialogRef.current) {
               closeDialog();
             }
@@ -85,7 +70,6 @@ const LoginOverlayButton = () => {
         >
           <div className="login-flex">
             <h1>Login</h1>
-            
             <form onSubmit={onSubmit}>
               <label htmlFor="email">Email:</label>
               <input

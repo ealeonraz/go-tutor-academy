@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
-import StudentDashboardNavbar from '../components/dashboardNavbar';
-import Navbar from '../components/logged-in-main-navbar';
+import StudentDashboardNavbar from '../components/DashboardNavbar';
+import Navbar from '../components/LoggedInNavbar';
 
 import './Page.css';
 import profilePic from '../assets/gohan-pic.webp';

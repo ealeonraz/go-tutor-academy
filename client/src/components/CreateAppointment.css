@@ -1,0 +1,356 @@
+:root {
+    --app-font: 'Roboto', sans-serif;
+    --app-bg: rgba(0, 0, 0, 0.5); /* Overlay background */
+    --app-white: #ffffff;
+    --app-primary: #8a2be2;
+    --app-accent: #03dac6;
+    --app-grey: #333333;
+    --app-light-grey: #ced4da;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .appointment-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--app-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    z-index: 1000;
+    font-family: var(--app-font);
+    color: var(--app-grey);
+  }
+  
+  .appointment-card {
+    position: relative;
+    background-color: var(--app-white);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Smaller width */
+    padding: 1.5rem;  /* Reduced padding */
+    animation: fadeIn 0.5s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  /* Close button on top right */
+  .appointment-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--app-primary);
+    color: var(--app-white);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+  }
+  
+  .appointment-close-btn:hover {
+    opacity: 0.8;
+  }
+  
+  /* Progress Bar */
+  .appointment-progress-bar {
+    background-color: var(--app-light-grey);
+    border-radius: 5px;
+    height: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  
+  .appointment-progress {
+    background-color: var(--app-primary);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  
+  /* Form Step */
+  .appointment-form-step {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .appointment-form-step h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--app-primary);
+  }
+  
+  /* Form Group & Grid */
+  .appointment-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  .appointment-form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .appointment-form-group input,
+  .appointment-form-group select,
+  .appointment-form-group textarea {
+    padding: 0.75rem;
+    border: 2px solid var(--app-light-grey);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .appointment-form-group input:focus,
+  .appointment-form-group select:focus,
+  .appointment-form-group textarea:focus {
+    border-color: var(--app-primary);
+    box-shadow: 0 0 8px rgba(98, 0, 234, 0.3);
+    outline: none;
+  }
+  
+  .appointment-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  /* Radio group */
+  .appointment-radio-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  /* Button Group */
+  .appointment-button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  
+  .appointment-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .appointment-back-btn {
+    background-color: var(--app-light-grey);
+    color: var(--app-grey);
+  }
+  
+  .appointment-next-btn,
+  .appointment-submit-btn {
+    background-color: var(--app-primary);
+    color: var(--app-white);
+  }
+  
+  .appointment-btn:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Custom button for toggling custom time mode */
+  .appointment-custom-btn {
+    margin-top: 0.5rem;
+    background-color: var(--app-accent);
+    color: var(--app-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .appointment-custom-btn:hover {
+    background-color: var(--app-primary);
+  }
+  
+  /* Container for the time slot cards */
+  .time-slot-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Each time slot is shown as a "card" */
+  .time-slot-card {
+    background-color: #f7f7f9;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    min-width: 120px;
+    text-align: center;
+  }
+  
+  .time-slot-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .time-slot-card.selected {
+    border-color: var(--app-primary);
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.3);
+    background-color: #f9f4ff;
+  }
+  
+  .time-slot-time {
+    font-weight: 500;
+    color: var(--app-grey);
+    font-size: 0.95rem;
+  }
+  
+  .request-custom-time-btn {
+    margin-top: 1rem;
+    background-color: var(--app-primary);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .request-custom-time-btn:hover {
+    transform: scale(1.02);
+    background-color: #7e24d1;
+  }
+  
+  /* A subtle card container for Additional Details */
+  .additional-details-card {
+    background-color: #f9f9fe;
+    border: 1px solid var(--app-light-grey);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .additional-details-card textarea {
+    resize: none !important;
+    overflow: hidden;
+    min-height: 80px;
+    font-size: 1rem;
+    border: 2px solid var(--app-light-grey);
+    border-radius: 5px;
+    padding: 0.75rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .additional-details-card textarea::-webkit-resizer {
+    display: none;
+  }
+  
+  .additional-details-card textarea:focus {
+    border-color: var(--app-primary);
+    box-shadow: 0 0 8px rgba(98, 0, 234, 0.3);
+    outline: none;
+  }
+  
+  /* Modern label for Additional Details */
+  .modern-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--app-grey);
+  }
+  
+  /* Group for pill buttons for Appointment Mode */
+  .mode-selector-group {
+    margin-bottom: 1rem;
+  }
+  
+  .pill-button-group {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .pill-button {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--app-light-grey);
+    border-radius: 25px;
+    background-color: transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .pill-button.selected {
+    background-color: var(--app-primary);
+    border-color: var(--app-primary);
+    color: #fff;
+  }
+  
+  .pill-button:hover {
+    border-color: var(--app-primary);
+    transform: translateY(-1px);
+  }
+  
+  /* Feedback CSS (for success message) */
+  .success-card {
+    text-align: center;
+  }
+  
+  .checkmark-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+  }
+  
+  .checkmark {
+    width: 100%;
+    height: 100%;
+    stroke: var(--app-primary);
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    animation: stroke 0.5s ease-in-out forwards;
+  }
+  
+  
+  .checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
+  
+  .checkmark__check {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+  }
+  
+  @keyframes stroke {
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
