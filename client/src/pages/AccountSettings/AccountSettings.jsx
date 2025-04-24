@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoggedInMainNavbar from '../components/logged-in-main-navbar';
-import Footer from '../components/Footer';
-import profilePic from '../assets/gohan-pic.webp';
-import AccountSettingsOverlay from '../components/AccountSettingsOverlay';
+import LoggedInMainNavbar from '../../components/Navbars/LoggedInNavbar';
+import Footer from '../../components/Footer';
+import profilePic from '../../assets/gohan-pic.webp';
+import AccountSettingsOverlay from '../../components/Overlay/AccountSettingsOverlay';
+
+import './AccountSettings.css';
 
 function AccountSettings() {
     const [userInfo, setUserInfo] = useState(null);
@@ -33,7 +35,7 @@ function AccountSettings() {
     if (!userInfo) return <div>Loading account settings...</div>;
 
     return (
-        <div className="account-settings-page">
+        <div className="AccountSettings-page">
             <LoggedInMainNavbar />
 
             {activeOverlay === "email" && (

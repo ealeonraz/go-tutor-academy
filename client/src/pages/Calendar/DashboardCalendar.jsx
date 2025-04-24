@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import StudentDashboardNavbar from '../components/DashboardNavbar.jsx';
+import DashboardNavbar from '../../components/Navbars/DashboardNavbar.jsx';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import CalendarSidebar from '../components/CalendarSidebar.jsx';
-import EventDetailsModal from '../components/EventDetailsModal.jsx';
-import AppointmentForm from '../components/CreateAppointmentModal.jsx';
-import './StudentDashboardCalendar.css';
+import CalendarSidebar from '../../components/Calendar/CalendarSidebar.jsx';
+import EventDetailsModal from '../../components/Modals/EventDetailsModal.jsx';
+import AppointmentForm from '../../components/Modals/CreateAppointmentModal.jsx';
+import './DashboardCalendar.css';
 
-export default function StudentDashboardCalendar() {
+export default function DashboardCalendar() {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -113,7 +113,7 @@ export default function StudentDashboardCalendar() {
 
   return (
     <div className="dashboard-page">
-      <StudentDashboardNavbar />
+      <DashboardNavbar />
       <div className="dashboard-content">
         <div className="header-section">
           <h1>Your Calendar</h1>

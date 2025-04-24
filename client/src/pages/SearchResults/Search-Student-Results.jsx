@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Footer from '../components/Footer';
-import TutorDashboardNavbar from '../components/TutorDashboardNavbar';
-import Navbar from '../components/LoggedInNavbar';
+import Footer from '../../components/Footer';
+import TutorDashboardNavbar from '../../components/TutorDashboardNavbar';
+import Navbar from '../../components/Navbars/LoggedInNavbar';
 
-import './Page.css';
-import profilePic from '../assets/mr-satan-pic.webp';
+import '../Page.css';
 
 export default function TDH_yourStudents() {
     const [students, setStudents] = useState([])

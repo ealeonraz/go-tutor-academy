@@ -1,21 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import * as jwtDecodeModule from "jwt-decode";
 
-export default function StudentDashboardNavbar() {
+function StudentDashboardNavbar() {
   const navigate = useNavigate();
 
   const sendToHome = () => {
     console.log("navigating to User's Homepage");
-    navigate("/student-dashboard/");
+    navigate("/Dashboard/");
   }
 
   const sendToYourTutors = () => {
     console.log("navigating to Your Tutors page");
-    navigate("/student-dashboard/your-tutors");
+    navigate("/Dashboard/YourTutors");
   }
 
   const sendToCalendar = () => {
-    navigate("/student-dashboard/calendar");
+    navigate("/Dashboard/calendar");
   }
 
   return (
@@ -24,24 +24,18 @@ export default function StudentDashboardNavbar() {
         <div className="dashboard-button" onClick={sendToYourTutors}>
           Your Tutors
         </div>
-        <div className="dashboard-button">
-          Appointments
-        </div>
         <div className="dashboard-button" onClick={sendToHome}>
           Home
         </div>
         <div className="dashboard-button" onClick={sendToCalendar}>
           Calendar
         </div>
-        <div className="dashboard-button">
-          Events
-        </div>
       </div>
     </div>
   );
 }
 
-export  function TutorDashboardNavbar() {
+function TutorDashboardNavbar() {
   const useAuth = () => {
     const token = localStorage.getItem('token');
     let user = null;
@@ -65,12 +59,12 @@ export  function TutorDashboardNavbar() {
 
   const sendToHome = () => {
     console.log("navigating to User's Homepage");
-    navigate("/studentDashboard/");
+    navigate("/Dashboard");
   }
 
   const sendToYourTutors = () => {
     console.log("navigating to Your Tutors page");
-    navigate("/studentDashboard/yourTutors");
+    navigate("/Dashboard/yourTutors");
   }
   return (
     <div className="dashboard-nav-main">
@@ -94,3 +88,5 @@ export  function TutorDashboardNavbar() {
     </div>
   );
 }
+
+export default StudentDashboardNavbar;

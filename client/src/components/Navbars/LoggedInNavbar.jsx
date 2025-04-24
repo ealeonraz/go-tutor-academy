@@ -1,12 +1,12 @@
-import logo from "../assets/go-tutor-academy-logo.png";
-import profilepic from "../assets/gohan-pic.webp";
-import downarrow from "../assets/down-arrow.png";
+import logo from "../../assets/go-tutor-academy-logo.png";
+import profilepic from "../../assets/gohan-pic.webp";
+import downarrow from "../../assets/down-arrow.png";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import NotificationBell from "./NotificationBell";
-import { useAuth } from "../context/AuthContext";
+import NotificationBell from "../NotificationBell/NotificationBell";
+import { useAuth } from "../../context/AuthContext";
 
-import "./Component.css";
+import "./LoggedInNavbar.css";
 
 export default function LoggedInMainNavbar() {
     const [showAccountPopup, setShowAccountPopup] = useState(false);
@@ -36,12 +36,12 @@ export default function LoggedInMainNavbar() {
 
     const handleAccountSettings = () => {
         console.log("Account Settings clicked");
-        navigate("/account-settings"); // Redirect to account settings page
+        navigate("/AccountSettings"); // Redirect to account settings page
     }
 
     const handleDashboard = () => {
         console.log("Dashboard button clicked");
-        navigate("/student-dashboard"); // Redirect to account settings page
+        navigate("/Dashboard"); // Redirect to account settings page
     }
 
     /* Sending user to homepage with account logged-in */
@@ -51,7 +51,7 @@ export default function LoggedInMainNavbar() {
     }
 
     return (
-        <div className="logged-in-main-navbar">
+        <div className="LoggedInNavbar">
             <div className="logo" onClick={sendToMain}>
                 <img src={logo} alt="Go Tutor Academy Logo" />
             </div>

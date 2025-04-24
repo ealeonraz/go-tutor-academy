@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import RegisterOverlay from '../components/RegisterOverlayButton'
-import './Overlay.css'
-import LoginOverlayButton from '../components/LoginOverlayButton'
-import WebsiteLogo from '../assets/WebsiteLogo.webp'
+import RegisterOverlay from '../Overlay/RegisterOverlayButton'
+import '../Overlay/Overlay.css'
+import LoginOverlayButton from '../Overlay/LoginOverlayButton'
+import WebsiteLogo from '../../assets/WebsiteLogo.webp'
 
 
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Footer from '../components/Footer';
-import StudentDashboardNavbar from '../components/DashboardNavbar';
-import Navbar from '../components/LoggedInNavbar';
+import Footer from '../../components/Footer';
+import DashboardNavbar from '../../components/Navbars/DashboardNavbar';
+import Navbar from '../../components/Navbars/LoggedInNavbar';
 
-import './Page.css';
-import profilePic from '../assets/gohan-pic.webp';
+import './YourTutors.css';
+import profilePic from '../../assets/gohan-pic.webp';
 
 export default function SDH_yourTutors() {
     const [tutors, setTutors] = useState([])
@@ -26,9 +26,9 @@ export default function SDH_yourTutors() {
     }, []);
 
     return (
-        <div className="student-dashboard-container">
+        <div className="Dashboard-container">
             <Navbar />
-            <StudentDashboardNavbar />
+            <DashboardNavbar />
             <div className="your-tutors-content">
                 <div className="your-tutors-box">
                     <div className="tutors-card-group">

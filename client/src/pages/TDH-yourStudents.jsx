@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import TutorDashboardNavbar from '../components/TutorDashboardNavbar';
-import Navbar from '../components/LoggedInNavbar';
+import Navbar from '../components/Navbars/LoggedInNavbar';
 
 import './Page.css';
 import profilePic from '../assets/mr-satan-pic.webp';

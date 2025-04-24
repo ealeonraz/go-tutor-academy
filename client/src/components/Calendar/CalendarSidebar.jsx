@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaCalendarAlt, FaEdit, FaTrashAlt, FaStickyNote } from 'react-icons/fa';
-import AppointmentForm from './CreateAppointmentModal.jsx';
-import Feedback from './Feedback.jsx';
+import AppointmentForm from '../Modals/CreateAppointmentModal.jsx';
+import Feedback from '../Feedback/Feedback.jsx';
 import './Calendar.css';
 
 export default function CalendarSidebar({

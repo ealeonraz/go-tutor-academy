@@ -2,21 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Components
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import ReviewSection from '../components/ReviewSection';
-import RegisterOverlay from '../components/RegisterOverlayButton';
-import CtaButtonOverlay from '../components/CtaButtonOverlay';
-import LoginOverlayButton from "../components/LoginOverlayButton";
-import RegisterOverlayButton from "../components/RegisterOverlayButton";
-import CommunityButton from '../components/CommunityButton';
+import Navbar from '../../components/Navbars/Navbar';
+import Footer from '../../components/Footer';
+import ReviewSection from '../../components/ReviewSection';
+import RegisterOverlay from '../../components/Overlay/RegisterOverlayButton';
+import CtaButtonOverlay from '../../components/Overlay/CtaButtonOverlay';
+import LoginOverlayButton from "../../components/Overlay/LoginOverlayButton";
+import RegisterOverlayButton from "../../components/Overlay/RegisterOverlayButton";
+import CommunityButton from '../../components/CommunityButton/CommunityButton';
+import LoggedInNavbar from '../../components/Navbars/LoggedInNavbar';
 
 // Images
-import HomeImage from '../assets/HomeImage131.webp';
-import SmartSceduling from '../assets/SmartSceduling.webp';
-import PTracking from '../assets/PTracking.webp';
-import Pay from '../assets/Pay.webp';
-import Book from '../assets/Book.webp';
+import HomeImage from '../../assets/HomeImage131.webp';
+import SmartSceduling from '../../assets/SmartSceduling.webp';
+import PTracking from '../../assets/PTracking.webp';
+import Pay from '../../assets/Pay.webp';
+import Book from '../../assets/Book.webp';
 
 // Icons (including new ones)
 import { 
@@ -34,11 +35,10 @@ import {
   BiologyIcon,
   EconomicsIcon,
   PhilosophyIcon
-} from '../components/Icons';
+} from '../../components/Icons';
 
 // Styles
 import "./Home.css";
-import "./Page.css";
 
 /**
  * Function to parse JWT token
@@ -72,7 +72,7 @@ function Home() {
         const decoded = parseJwt(token);
         console.log("User role:", decoded.role);
         if (decoded.role === "student") {
-          navigate("/student-dashboard/");
+          navigate("/Dashboard/");
         } else {
           console.error("Unknown User role:", decoded.role);
           navigate("/");
@@ -92,7 +92,7 @@ function Home() {
   return (
     <div className="home-container">
       {/* Navigation Bar & Overlays */}
-      <Navbar />
+      {!localStorage.getItem('token') ? <Navbar /> : <LoggedInNavbar />}
 
       {/* CTA / HERO SECTION */}
       <main className="home-content">

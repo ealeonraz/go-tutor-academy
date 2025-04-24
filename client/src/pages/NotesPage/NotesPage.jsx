@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import './NotesPage.css';
-import './Home.css';
-import '../components/Component.css';
-import Navbar from '../components/LoggedInNavbar';
-import TutorDashboardNavbar from "../components/TutorDashboardNavbar";
-import Footer from "../components/Footer";
+import '../HomePage/Home.css';
+import Navbar from '../../components/Navbars/LoggedInNavbar';
+import TutorDashboardNavbar from "../../components/TutorDashboardNavbar";
+import Footer from "../../components/Footer";
 
-import './Page.css';  
+import '../Page.css';  
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
