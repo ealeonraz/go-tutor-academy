@@ -7,7 +7,7 @@ export default function Feedback({ event, onClose }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    sessionDate: event?.start ? new Date(event.start).toISOString().split("T")[0] : "",
+    sessionDate: event?.start?.toISOString().split("T")[0] || "",
     sessionDuration: "",
     tutorRecommend: "",
     experienceRating: 5,
@@ -15,7 +15,6 @@ export default function Feedback({ event, onClose }) {
     improvementAreas: [],
     comments: ""
   });
-  
   const totalSteps = 3;
 
   const handleChange = e => {
