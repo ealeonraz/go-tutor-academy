@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 // Create a context for authentication
@@ -8,6 +8,13 @@ const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(localStorage.getItem('token') || null);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
   // Function to update the authentication token (log in)
   const login = async (data) => {
     try {
@@ -24,11 +31,12 @@ const AuthProvider = ({ children }) => {
       const res = await response.json();
 
       if(res.accessToken) {
-        setUser(res.id);
+        localStorage.setItem("user", JSON.stringify(res));
+        setUser(res);
         setAuthToken(res.accessToken);
         localStorage.setItem("token", res.accessToken);
         console.log(`Set token ${res.accessToken}\nAll working`)
-        navigate(`/${res.role}-dashboard`)
+        navigate(`/${res.role[0]}-dashboard`)
         return;
       }
       throw new Error(res.message);
@@ -47,7 +55,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{authToken, login, logout }}>
+    <AuthContext.Provider value={{authToken, login, logout, user, setUser }}>
       {children}
     </AuthContext.Provider>
   );

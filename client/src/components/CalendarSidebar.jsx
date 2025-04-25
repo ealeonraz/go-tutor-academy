@@ -3,6 +3,8 @@ import { FaCalendarAlt, FaEdit, FaTrashAlt, FaStickyNote } from 'react-icons/fa'
 import AppointmentForm from './CreateAppointmentModal.jsx';
 import Feedback from './Feedback.jsx';
 import './Calendar.css';
+import { useAuth } from '../context/AuthContext.jsx'; 
+
 
 export default function CalendarSidebar({
   events = [],
@@ -11,12 +13,15 @@ export default function CalendarSidebar({
   onEditAppointment = () => {},
   onCancelAppointment = () => {},
   onSeeAll = () => {}
+
 }) {
+  const { user } = useAuth();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newEventData, setNewEventData] = useState(null);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [feedbackEvent, setFeedbackEvent] = useState(null);
   const [appointments, setAppointments] = useState([]);  // Assuming it's an array of appointments
+  const [showAllPrevious, setShowAllPrevious] = useState(false);
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -53,15 +58,10 @@ export default function CalendarSidebar({
   
   
 
-  // last week’s recent
-  const oneWeekAgo = new Date(now.getTime() - 7*24*60*60*1000);
-  const recent = appointments
-    .filter(ev => {
-      const d = new Date(ev.start);
-      return d < now && d >= oneWeekAgo;
-    })
-    .sort((a,b) => new Date(b.start) - new Date(a.start))
-    .slice(0,3);
+    const allPrevious = appointments
+      .filter(ev => new Date(ev.start) < now)
+      .sort((a, b) => new Date(b.start) - new Date(a.start))
+    const previous = showAllPrevious ? allPrevious : allPrevious.slice(0, 2);
 
   // open create/edit appointment
   const handleOpenCreate = (ev = null) => {
@@ -145,9 +145,9 @@ export default function CalendarSidebar({
       </div>
 
       <div className="widget recent-widget">
-        <h2><FaCalendarAlt /> Recent Sessions</h2>
+        <h2><FaCalendarAlt /> Previous Sessions</h2>
         <ul>
-          {recent.length > 0 ? recent.map(ev => (
+          {previous.length > 0 ? previous.map(ev => (
             <li key={ev.id} className="appointment-item past">
               <div
                 className="appointment-info"
@@ -170,14 +170,15 @@ export default function CalendarSidebar({
                 </button>
               </div>
             </li>
-          )) : <li>No recent sessions</li>}
+          )) : <li>No previous sessions</li>}
         </ul>
         <button
-          className="see-all-button"
-          onClick={() => onSeeAll('recent')}
-        >
-          See All Recent
+         className="see-all-button"
+          onClick={() => setShowAllPrevious(prev => !prev)}
+         >
+          {showAllPrevious ? "Show Less" : "See All Previous"}
         </button>
+
       </div>
 
       <div className="widget notes-widget">
@@ -205,7 +206,8 @@ export default function CalendarSidebar({
       {/* Feedback Modal */}
       {showFeedbackModal && feedbackEvent && (
         <Feedback
-          event={feedbackEvent}
+          appointment={feedbackEvent}
+          user={user}
           onClose={() => setShowFeedbackModal(false)}
         />
       )}
