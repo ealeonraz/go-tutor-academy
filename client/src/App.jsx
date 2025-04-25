@@ -12,6 +12,8 @@ import SearchTutorResults from './pages/Search-Tutor-Results';
 import SearchStudentResults from './pages/Search-Student-Results';
 import PrivateRoute from "./context/PrivateRoutes.jsx"
 import StudentDashboardCalendar from './pages/StudentDashboardCalendar.jsx';
+import TutorProfileView from './pages/TutorProfileView.jsx';
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <Route path="/student-dashboard/calendar" element={<StudentDashboardCalendar/>}/>
         <Route path="/studentdashboard/yourutors" element={<SDH_yourTutors />} />
         <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
+        <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
       </Route>
     </Routes>
   );
