@@ -4,17 +4,18 @@ import "./Feedback.css";
 export default function Feedback({ event, onClose }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    sessionDate: event?.start?.toISOString().split("T")[0] || "",
-    sessionDuration: "",
-    tutorRecommend: "",
-    experienceRating: 5,
-    likedMost: "",
-    improvementAreas: [],
-    comments: ""
-  });
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  sessionDate: event?.start instanceof Date ? event.start.toISOString().split("T")[0] : "",
+  sessionDuration: "",
+  tutorRecommend: "",
+  experienceRating: 5,
+  likedMost: "",
+  improvementAreas: [],
+  comments: ""
+});
+
   const totalSteps = 3;
 
   const handleChange = e => {
