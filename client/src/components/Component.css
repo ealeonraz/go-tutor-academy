@@ -197,8 +197,8 @@ html {
 }
 
 .students-card {
-    width: 12em;
-    height: 14em;
+    width: 1em;
+    height: 1em;
     background-color: blue;
 }
 
@@ -206,6 +206,7 @@ html {
     align-items: center;
     gap: 1em;
 }
+
 .your-students-box {
     position: relative;
     display:flex;

@@ -17,10 +17,31 @@
     padding: 2em;
   }
   
-  .your-tutors-box {}
+  .your-tutors-box {
+    position: relative;
+    display:flex;
+
+    /* Border */
+    width: 60em;
+    height: 50em;
+    border: 15px solid var(--secondary);
+    
+    margin: 0em;
+    border-radius: 5px;
+
+    /* Inside box */
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+  }
   
-  .tutors-card-group {}
+  .tutors-card-group {
+    align-items: center;
+    gap: 1em;
+  }
 
   .tutors-card {
-    
+    width: 3em;
+    height: 3em;
+    background-color: blue;
   }

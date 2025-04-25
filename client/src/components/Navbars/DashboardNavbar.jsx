@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import * as jwtDecodeModule from "jwt-decode";
 
+import "./DashboardNavbar.css";
+
 function StudentDashboardNavbar() {
   const navigate = useNavigate();
 

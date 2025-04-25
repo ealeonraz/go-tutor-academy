@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
     subjects: [
 
     ],
-    tutor: {
+    tutors: {
       type: String,
       required: false,
     },

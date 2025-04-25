@@ -13,6 +13,7 @@ import SearchStudentResults from './pages/SearchResults/Search-Student-Results';
 import AccountSettings from './pages/AccountSettings/AccountSettings.jsx'; // Import the new AccountSettings component
 import PrivateRoute from "./context/PrivateRoutes.jsx"
 import DashboardCalendar from './pages/Calendar/DashboardCalendar.jsx';
+import ManageUsers from './pages/Admin/ManageUsers.jsx';
 
 function App() {
   return (
@@ -28,7 +29,8 @@ function App() {
         <Route path="/AccountSettings" element={<AccountSettings />} /> {/* Add this line for account settings */}
         <Route path="/Dashboard/calendar" element={<DashboardCalendar/>}/>
         <Route path="/Dashboard/YourTutors" element={<SDH_yourTutors />} />
-        <Route path="/Dashboard/search-results" element={<SearchTutorResults />} />
+        <Route path="/Dashboard/Search-Results" element={<SearchTutorResults />} />
+        <Route path="/Admin/ManageUsers" element={<ManageUsers />} />
       </Route>
     </Routes>
   );
