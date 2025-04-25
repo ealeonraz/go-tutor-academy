@@ -1,10 +1,12 @@
-/* TutorHours.css */
+/* --- TutorHours.css --- */
+/* Ensure these styles are included and updated */
 
-/* --- Basic Container, Header, Footer Styles --- */
+/* Basic Container, Header, Footer Styles */
 .timesheet-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: sans-serif;
 }
 .header, .footer {
     background-color: #4a4a4a;
@@ -13,20 +15,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0; /* Prevent shrinking */
+    flex-shrink: 0;
 }
 .header .logo { font-size: 1.2em; font-weight: bold; }
 .footer p { margin: 0; font-size: 0.9em; }
 
-/* --- Main Content Area --- */
+/* Main Content Area */
 .main-content {
     flex: 1;
     padding: 20px;
     background-color: #f7f7fc;
-    overflow-y: auto; /* Allow vertical scroll if content overflows */
+    overflow-y: auto;
 }
 
-/* --- Timesheet Header (Title, Buttons) --- */
+/* Timesheet Header */
 .timesheet-header {
     display: flex;
     justify-content: space-between;
@@ -35,7 +37,32 @@
     flex-wrap: wrap;
     gap: 15px;
 }
-.timesheet-header h2 { margin: 0; color: #4a4a4a; }
+.timesheet-header h2 { margin: 0; color: #4a4a4a; flex-shrink: 0; }
+
+/* Pay Period Selector Styles */
+.pay-period-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-grow: 1; /* Allow it to take available space */
+    min-width: 250px; /* Ensure it doesn't get too small */
+}
+.pay-period-selector label {
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+}
+.pay-period-selector select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95em;
+    flex-grow: 1; /* Allow select to grow */
+    background-color: #fff;
+    cursor: pointer;
+}
+
+
 .report-button {
     background-color: #007bff;
     color: white;
@@ -44,79 +71,97 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
+    flex-shrink: 0; /* Prevent shrinking */
 }
 .report-button:hover { opacity: 0.9; }
 
 
-/* --- Validation Summary --- */
+/* Validation Summary (Overall Errors) */
 .validation-summary {
-    margin-bottom: 15px; /* Space below summary */
+    margin-bottom: 15px;
     padding: 10px 15px;
-    background-color: #fff3cd;
+    background-color: #fff3cd; /* Light yellow */
     border: 1px solid #ffeeba;
     border-radius: 4px;
-    color: #856404;
+    color: #856404; /* Dark yellow/brown */
 }
-.validation-summary ul { margin: 0; padding-left: 20px; }
-.validation-summary li { margin-bottom: 5px; font-size: 0.9em; }
+.validation-summary strong { display: block; margin-bottom: 5px; }
+.validation-summary ul { margin: 5px 0 0 0; padding-left: 20px; }
+.validation-summary li { margin-bottom: 3px; font-size: 0.9em; }
 
 
-/* --- Timesheet Grid (Session Rows) --- */
+/* Timesheet Grid */
 .timesheet-grid {
     border: 1px solid #ccc;
     border-radius: 5px;
-    overflow-x: auto; /* Horizontal scroll is essential now */
+    overflow-x: auto; /* Horizontal scroll */
     margin-bottom: 20px;
+    background-color: #fff;
 }
 
-/* Define columns for the grid */
-/* Adjust minmax values as needed for your expected content */
+/* Define columns including the new Error column */
 .grid-header, .grid-row {
     display: grid;
     grid-template-columns:
         minmax(130px, 1fr)    /* Date */
-        minmax(150px, 1.5fr)  /* Student */
-        minmax(140px, 1fr)    /* Subject */
-        minmax(120px, 1fr)    /* Conf Code */
-        minmax(100px, 0.8fr)  /* Start Time */
-        minmax(100px, 0.8fr)  /* End Time */
-        minmax(80px, 0.6fr)   /* Duration (Display) */
-        minmax(80px, 0.7fr)   /* Reg Hrs (Input) */
-        minmax(80px, 0.7fr)   /* OT Hrs (Input) */
-        minmax(90px, 0.8fr)   /* Reg Rate (Input) */
-        minmax(90px, 0.8fr)   /* OT Rate (Input) */
-        minmax(180px, 2fr)    /* Notes */
-        minmax(100px, 1fr)    /* Est. Pay (Display) */
-        minmax(60px, auto);   /* Actions (Remove Btn) */
-    align-items: start; /* Align items to the top for multiline notes */
-    padding: 10px;
+        minmax(140px, 1.2fr)  /* Student */
+        minmax(130px, 1fr)    /* Subject */
+        minmax(110px, 0.8fr)  /* Conf Code */
+        minmax(90px, 0.7fr)   /* Start Time */
+        minmax(90px, 0.7fr)   /* End Time */
+        minmax(70px, 0.6fr)   /* Duration */
+        minmax(70px, 0.6fr)   /* Reg Hrs */
+        minmax(70px, 0.6fr)   /* OT Hrs */
+        minmax(80px, 0.7fr)   /* Reg Rate */
+        minmax(80px, 0.7fr)   /* OT Rate */
+        minmax(150px, 1.5fr)  /* Notes */
+        minmax(90px, 0.8fr)   /* Est. Pay */
+        minmax(150px, 1.5fr)  /* Row Errors */
+        minmax(60px, auto);   /* Actions */
+    align-items: start; /* Align items top */
+    padding: 8px 10px;
     border-bottom: 1px solid #eee;
-    gap: 10px; /* Gap between grid columns */
+    gap: 10px;
 }
 .grid-row:last-child { border-bottom: none; }
+
+/* Style rows outside the selected period */
+.grid-row.row-outside-period {
+   opacity: 0.6; /* Dim rows outside the period */
+   background-color: #f8f9fa; /* Light grey background */
+}
+.grid-row.row-outside-period .display-field.pay-outside-period {
+    font-style: italic;
+    color: #6c757d;
+}
+
 
 .grid-header {
     background-color: #eaeaea;
     font-weight: bold;
     color: #555;
-    padding: 12px 10px; /* Slightly more padding for header */
-    position: sticky; /* Make header sticky */
-    top: 0;           /* Stick to the top */
-    z-index: 10;      /* Ensure it's above rows */
+    padding: 10px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     border-bottom: 1px solid #ccc;
 }
 .grid-header div {
-    white-space: nowrap; /* Prevent header text wrapping */
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 0.9em;
+}
+.grid-header .header-errors {
+    color: #dc3545;
+    font-weight: bold;
 }
 
 /* Styling for inputs within the grid */
 .input-wrapper {
-    position: relative; /* For error message positioning */
     width: 100%;
-    display: flex; /* To contain input/select */
-    flex-direction: column; /* Stack input and error */
+    display: flex;
+    flex-direction: column;
 }
 
 /* General input/select/textarea styles */
@@ -127,80 +172,111 @@
 .grid-row input[type="time"],
 .grid-row textarea {
     width: 100%;
-    padding: 8px;
+    padding: 6px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 0.9em;
-    margin-bottom: 18px; /* Space for potential error message below */
 }
 .grid-row textarea {
-    min-height: 50px; /* Give notes some default height */
-    resize: vertical; /* Allow vertical resize */
-    font-family: inherit; /* Match font */
+    min-height: 45px;
+    resize: vertical;
+    font-family: inherit;
 }
 
-/* Remove margin-bottom if there's no error */
-.input-wrapper:not(:has(.error-message)) > *:last-child {
-    margin-bottom: 0;
+/* Style inputs with errors */
+.grid-row input:invalid,
+.grid-row select:invalid,
+.grid-row textarea:invalid {
+     border-color: red;
+}
+.grid-row input[style*="borderColor: red"],
+.grid-row select[style*="borderColor: red"],
+.grid-row textarea[style*="borderColor: red"] {
+     border-color: #dc3545 !important;
+     border-width: 1px;
 }
 
 
-/* Calculated/Display fields (non-input) */
+/* Calculated/Display fields */
 .grid-row .display-field {
-    padding: 8px 5px; /* Match input padding roughly */
+    padding: 6px 5px;
     font-size: 0.9em;
     color: #333;
-    min-height: 36px; /* Match input height roughly */
+    min-height: 31px;
     display: flex;
     align-items: center;
-    background-color: #f8f9fa; /* Slightly different background */
+    background-color: #f8f9fa;
     border-radius: 4px;
     border: 1px solid #eee;
-    word-break: break-word; /* Allow long content to wrap */
+    word-break: break-word;
 }
 
-/* Error message styling */
-.error-message {
-    color: red;
+/* Row Error Area Styling */
+.row-error-area {
+    grid-column: 14 / 15;
+    padding: 4px 0;
     font-size: 0.8em;
-    position: absolute;
-    bottom: 0px; /* Positioned at the bottom of the wrapper */
-    left: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
+    color: #dc3545;
+    min-height: 31px;
 }
+.row-error-area ul {
+    margin: 0;
+    padding: 0 0 0 15px;
+    list-style: disc;
+}
+.row-error-area li {
+    margin-bottom: 2px;
+}
+.row-error-area .error-outside-period {
+    font-style: italic;
+    color: #6c757d; /* Gray color for the message */
+    font-size: 0.9em;
+}
+
 
 /* Specific input adjustments */
 .grid-row input[type="number"] {
-   text-align: right;
-   -moz-appearance: textfield;
+    text-align: right;
+    -moz-appearance: textfield;
 }
 .grid-row input[type="number"]::-webkit-outer-spin-button,
 .grid-row input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Action button wrapper */
+.input-wrapper.action-wrapper {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 /* Action button (Remove) */
 .grid-row .action-button {
-    background-color: #dc3545; /* Red */
+    background-color: #dc3545;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     padding: 6px 10px;
     font-size: 0.8em;
-    line-height: 1; /* Ensure text fits */
-    align-self: center; /* Center button vertically */
-    margin-top: 5px; /* Align roughly with first line of inputs */
+    line-height: 1;
 }
 .grid-row .action-button:hover { background-color: #c82333; }
 
+/* Message for empty grid */
+.grid-row-empty {
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    grid-column: 1 / -1;
+}
 
-/* --- Add Row Button & Submit Actions --- */
+
+/* Add Row Button & Submit Actions */
 .grid-actions {
     display: flex;
     justify-content: space-between;
@@ -209,33 +285,40 @@
     flex-wrap: wrap;
     gap: 15px;
 }
-.add-row-button {
-    background-color: #28a745; /* Green */
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-}
-.add-row-button:hover { opacity: 0.9; }
-
-.grid-submit-buttons {
-    display: flex;
-    gap: 10px;
-}
+.add-row-button,
 .grid-submit-buttons button {
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
+    transition: background-color 0.2s ease, opacity 0.2s ease; /* Smooth transition */
 }
+.add-row-button:disabled,
+.grid-submit-buttons button:disabled {
+    background-color: #cccccc; /* Grey background when disabled */
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.add-row-button {
+    background-color: #28a745;
+    color: white;
+}
+.add-row-button:not(:disabled):hover { opacity: 0.9; }
+
+
+.grid-submit-buttons {
+    display: flex;
+    gap: 10px;
+}
+
 .grid-submit-buttons button.save-button { background-color: #007bff; color: white; }
 .grid-submit-buttons button.submit-button { background-color: #ffc107; color: #333; }
-.grid-submit-buttons button:hover { opacity: 0.9; }
+.grid-submit-buttons button:not(:disabled):hover { opacity: 0.9; }
 
-/* --- Summary Section --- */
+/* Summary Section */
 .timesheet-summary {
     background-color: #f5f5f5;
     border-radius: 5px;
@@ -254,8 +337,8 @@
 }
 .summary-details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
-    gap: 10px 20px; /* Row and column gap */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px 20px;
 }
 .summary-details p {
     margin: 5px 0;
@@ -263,6 +346,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 1em;
+    flex-wrap: wrap;
 }
 .summary-details p span:first-child {
     font-weight: 500;
@@ -270,32 +354,7 @@
     color: #444;
 }
 .summary-details p span:last-child {
-    font-weight: bold; /* Make values bold */
-}
-
-
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    /* Stack actions on smaller screens */
-    .grid-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-     .add-row-button {
-        width: 100%;
-        margin-bottom: 10px;
-     }
-    .grid-submit-buttons {
-        width: 100%;
-        justify-content: space-around;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-content { padding: 15px; }
-    .timesheet-header { flex-direction: column; align-items: stretch; text-align: center; }
-    .report-button { width: 100%; margin-top: 10px;}
-    .summary-details { grid-template-columns: 1fr; } /* Single column summary */
-    .summary-details p { font-size: 0.95em; }
-     /* Grid itself relies on horizontal scrolling via overflow-x */
+    text-align: right;
+    font-weight: bold;
+    color: #333;
 }
