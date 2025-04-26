@@ -5,8 +5,7 @@ import authRoutes from "./routes/auth.routes.js";  // Authentication routes
 import userRoutes from "./routes/user.routes.js";  // User routes
 import reviewRoutes from "./routes/reviews.routes.js";  // Reviews routes (if added)
 import feedbackRoutes from "./routes/feedback.routes.js"
-import appointmentRoutes from "./routes/appointments.routes.js"
-import tutorRoutes from './routes/tutor.routes.js';
+import appointmentRoutes from "./routes/appointment.routes.js"
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -29,7 +28,6 @@ app.use("/api/test", userRoutes);
 app.use("/api/reviews", reviewRoutes);  
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/appointments", appointmentRoutes);
-app.use('/api/tutors', tutorRoutes);
 
 // Connect to MongoDB
 db.mongoose
@@ -73,6 +71,3 @@ app.use((err, req, res, next) => {
   console.error(err.stack);  // Log the error stack
   res.status(500).json({ error: "Internal Server Error" });
 });
-
-
-

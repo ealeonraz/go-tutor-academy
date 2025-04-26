@@ -1,0 +1,252 @@
+/* Admin Dashboard specific styles */
+
+/* Root color variables */
+.admin-dashboard-container {
+  --secondary: #7A4D94; /* Deep purple accent */
+  --text-color: #333333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #D0BCFF;  /* Set the background color to match Student Dashboard */
+}
+
+/* Overall layout: sidebar + content */
+.admin-dashboard-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 2rem;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+}
+
+/* Main content area */
+.admin-dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px; /* Limit max width for a better appearance on large screens */
+}
+
+/* Welcome header */
+.admin-welcome-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.admin-welcome-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+.admin-welcome-header .admin-tagline {
+  margin-top: 0.5em;
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Stats cards section */
+.admin-overview-section {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the cards */
+}
+.overview-card {
+  background-color: var(--secondary);
+  background: linear-gradient(135deg, var(--secondary) 0%, #5c3480 100%); /* Gradient background */
+  flex: 1 1 200px;
+  max-width: 300px;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  color: white; /* White text on gradient background */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add smooth hover effects */
+}
+.overview-card:hover {
+  transform: translateY(-10px); /* Lift the card when hovered */
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+}
+.card-icon {
+  background-color: white;
+  color: var(--secondary);
+  border-radius: 50%;
+  display: inline-flex;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+.overview-card h2 {
+  margin: 0.5em 0 0.25em 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+.overview-card p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Upcoming appointments section */
+.upcoming-section {
+  margin-top: 2rem;
+}
+.upcoming-section h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+.upcoming-appointments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.appointment-item {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+.appointment-item h4 {
+  margin: 0 0 0.5em 0;
+  color: var(--text-color);
+}
+.appointment-item p {
+  margin: 0.25em 0;
+  color: #555;
+}
+
+/* Quick actions */
+.admin-quick-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center; /* Center the action buttons */
+}
+.action-button {
+  padding: 0.8em 1.2em;
+  background-color: var(--secondary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+.action-button:hover {
+  background-color: #61397f;
+}
+
+/* Overlay (Manage Subjects modal) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);  /* Dark background overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure overlay is on top of other content */
+}
+
+.overlay-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Title and close button */
+.overlay-content h2 {
+  margin-top: 0;
+  color: var(--text-color);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.close-overlay-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+/* Subject List Styles */
+.subject-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.subject-list li {
+  background-color: #f7f7f7;
+  padding: 0.8rem;
+  border-radius: 8px;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.subject-list li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Edit and Delete Icons */
+.edit-delete-icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon {
+  font-size: 1rem;
+  cursor: pointer;
+  color: #7A4D94; /* Purple color matching your theme */ 
+  transition: color 0.3s ease;
+}
+
+.icon:hover {
+  color: #5c3480; /* Slightly darker purple when hovered */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-dashboard-body {
+    flex-direction: column;
+    align-items: center; /* Center all content */
+  }
+  .admin-overview-section {
+    flex-direction: column;
+    align-items: center; /* Center the cards vertically */
+  }
+  .overview-card {
+    max-width: none;
+    width: 100%;
+  }
+}

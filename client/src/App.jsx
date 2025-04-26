@@ -12,6 +12,8 @@ import SearchTutorResults from './pages/Search-Tutor-Results';
 import SearchStudentResults from './pages/Search-Student-Results';
 import PrivateRoute from "./context/PrivateRoutes.jsx"
 import StudentDashboardCalendar from './pages/StudentDashboardCalendar.jsx';
+import AdminPayrollPage from './pages/AdminPayroll.jsx';
+import AdminDashboardHome from './pages/AdminDashboard.jsx';
 import TutorProfileView from './pages/TutorProfileView.jsx';
 
 
@@ -25,6 +27,8 @@ function App() {
         <Route path="/student-dashboard/calendar" element={<StudentDashboardCalendar/>}/>
         <Route path="/studentdashboard/yourutors" element={<SDH_yourTutors />} />
         <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
+        <Route path="/admin/payroll" element={<AdminPayrollPage/>}/>
+        <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
       </Route>
     </Routes>
