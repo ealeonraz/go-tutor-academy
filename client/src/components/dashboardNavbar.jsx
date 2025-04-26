@@ -1,95 +1,109 @@
-import { useNavigate } from "react-router-dom";
-import * as jwtDecodeModule from "jwt-decode";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function StudentDashboardNavbar() {
+export default function DashboardNavbar() {
   const navigate = useNavigate();
 
-  const sendToHome = () => {
-    console.log("navigating to User's Homepage");
-    navigate("/student-dashboard/");
-  }
+  // State for storing user info (email, role)
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    role: "",
+    roleName:"",
+  });
 
-  const sendToYourTutors = () => {
-    console.log("navigating to Your Tutors page");
-    navigate("/student-dashboard/your-tutors");
-  }
+  const token = localStorage.getItem('token'); // Get token from localStorage
 
-  const sendToCalendar = () => {
-    navigate("/student-dashboard/calendar");
-  }
+  // Fetch user info based on the token
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/info/:id', {
+          method: "GET",
+          headers: { "Authorization": `Bearer ${token}` }, // Sending the token as-is
+        });
 
-  return (
-    <div className="dashboard-nav-main">
-      <div className="dashboard-buttons-group">
-        <div className="dashboard-button" onClick={sendToYourTutors}>
-          Your Tutors
-        </div>
-        <div className="dashboard-button">
-          Appointments
-        </div>
-        <div className="dashboard-button" onClick={sendToHome}>
-          Home
-        </div>
-        <div className="dashboard-button" onClick={sendToCalendar}>
-          Calendar
-        </div>
-        <div className="dashboard-button">
-          Events
-        </div>
-      </div>
-    </div>
-  );
-}
+        if (!response.ok) {
+          throw new Error('Failed to fetch user info');
+        }
 
-export  function TutorDashboardNavbar() {
-  const useAuth = () => {
-    const token = localStorage.getItem('token');
-    let user = null;
+        const data = await response.json();
+
+        console.log(data)
+        setUserInfo({
+          email: data.email,  // Assuming the API returns the user's email and role
+          role: data.roles[0] || 'guest',
+          roleName: data.roleName, 
+        });
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    };
 
     if (token) {
-      try {
-        user = jwtDecodeModule.default(token);
-
-      } catch (error) {
-        localStorage.removeItem('token');
-        user = null;
-      }
+      fetchUserInfo();
     }
-    return {
-      isLoggedIn: !user,
-      user,
-    };
+  }, [token]);
+
+  // Get the user role (default to 'guest' if not available)
+  const userRole = userInfo.role
+  const roleName = userInfo.roleName
+
+  console.log(userRole)
+
+  // Handle navigation based on user role
+  const sendToHome = () => navigate(`/${roleName}-dashboard/`);
+  const sendToYourTutors = () => navigate(`/${roleName}-dashboard/your-tutors`);
+  const sendToCalendar = () => navigate(`/${roleName}-dashboard/calendar`);
+  const sendToAppointments = () => navigate(`/${roleName}-dashboard/appointments`);
+  const sendToEvents = () => navigate(`/${roleName}-dashboard/events`);
+  const sendToManageTutors = () => navigate(`/${roleName}-dashboard/manage-tutors`);
+
+  // Define different navbar items based on role
+  const renderNavbar = () => {
+    switch (userRole) {
+      case '67fc5b4862b00200769805b6':
+        return (
+          <>
+            <div className="dashboard-button" onClick={sendToYourTutors}>Your Tutors</div>
+            <div className="dashboard-button" onClick={sendToAppointments}>Appointments</div>
+            <div className="dashboard-button" onClick={sendToHome}>Home</div>
+            <div className="dashboard-button" onClick={sendToCalendar}>Calendar</div>
+            <div className="dashboard-button" onClick={sendToEvents}>Events</div>
+          </>
+        );
+      case '67fc5b4862b00200769805b5':
+        return (
+          <>
+            <div className="dashboard-button" onClick={sendToYourTutors}>My Students</div>
+            <div className="dashboard-button" onClick={sendToAppointments}>View Appointments</div>
+            <div className="dashboard-button" onClick={sendToHome}>Home</div>
+            <div className="dashboard-button" onClick={sendToCalendar}>My Calendar</div>
+            <div className="dashboard-button" onClick={sendToEvents}>Time Sheet</div>
+          </>
+        );
+      case '67fc5b4862b00200769805b4':
+        return (
+          <>
+            <div className="dashboard-button" onClick={sendToHome}>Dashboard</div>
+            <div className="dashboard-button" onClick={sendToManageTutors}>Manage Tutors</div>
+            <div className="dashboard-button" onClick={sendToAppointments}>Manage Appointments</div>
+            <div className="dashboard-button" onClick={sendToCalendar}>Manage Calendar</div>
+            <div className="dashboard-button" onClick={sendToEvents}>Manage Events</div>
+          </>
+        );
+      default:
+        return (
+          <>
+            <div className="dashboard-button" onClick={sendToHome}>Home</div>
+          </>
+        );
+    }
   };
-  const { isLoggedIn, user } = useAuth();
-  const navigate = useNavigate();
 
-  const sendToHome = () => {
-    console.log("navigating to User's Homepage");
-    navigate("/studentDashboard/");
-  }
-
-  const sendToYourTutors = () => {
-    console.log("navigating to Your Tutors page");
-    navigate("/studentDashboard/yourTutors");
-  }
   return (
     <div className="dashboard-nav-main">
       <div className="dashboard-buttons-group">
-        <div className="dashboard-button" onClick={sendToYourTutors}>
-          My Students
-        </div>
-        <div className="dashboard-button">
-          View Appointments
-        </div>
-        <div className="dashboard-button" onClick={sendToHome}>
-          Home
-        </div>
-        <div className="dashboard-button">
-           My Calendar
-        </div>
-        <div className="dashboard-button">
-          Time Sheet
-        </div>
+        {renderNavbar()}
       </div>
     </div>
   );
