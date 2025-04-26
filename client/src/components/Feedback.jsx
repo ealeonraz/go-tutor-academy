@@ -1,20 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Feedback.css";
+import { useAuth } from '../context/AuthContext.jsx';
 
-export default function Feedback({ event, onClose }) {
+  
+
+  export default function Feedback({ appointment, user, onClose }){  
+  const { user: authUser } = useAuth();
+  const activeUser = user || authUser;
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-const [formData, setFormData] = useState({
-  name: "",
-  email: "",
-  sessionDate: event?.start instanceof Date ? event.start.toISOString().split("T")[0] : "",
-  sessionDuration: "",
-  tutorRecommend: "",
-  experienceRating: 5,
-  likedMost: "",
-  improvementAreas: [],
-  comments: ""
-});
+  const [formData, setFormData] = useState({
+    studentId: activeUser?._id || "",
+    name: `${activeUser?.firstName || ""} ${activeUser?.lastName || ""}`,
+    email: activeUser?.email || "",
+    sessionDate: appointment?.start?.split("T")[0] || "", 
+    sessionDuration: appointment?.start && appointment?.end
+      ? Math.round((new Date(appointment.end) - new Date(appointment.start)) / 60000)
+      : "",
+    tutorId: appointment?.tutorId || "",
+    subject: appointment?.subject || "",
+    tutorRecommend: "",
+    experienceRating: 5,
+    likedMost: "",
+    improvementAreas: [],
+    comments: ""
+  });
+
+  useEffect(() => {
+    if (activeUser) {
+      setFormData(prev => ({
+        ...prev,
+        studentId: activeUser._id || "",
+        name: `${activeUser.firstName || ""} ${activeUser.lastName || ""}`,
+        email: activeUser.email || "",
+      }));
+    }
+    
+  }, [activeUser]);
 
   const totalSteps = 3;
 
@@ -55,14 +77,12 @@ const [formData, setFormData] = useState({
           <h2>Session Information</h2>
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="name">Name *</label>
-              <input type="text" id="name" name="name" placeholder="Enter your name"
-                value={formData.name} onChange={handleChange} required />
+              <label>Name</label>
+              <p className="readonly-field">{formData.name}</p>
             </div>
             <div className="form-group">
-              <label htmlFor="email">Email *</label>
-              <input type="email" id="email" name="email" placeholder="Enter your email"
-                value={formData.email} onChange={handleChange} required />
+              <label>Email</label>
+              <p className="readonly-field">{formData.email}</p>
             </div>
           </div>
           <div className="form-grid">

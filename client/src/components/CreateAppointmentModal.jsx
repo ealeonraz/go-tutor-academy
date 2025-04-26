@@ -1,21 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./CreateAppointment.css"; // Uses updated CSS with --app- variables
 
-// Test data for subjects, tutors, and availability
-const SUBJECTS = [
-  { id: "math", name: "Math" },
-  { id: "science", name: "Science" },
-  { id: "english", name: "English" }
-];
 
-const TUTORS = {
-  math: [
-    { id: "tutor1", name: "Mr. Alan" },
-    { id: "tutor2", name: "Ms. Mary" }
-  ],
-  science: [{ id: "tutor3", name: "Dr. Blake" }],
-  english: [{ id: "tutor4", name: "Ms. Chloe" }]
-};
 
 const AVAILABILITY = {
   tutor1: [
@@ -34,11 +20,23 @@ const AVAILABILITY = {
   tutor4: [
     "2025-04-17T09:00:00Z",
     "2025-04-17T10:30:00Z"
+  ],
+  tutor5: [
+    "2025-04-18T10:00:00Z",
+    "2025-04-18T11:30:00Z"
+  ],
+  tutor6: [
+    "2025-04-19T09:00:00Z",
+    "2025-04-19T10:30:00Z"
   ]
 };
 
 
 export default function CreateAppointmentModal({ onClose, onSave }) {
+  // Dynamically loaded tutors and subjects from the database
+  const [tutors, setTutors] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [customMode, setCustomMode] = useState(false);
@@ -59,6 +57,15 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
 
   const token = localStorage.getItem("token");
 
+  const fallbackTutorMap = {
+    "680934e64aff7bd378e028f2": "tutor1",
+    "68099f774aff7bd378e032f7": "tutor2",
+    "68099f774aff7bd378e032f8": "tutor3",
+    "68099f774aff7bd378e032f9": "tutor4",
+    "68099f774aff7bd378e032fa": "tutor5",
+    "68099f774aff7bd378e032fb": "tutor6",
+  };
+
   // Reset dependent states when subject changes.
   useEffect(() => {
     setTutor("");
@@ -70,11 +77,38 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
   // Load availability for the selected tutor.
   useEffect(() => {
     if (tutor) {
-      setAvailableSlots(AVAILABILITY[tutor] || []);
+      const fallbackKey = fallbackTutorMap[tutor];
+      const slots = AVAILABILITY[fallbackKey] || [];
+      setAvailableSlots(slots);
       setSelectedSlot("");
       setCustomMode(false);
     }
   }, [tutor]);
+
+  // Fetch tutors and extract unique subjects on initial render
+  useEffect(() => {
+    const fetchTutorsAndSubjects = async () => {
+     try {
+        const token = localStorage.getItem("token");
+        const res = await fetch("http://localhost:4000/api/tutors", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      setTutors(data);
+
+      // Get unique subjects across all tutors
+      const uniqueSubjects = [...new Set(data.flatMap(t => t.subjects || []))];
+      setSubjects(uniqueSubjects);
+    } catch (err) {
+      console.error("Error fetching tutors/subjects:", err);
+    }
+  };
+
+  fetchTutorsAndSubjects();
+}, []);
 
   // Navigation functions.
   const handleNext = () => {
@@ -153,10 +187,9 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
                 required
               >
                 <option value="">--Select subject--</option>
-                {SUBJECTS.map((sub) => (
-                  <option key={sub.id} value={sub.id}>
-                    {sub.name}
-                  </option>
+                {/* Dynamically populate subject dropdown with unique subjects fetched from tutors */}
+                {subjects.map((sub, index) => (
+                  <option key={index} value={sub}>{sub}</option>
                 ))}
               </select>
             </div>
@@ -170,13 +203,15 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
                 disabled={!subject}
               >
                 <option value="">--Select tutor--</option>
-                {subject &&
-                  TUTORS[subject] &&
-                  TUTORS[subject].map((t) => (
-                    <option key={t.id} value={t.id}>
-                      {t.name}
-                    </option>
-                  ))}
+              {/* Dynamically populate tutor dropdown based on selected subject and tutor data from the database */}
+              {tutors
+                .filter((t) => t.subjects.includes(subject))
+                .map((t) => (
+                 <option key={t._id} value={t._id}>
+                  {t.firstName} {t.lastName}
+                 </option>
+              ))}
+
               </select>
             </div>
             {tutor && !customMode && (

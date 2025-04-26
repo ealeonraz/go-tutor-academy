@@ -1,0 +1,62 @@
+// backend/routes/tutor.routes.js
+
+import express from 'express'; // Import Express for routing
+import jwt from 'jsonwebtoken'; // JSON Web Token for authentication
+import Tutor from '../models/tutor.model.js'; // Tutor model for database interaction
+import db from '../models/index.js'; 
+import config from '../config/auth.config.js';
+
+const router = express.Router();
+
+/**
+ * @route   GET /api/tutors
+ * @desc    Retrieve all tutors from the database (admin access)
+ * @access  Protected (requires JWT token)
+ */
+router.get('/', async (req, res) => {
+  try {
+    // Extract the token from the Authorization header
+    const token = req.headers.authorization?.split(" ")[1];
+    
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized access' });
+    }
+
+    // Verify the token and decode the payload
+    const decoded = jwt.verify(token, config.secret);
+
+    // Optional: add role-based authorization here if needed (e.g., only allow admins)
+
+    // Query the database for all tutor documents
+    const tutors = await Tutor.find();
+
+    // If no tutors are found, return a 404
+    if (!tutors || tutors.length === 0) {
+      return res.status(404).json({ message: 'No tutors found' });
+    }
+
+    // Send back the list of tutors
+    res.status(200).json(tutors);
+  } catch (err) {
+    console.error('Error retrieving tutors:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+// Deletes tutor profiles completely for admin control
+router.delete('/:id', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: 'Unauthorized access' });
+
+    jwt.verify(token, config.secret); // Just verify – if it fails, it'll throw
+
+    const deleted = await Tutor.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ message: 'Tutor not found' });
+
+    res.json({ message: 'Tutor deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting tutor:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+export default router;
