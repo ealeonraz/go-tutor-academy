@@ -56,7 +56,7 @@ export default function DashboardNavbar() {
   const sendToCalendar = () => navigate(`/${roleName}-dashboard/calendar`);
   const sendToAppointments = () => navigate(`/${roleName}-dashboard/appointments`);
   const sendToEvents = () => navigate(`/${roleName}-dashboard/events`);
-  const sendToManageTutors = () => navigate(`/${roleName}-dashboard/manage-tutors`);
+  const sendToManageTutors = () => navigate(`/${roleName}-dashboard/tutors`);
 
   // Define different navbar items based on role
   const renderNavbar = () => {
