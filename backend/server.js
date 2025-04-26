@@ -4,10 +4,13 @@ import db from "./models/index.js";
 import authRoutes from "./routes/auth.routes.js";  // Authentication routes
 import userRoutes from "./routes/user.routes.js";  // User routes
 import reviewRoutes from "./routes/reviews.routes.js";  // Reviews routes (if added)
-import feedbackRoutes from "./routes/feedback.routes.js"
-import appointmentRoutes from "./routes/appointments.routes.js"
-import tutorRoutes from "./routes/tutor.routes.js";
-
+import feedbackRoutes from "./routes/feedback.routes.js"; // Feedback routes
+import appointmentRoutes from "./routes/appointments.routes.js"; // Appointment routes
+import tutorRoutes from "./routes/tutor.routes.js"; // Tutor routes
+import infoRoutes from "./routes/info.routes.js"; // Info routes
+import studentRoutes from "./routes/student.routes.js"; // Student routes
+import subjectRoutes from "./routes/subjects.routes.js"
+import eventRoutes from "./routes/events.routes.js"
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -29,7 +32,11 @@ app.use("/api/test", userRoutes);
 app.use("/api/reviews", reviewRoutes);  
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/appointments", appointmentRoutes);
-app.use('/api/tutors', tutorRoutes);
+app.use("/api/subjects", subjectRoutes)
+app.use("/api/tutors", tutorRoutes);  // Tutor routes
+app.use("/api/info", infoRoutes);  // Info routes
+app.use("/api/students", studentRoutes);  // Student routes
+app.use("/api/events", eventRoutes)
 
 // Connect to MongoDB
 db.mongoose
