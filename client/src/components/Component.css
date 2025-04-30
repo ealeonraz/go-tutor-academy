@@ -37,6 +37,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     cursor: pointer;
 
     font-weight: bold;
@@ -79,6 +80,7 @@
     flex-direction: row;
     background-color: var(--secondary);
     height: 100%;
+    width: 80%;
     flex-wrap: wrap;
     justify-content: center;
     /* Center the buttons horizontally */
