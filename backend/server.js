@@ -11,6 +11,8 @@ import infoRoutes from "./routes/info.routes.js"; // Info routes
 import studentRoutes from "./routes/student.routes.js"; // Student routes
 import subjectRoutes from "./routes/subjects.routes.js"
 import eventRoutes from "./routes/events.routes.js"
+import noteRoutes from "./routes/notes.routes.js"
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -36,7 +38,9 @@ app.use("/api/subjects", subjectRoutes)
 app.use("/api/tutors", tutorRoutes);  // Tutor routes
 app.use("/api/info", infoRoutes);  // Info routes
 app.use("/api/students", studentRoutes);  // Student routes
-app.use("/api/events", eventRoutes)
+app.use("/api/events", eventRoutes);
+app.use("/api/tutor-notes", noteRoutes);
+
 
 // Connect to MongoDB
 db.mongoose

@@ -17,6 +17,7 @@ import AdminDashboardHome from './pages/AdminDashboard.jsx';
 import TutorProfileView from './pages/TutorProfileView.jsx';
 
 
+
 function App() {
   return (
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/admin/payroll" element={<AdminPayrollPage/>}/>
         <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
+        <Route path="/student-dashboard/notes" element={<NotesPage/>}/>
       </Route>
     </Routes>
   );
