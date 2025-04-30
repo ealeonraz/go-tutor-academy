@@ -1,6 +1,6 @@
 .tutor-profile-page {
   background-color: var(--primary);
-  padding: 40px 20px;
+  padding: 0px 0px;
   min-height: 100vh;
   font-family: Arial, sans-serif;
 }
@@ -10,6 +10,7 @@
   font-size: 2rem;
   color: black;
   margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .tutor-grid {
