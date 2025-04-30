@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import StudentDashboardNavbar from '../components/DashboardNavbar';
+import Header from '../components/LoggedInNavbar';  // Keep the original Navbar
 import './TutorProfileView.css';
 
 const TutorProfileView = () => {
@@ -56,6 +58,8 @@ const TutorProfileView = () => {
 
   return (
     <div className="tutor-profile-page">
+      <Header />
+      <StudentDashboardNavbar />
       <h2>Tutor Profiles</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
