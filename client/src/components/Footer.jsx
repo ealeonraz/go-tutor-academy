@@ -1,15 +1,16 @@
 import { NavLink } from "react-router-dom";
-import WebsiteLogo from '../assets/WebsiteLogo.webp'
+import WebsiteLogo from "../assets/go-tutor-academy-logo.png";
+import './Component.css';
 
 
 export default function Footer() {
   
   return (
     <footer className="footer">
-  <div className="footer-content">
-    <div className="footer-logo">
-      <img src={WebsiteLogo} alt="Website Logo" />
-    </div>
+      <div className="footer-content">
+        <div className="logo-small">
+          <img src={WebsiteLogo} alt="Website Logo" />
+        </div>
 
     {/* Contact Information */}
     <div className="footer-contact">
