@@ -1,11 +1,10 @@
-import logo from "../assets/go-tutor-academy-logo.png";
+import WebsiteLogo from "../assets/go-tutor-academy-logo.png";
 import profilepic from "../assets/gohan-pic.webp";
 import downarrow from "../assets/down-arrow.png";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NotificationBell from "./NotificationBell";
 import { useAuth } from "../context/AuthContext";
-
 import "./Component.css";
 
 export default function LoggedInMainNavbar() {
@@ -42,8 +41,8 @@ export default function LoggedInMainNavbar() {
 
     return (
         <div className="logged-in-main-navbar">
-            <div className="logo" onClick={sendToMain}>
-                <img src={logo} alt="Go Tutor Academy Logo" />
+            <div className="logo-small" onClick={sendToMain}>
+                <img src={WebsiteLogo} />
             </div>
 
             {/* Account Button and Overlay */}
