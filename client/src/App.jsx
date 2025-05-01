@@ -15,6 +15,7 @@ import StudentDashboardCalendar from './pages/StudentDashboardCalendar.jsx';
 import AdminPayrollPage from './pages/AdminPayroll.jsx';
 import AdminDashboardHome from './pages/AdminDashboard.jsx';
 import TutorProfileView from './pages/TutorProfileView.jsx';
+import ResetPassword from './pages/ResetPassword.jsx';
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
         <Route path="/student-dashboard/notes" element={<NotesPage/>}/>
       </Route>
+      <Route path="/reset-password" element={<ResetPassword/>}/>
     </Routes>
   );
 }
