@@ -1,9 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useImperativeHandle, forwardRef } from "react";
 import "./Overlay.css";
 
-const RegisterOverlayButton = () => {
+const RegisterOverlayButton = forwardRef(({ onSwitchToLogin }, ref) => {
   const dialogRef = useRef(null);
 
+  useImperativeHandle(ref, () => ({
+    showModal: () => {
+      dialogRef.current?.showModal();
+    },
+    close: () => {
+      dialogRef.current?.close();
+    }
+  }));
+  
   const [registerData, setRegisterData] = useState({
     first: "",
     last: "",
@@ -166,12 +175,19 @@ const RegisterOverlayButton = () => {
                 Create Account
               </button>
             </form>
-            <a className="login-link">Already have an account?</a>
+            <a className="login-link" onClick={(e) => {
+                e.preventDefault();
+                closeDialog();
+                onSwitchToLogin && onSwitchToLogin();
+              }}>
+              Already have an account?
+            </a>
+
           </div>
         </dialog>
       </div>
     </>
   );
-};
+});
 
 export default RegisterOverlayButton;

@@ -1,10 +1,20 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useImperativeHandle, forwardRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./Overlay.css";
 import ForgotPassword from "./ForgotPassword";
 
-const LoginOverlayButton = () => {
+const LoginOverlayButton = forwardRef(({ onSwitchToRegister }, ref) => {
   const dialogRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    showModal: () => {
+      dialogRef.current?.showModal();
+    },
+    close: () => {
+      dialogRef.current?.close();
+    }
+  }));
+
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -103,12 +113,22 @@ const LoginOverlayButton = () => {
               </button>
             </form>
             <ForgotPassword />
-            <a className="login-link">Don't have an account?</a>
+            <a className="login-link" onClick={(e) => {
+                e.preventDefault();
+                dialogRef.current?.close(); // Close the login dialog
+                setTimeout(() => {
+                  onSwitchToRegister?.(); // Open register via prop if provided
+                }, 100); // Delay to prevent dialog conflict
+              }}
+            >
+              Don't have an account?
+            </a>
+
           </div>
         </dialog>
       </div>
     </>
   );
-};
+});
 
 export default LoginOverlayButton;
