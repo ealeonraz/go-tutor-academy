@@ -174,3 +174,14 @@
     border-color: var(--secondary);
   }
 }
+
+/* for pages that only take up the entire window height */
+.full-page-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+.blank-page {
+  flex-grow: 1;
+}

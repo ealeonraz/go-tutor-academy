@@ -4,10 +4,19 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+<<<<<<< HEAD:client/src/pages/Calendar/DashboardCalendar.jsx
 import CalendarSidebar from '../../components/Calendar/CalendarSidebar.jsx';
 import EventDetailsModal from '../../components/Modals/EventDetailsModal.jsx';
 import AppointmentForm from '../../components/Modals/CreateAppointmentModal.jsx';
 import './DashboardCalendar.css';
+=======
+import CalendarSidebar from '../components/CalendarSidebar.jsx';
+import EventDetailsModal from '../components/EventDetailsModal.jsx';
+import AppointmentForm from '../components/CreateAppointmentModal.jsx';
+import './StudentDashboardCalendar.css';
+import DashboardNavbar from '../components/DashboardNavbar.jsx';
+import Header from '../components/LoggedInNavbar.jsx';
+>>>>>>> main:client/src/pages/StudentDashboardCalendar.jsx
 
 export default function DashboardCalendar() {
   const [events, setEvents] = useState([]);
@@ -16,7 +25,7 @@ export default function DashboardCalendar() {
   const [newEventData, setNewEventData] = useState(null);
 
   const token = localStorage.getItem("token");
-  
+
   // Fetch appointments from the database
   useEffect(() => {
     fetch("http://localhost:4000/api/appointments", {
@@ -30,12 +39,11 @@ export default function DashboardCalendar() {
       })
       .catch((error) => console.error("Unable to fetch appointments:", error));
   }, []);
-  
+
   // Log the events state when it's updated
   useEffect(() => {
     console.log("Events state:", events);  // Log events state
   }, [events]);
-  
 
   const handleSelectEvent = (eventInfo) => {
     let eventData = eventInfo;
@@ -62,9 +70,28 @@ export default function DashboardCalendar() {
     );
   };
 
-  const deleteEvent = (eventId) => {
-    setEvents(prevEvents => prevEvents.filter(ev => ev.id !== eventId));
-    setSelectedEvent(null);
+  const deleteEvent = async (eventId) => {
+    try {
+      // Send DELETE request to the backend
+      const response = await fetch(`http://localhost:4000/api/appointments/${eventId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        alert('Appointment deleted successfully');
+        setEvents(prevEvents => prevEvents.filter(ev => ev.id !== eventId)); // Update state
+        setSelectedEvent(null); // Clear selected event
+      } else {
+        alert('Failed to delete appointment');
+      }
+    } catch (err) {
+      console.error('Error deleting appointment:', err);
+      alert('Error deleting appointment');
+    }
   };
 
   const handleDateSelect = (selectInfo) => {
@@ -113,6 +140,10 @@ export default function DashboardCalendar() {
 
   return (
     <div className="dashboard-page">
+<<<<<<< HEAD:client/src/pages/Calendar/DashboardCalendar.jsx
+=======
+      <Header />
+>>>>>>> main:client/src/pages/StudentDashboardCalendar.jsx
       <DashboardNavbar />
       <div className="dashboard-content">
         <div className="header-section">
@@ -173,7 +204,7 @@ export default function DashboardCalendar() {
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
           onUpdateEvent={updateEvent}
-          onDeleteEvent={deleteEvent}
+          onDeleteEvent={() => deleteEvent(selectedEvent.id)} // Delete event
         />
       )}
 

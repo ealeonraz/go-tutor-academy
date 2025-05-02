@@ -1,0 +1,236 @@
+.tutor-profile-page {
+  background-color: var(--primary);
+  padding: 0px 0px;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.tutor-profile-page h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: black;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.tutor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.tutor-card {
+  background-color: white;
+  border: 2px solid var(--secondary);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  min-height: 300px;
+}
+
+.tutor-card:hover {
+  transform: translateY(-4px);
+}
+
+.tutor-profile-pic {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--secondary);
+  margin-bottom: 12px;
+}
+
+.tutor-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.tutor-card p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  color: black;
+  word-break: break-word;
+}
+
+.subjects {
+  font-style: italic;
+  color: #444;
+  margin-top: auto;
+}
+
+/* Modal Styles */
+.tutor-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.tutor-modal {
+  background-color: white;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 700px;
+  width: 100%;
+  overflow-y: auto;
+  max-height: 90vh;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--secondary);
+}
+
+.modal-image {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  border: 3px solid var(--secondary);
+}
+
+.badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.subject-badge {
+  background-color: var(--secondary);
+  color: white;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-radius: 16px;
+}
+
+/* Cleaned and updated About section */
+.about-box {
+  background-color: var(--primary);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid var(--secondary);
+  margin: 25px auto;
+  text-align: left;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  max-width: 650px;
+}
+
+.about-box h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.about-box p {
+  font-size: 1rem;
+  color: black;
+  line-height: 1.6;
+}
+
+/* Updated Review Grid */
+.review-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.review-card {
+  background-color: var(--primary);
+  padding: 18px 20px;
+  border-radius: 12px;
+  width: 220px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  font-size: 0.95rem;
+  color: black;
+  border: 2px solid var(--secondary);
+}
+
+.review-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: black;
+}
+
+.review-card em {
+  font-size: 0.85rem;
+  color: black;
+}
+
+/* Modal Footer Buttons */
+.modal-buttons {
+  margin-top: 25px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+
+.btn.outline {
+  background-color: white;
+  border: 2px solid var(--secondary);
+  color: black;
+}
+
+.btn.danger {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn.danger:hover {
+  background-color: #c62828;
+}
+
+/* Red outline version for the confirmation 'Yes' */
+.btn.danger-outline {
+  background-color: white;
+  color: #e53935;
+  border: 2px solid #e53935;
+  transition: background-color 0.2s ease;
+}
+
+.btn.danger-outline:hover {
+  background-color: #fbe9e7;
+}
+
+/* Align confirm buttons */
+.confirm-delete {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}

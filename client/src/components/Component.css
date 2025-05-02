@@ -47,6 +47,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     cursor: pointer;
 
     font-weight: bold;
@@ -89,6 +90,7 @@
     flex-direction: row;
     background-color: var(--secondary);
     height: 100%;
+    width: 80%;
     flex-wrap: wrap;
     justify-content: center;
     /* Center the buttons horizontally */
@@ -103,6 +105,40 @@ html {
     font-family: Arial, sans-serif;
 }
 
+/* Main Navbar */
+.logged-in-main-navbar {
+    height: 80px;
+    background-color: white;
+    position: relative;
+    display: flex;
+    top: 0;
+    justify-content: space-between;
+    /* Space out the logo and account overlay */
+    align-items: center;
+    /* Vertically center all elements */
+    padding: 0 20px;
+    /* Add padding for spacing on the left and right */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Optional: Add a subtle shadow for better visibility */
+}
+
+/* Ensure the parent container is positioned relative */
+.account-arrow-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Add spacing between the icon and text */
+}
+
+.account-arrow-button img {
+    width: 1.5em;
+    height: 1.5em;
+    transition: transform 0.3s ease;
+}
 
 .account-arrow-button[aria-expanded="true"] img {
     transform: rotate(180deg);
@@ -113,6 +149,55 @@ html {
 
     /* Reset the rotation on click */
 }
+
+.account-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+/* Account Overlay */
+.account-overlay {
+    position: absolute;
+    top: 100%;
+    left: -15%;
+    background-color: white;
+    border-color: var(--secondary);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    width: 9em;
+    /* Ensure it stays above the semi-transparent background */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.3 ease, transform 0.3 ease;
+}
+
+.account-overlay.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Account Picture */
+.account-picture img {
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    /* Make the image circular */
+    object-fit: cover;
+    /* Ensure the image scales properly */
+    border: .2em solid var(--secondary);
+    /* Optional: Add a border for better visibility */
+}
+
 
 /* Search Bar Container */
 .search-bar-container {
@@ -163,6 +248,21 @@ html {
     cursor: pointer;
     padding-left: 10px;
     /* Adjust padding for spacing */
+    flex: 0 0 auto;
+    /* Prevent the logo from taking too much space */
+}
+
+.logo-small img{
+    display: flex;
+    align-items: center;
+    height: 7vh;
+    width: auto;
+    object-fit: contain;
+    cursor: pointer;
+    padding-left: 10px;
+    /* Adjust padding for spacing */
+    margin: 0 1.5rem;
+    padding: 0.2rem 0;
     flex: 0 0 auto;
     /* Prevent the logo from taking too much space */
 }
@@ -231,7 +331,7 @@ html {
     .LoggedInNavbar {
         flex-direction: row;
         /* Keep elements in a row on smaller screens */
-        height: auto;
+        height: 80px;
         /* Allow height to adjust dynamically */
         padding: 10px;
         /* Add padding for smaller screens */

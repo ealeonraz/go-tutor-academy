@@ -1,65 +1,45 @@
-import React, { useState, useEffect } from "react";
-import "./CreateAppointment.css"; // Uses updated CSS with --app- variables
-
-// Test data for subjects, tutors, and availability
-const SUBJECTS = [
-  { id: "math", name: "Math" },
-  { id: "science", name: "Science" },
-  { id: "english", name: "English" }
-];
-
-const TUTORS = {
-  math: [
-    { id: "tutor1", name: "Mr. Alan" },
-    { id: "tutor2", name: "Ms. Mary" }
-  ],
-  science: [{ id: "tutor3", name: "Dr. Blake" }],
-  english: [{ id: "tutor4", name: "Ms. Chloe" }]
-};
-
-const AVAILABILITY = {
-  tutor1: [
-    "2025-04-13T10:00:00Z",
-    "2025-04-13T11:30:00Z",
-    "2025-04-14T09:00:00Z"
-  ],
-  tutor2: [
-    "2025-04-15T14:00:00Z",
-    "2025-04-15T15:30:00Z"
-  ],
-  tutor3: [
-    "2025-04-16T13:00:00Z",
-    "2025-04-16T14:30:00Z"
-  ],
-  tutor4: [
-    "2025-04-17T09:00:00Z",
-    "2025-04-17T10:30:00Z"
-  ]
-};
-
+import React, { useState, useEffect } from 'react';
+import './CreateAppointment.css';
 
 export default function CreateAppointmentModal({ onClose, onSave }) {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [submitted, setSubmitted] = useState(false);
-  const [customMode, setCustomMode] = useState(false);
-
-  // Step 1 state variables
+  const [tutors, setTutors] = useState([]);
+  const [subjects, setSubjects] = useState([]);
   const [subject, setSubject] = useState("");
   const [tutor, setTutor] = useState("");
   const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState("");
-
-  // For custom time requests
+  const [customMode, setCustomMode] = useState(false);
   const [customDateTime, setCustomDateTime] = useState("");
   const [customDuration, setCustomDuration] = useState("");
-
-  // Step 2 state variables
-  const [appointmentMode, setAppointmentMode] = useState(""); // "Online" or "In-Person"
+  const [appointmentMode, setAppointmentMode] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
-
+  const [submitted, setSubmitted] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
   const token = localStorage.getItem("token");
 
-  // Reset dependent states when subject changes.
+  // Fetch tutors and subjects
+  useEffect(() => {
+    const fetchTutorsAndSubjects = async () => {
+      try {
+        const res = await fetch("http://localhost:4000/api/tutors", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await res.json();
+        setTutors(data);
+        // Get unique subjects across all tutors
+        const uniqueSubjects = [...new Set(data.flatMap(t => t.subjects || []))];
+        setSubjects(uniqueSubjects);
+      } catch (err) {
+        console.error("Error fetching tutors/subjects:", err);
+      }
+    };
+    fetchTutorsAndSubjects();
+  }, [token]);
+
+  // Handle subject change
   useEffect(() => {
     setTutor("");
     setAvailableSlots([]);
@@ -67,16 +47,33 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
     setCustomMode(false);
   }, [subject]);
 
-  // Load availability for the selected tutor.
+  // Handle tutor selection and get available time slots
   useEffect(() => {
     if (tutor) {
-      setAvailableSlots(AVAILABILITY[tutor] || []);
+      const selectedTutor = tutors.find(t => t._id === tutor);
+      const tutorSlots = selectedTutor?.availableHours || [];
+
+      // Flatten the available hours for each tutor and display all available slots
+      const slots = tutorSlots.map(slot => {
+        if (Array.isArray(slot.hours)) {
+          return {
+            day: slot.day,
+            hours: slot.hours.map(hour => ({
+              start: new Date(hour.start),
+              end: new Date(hour.end),
+            }))
+          };
+        } else {
+          return null;
+        }
+      }).filter(Boolean); // Filter out any invalid slots
+
+      setAvailableSlots(slots);
       setSelectedSlot("");
       setCustomMode(false);
     }
-  }, [tutor]);
+  }, [tutor, tutors]);
 
-  // Navigation functions.
   const handleNext = () => {
     if (currentStep < 2) setCurrentStep(currentStep + 1);
   };
@@ -85,59 +82,72 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  // Form submit handler.
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     let startTime, duration;
     if (!customMode) {
-      startTime = new Date(selectedSlot);
-      duration = 60;
+      startTime = new Date(selectedSlot);  // Ensure selectedSlot is a valid Date object
+      duration = 60;  // Default duration if no custom time is requested
     } else {
-      startTime = new Date(customDateTime);
+      startTime = new Date(customDateTime);  // Ensure customDateTime is a valid Date object
       duration = parseInt(customDuration, 10) || 60;
     }
+  
     const endTime = new Date(startTime.getTime() + duration * 60000);
+  
+    // Format dates as ISO strings in the format fullCalendar likes
+    const formattedStart = startTime.toISOString();  // Format to ISO 8601 string
+    const formattedEnd = endTime.toISOString();  // Format to ISO 8601 string
+  
     const appointmentData = {
       subject,
       tutor,
-      start: startTime,
-      end: endTime,
+      start: formattedStart,
+      end: formattedEnd,
       extendedProps: {
         appointmentMode,
         additionalNotes,
         feedbackSubmitted: false,
         feedback: "",
         joinUrl: "",
-      }
+        files: [],
+      },
     };
+  
+    // Submit the appointment data
     onSave(appointmentData);
     setSubmitted(true);
-
+  
     try {
       const response = await fetch("http://localhost:4000/api/appointments/create", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,  // Sending the token in the Authorization header
-          "Content-Type": "application/json",  // Ensuring the server knows it's JSON data
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(appointmentData),  // Sending the actual appointment data
+        body: JSON.stringify(appointmentData),
       });
-
-      if(!response.ok){
-        throw new Error("Unable to make appointment")
+  
+      if (!response.ok) {
+        throw new Error("Unable to create appointment");
       }
-
-      const res = await response.json()
-      setSubmitted(true);
-      console.log(res)
-    }catch(err) {
+  
+      const res = await response.json();
+    } catch (err) {
       console.error(err);
     }
   };
+  
 
-  const progressPercentage = (currentStep / 2) * 100;
+  const handleTutorChange = (e) => {
+    setTutor(e.target.value);
+  };
 
-  // Switch-based rendering of form steps.
+  const handleSlotSelection = (slot) => {
+    setSelectedSlot(slot);
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -145,7 +155,7 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
           <div className="appointment-form-step">
             <h2>Basic Appointment Info</h2>
             <div className="appointment-form-group">
-              <label htmlFor="subject">Subject/Course *</label>
+              <label htmlFor="subject">Subject *</label>
               <select
                 id="subject"
                 value={subject}
@@ -153,55 +163,63 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
                 required
               >
                 <option value="">--Select subject--</option>
-                {SUBJECTS.map((sub) => (
-                  <option key={sub.id} value={sub.id}>
-                    {sub.name}
-                  </option>
+                {subjects.map((sub, index) => (
+                  <option key={index} value={sub}>{sub}</option>
                 ))}
               </select>
             </div>
+
             <div className="appointment-form-group">
               <label htmlFor="tutor">Tutor *</label>
               <select
                 id="tutor"
                 value={tutor}
-                onChange={(e) => setTutor(e.target.value)}
+                onChange={handleTutorChange}
                 required
                 disabled={!subject}
               >
                 <option value="">--Select tutor--</option>
-                {subject &&
-                  TUTORS[subject] &&
-                  TUTORS[subject].map((t) => (
-                    <option key={t.id} value={t.id}>
-                      {t.name}
+                {tutors
+                  .filter((t) => t.subjects.includes(subject))
+                  .map((t) => (
+                    <option key={t._id} value={t._id}>
+                      {t.firstName} {t.lastName}
                     </option>
                   ))}
               </select>
             </div>
+
             {tutor && !customMode && (
               <div className="appointment-form-group">
-                <p>
-                  <strong>Available Time Slots:</strong>
-                </p>
+                <p><strong>Available Time Slots:</strong></p>
                 {availableSlots.length === 0 ? (
                   <p>No slots available. You may request a custom time.</p>
                 ) : (
                   <div className="time-slot-container">
-                    {availableSlots.map((slot) => {
-                      const isSelected = selectedSlot === slot;
-                      return (
-                        <div
-                          key={slot}
-                          className={`time-slot-card ${isSelected ? "selected" : ""}`}
-                          onClick={() => setSelectedSlot(slot)}
-                        >
-                          <span className="time-slot-time">
-                            {new Date(slot).toLocaleString()}
-                          </span>
+                    {availableSlots.map((slot, index) => (
+                      <div key={index}>
+                        <div className="time-slot-cards">
+                          {slot.hours.map((hour, i) => {
+                            const startDate = hour.start;
+                            const endDate = hour.end;
+                            const dayName = startDate.toLocaleString([], { weekday: 'long' });
+                            const formattedStart = startDate.toLocaleString([], { hour: '2-digit', minute: '2-digit' });
+                            const formattedEnd = endDate.toLocaleString([], { hour: '2-digit', minute: '2-digit' });
+                            return (
+                              <div
+                                key={i}
+                                className={`time-slot-card ${selectedSlot === hour.start ? "selected" : ""}`}
+                                onClick={() => handleSlotSelection(hour.start)}
+                              >
+                                <span className="time-slot-time">
+                                  {dayName}, {formattedStart} - {formattedEnd}
+                                </span>
+                              </div>
+                            );
+                          })}
                         </div>
-                      );
-                    })}
+                      </div>
+                    ))}
                   </div>
                 )}
                 <button
@@ -213,12 +231,11 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
                 </button>
               </div>
             )}
-            {tutor && customMode && (
+
+            {customMode && (
               <div className="appointment-form-group">
-                <p>
-                  <strong>Custom Time Request:</strong>
-                </p>
-                <label htmlFor="customDateTime">Preferred Date &amp; Time *</label>
+                <p><strong>Custom Time Request:</strong></p>
+                <label htmlFor="customDateTime">Preferred Date & Time *</label>
                 <input
                   type="datetime-local"
                   id="customDateTime"
@@ -237,16 +254,13 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
                 />
               </div>
             )}
+
             <div className="appointment-button-group">
               <button
                 type="button"
                 onClick={handleNext}
                 className="appointment-btn appointment-next-btn"
-                disabled={
-                  !tutor ||
-                  (!customMode && !selectedSlot) ||
-                  (customMode && (!customDateTime || !customDuration))
-                }
+                disabled={!tutor || (!customMode && !selectedSlot) || (customMode && (!customDateTime || !customDuration))}
               >
                 Next
               </button>
@@ -313,7 +327,6 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
     }
   };
 
-  // If the form has been submitted, display the success view with the checkmark.
   if (submitted) {
     return (
       <div className="feedback-page">
@@ -321,11 +334,7 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
           <div className="checkmark-container">
             <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
               <circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-              <path
-                className="checkmark__check"
-                fill="none"
-                d="M14.1 27.2l7.1 7.2 16.7-16.8"
-              />
+              <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
             </svg>
           </div>
           <h2>Appointment Created!</h2>
@@ -334,7 +343,6 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
     );
   }
 
-  // Main rendering: Render the appointment modal with progress bar and current step.
   return (
     <div className="appointment-page">
       <div className="appointment-card">
@@ -342,11 +350,10 @@ export default function CreateAppointmentModal({ onClose, onSave }) {
           ×
         </button>
         <div className="appointment-progress-bar">
-          <div className="appointment-progress" style={{ width: `${progressPercentage}%` }}></div>
+          <div className="appointment-progress" style={{ width: `${(currentStep / 2) * 100}%` }}></div>
         </div>
         <form onSubmit={handleSubmit}>{renderStep()}</form>
       </div>
     </div>
   );
 }
-

@@ -1,0 +1,113 @@
+/* Notification Bell Styling */
+.notification-bell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .notification-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding: 0.5em; /* Adds padding around the icon for a bigger clickable area */
+  }
+  
+  .notification-icon svg {
+    width: 32px; /* Increased size for the bell icon */
+    height: 32px; /* Increased size for the bell icon */
+    fill: var(--secondary); /* Use your secondary color for the icon */
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--secondary);
+    color: white;
+    font-size: 14px; /* Adjusted size for the badge */
+    padding: 0.3em 0.6em;
+    border-radius: 50%;
+    min-width: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* Notification Dropdown Menu */
+  .notification-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 4em;
+    right: -1%;
+    width: 20em;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    gap: 0.75em;
+    z-index: 10;
+  }
+  
+  .notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .notification-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 36px;
+  }
+  
+  .notification-header-title {
+    font-size: 20px;
+    line-height: 36px;
+    font-weight: bold;
+  }
+  
+  /* Button Styling */
+  .notification-mark-read {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    margin-top: 0.5em;
+    padding: 0.5em 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .notification-mark-read:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  .notification-mark-read-all {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+    align-self: center;
+  }
+  
+  .notification-mark-read-all:hover {
+    background-color: black;
+    color: white;
+  }
+  

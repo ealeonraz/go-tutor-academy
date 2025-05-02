@@ -1,3 +1,4 @@
+<<<<<<< HEAD:client/src/components/Navbars/LoggedInNavbar.jsx
 import logo from "../../assets/go-tutor-academy-logo.png";
 import profilepic from "../../assets/gohan-pic.webp";
 import downarrow from "../../assets/down-arrow.png";
@@ -7,6 +8,16 @@ import NotificationBell from "../NotificationBell/NotificationBell";
 import { useAuth } from "../../context/AuthContext";
 
 import "./LoggedInNavbar.css";
+=======
+import WebsiteLogo from "../assets/go-tutor-academy-logo.png";
+import profilepic from "../assets/gohan-pic.webp";
+import downarrow from "../assets/down-arrow.png";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import NotificationBell from "./NotificationBell";
+import { useAuth } from "../context/AuthContext";
+import "./Component.css";
+>>>>>>> main:client/src/components/LoggedInNavbar.jsx
 
 export default function LoggedInMainNavbar() {
     const [showAccountPopup, setShowAccountPopup] = useState(false);
@@ -51,9 +62,15 @@ export default function LoggedInMainNavbar() {
     }
 
     return (
+<<<<<<< HEAD:client/src/components/Navbars/LoggedInNavbar.jsx
         <div className="LoggedInNavbar">
             <div className="logo" onClick={sendToMain}>
                 <img src={logo} alt="Go Tutor Academy Logo" />
+=======
+        <div className="logged-in-main-navbar">
+            <div className="logo-small" onClick={sendToMain}>
+                <img src={WebsiteLogo} />
+>>>>>>> main:client/src/components/LoggedInNavbar.jsx
             </div>
 
             {/* Account Button and Overlay */}
