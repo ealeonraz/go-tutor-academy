@@ -32,7 +32,7 @@
     /* Ensures it takes remaining space */
     flex-direction: column;
     justify-content: center;
-    padding: 2em;
+    padding: 1em ;
   }
 
   /* Date */
@@ -94,14 +94,13 @@
   
   /* Search Bar Container */
   .search-bar-container {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30em;
-    margin-top: 2em;
-    /* Add spacing between the welcome box and the search bar */
     width: 100%;
-    /* Ensure it spans the full width of the container */
+  max-width: 800px;          /* Matches the welcome box */
+  background-color: white;   /* White background */
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08); /* Optional visual polish */
+  margin: 2rem auto; 
   }
   
   .settings-container {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import AdminDashboardNavbar from '../components/AdminDashboardNavbar';
-import Navbar from '../components/logged-in-main-navbar';
+import Navbar from '../components/Navbars/LoggedInNavbar';
 
 import './Page.css';
 import profilePic from '../assets/piccolo-pic.webp';

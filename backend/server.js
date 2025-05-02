@@ -6,6 +6,7 @@ import userRoutes from "./routes/user.routes.js";  // User routes
 import reviewRoutes from "./routes/reviews.routes.js";  // Reviews routes (if added)
 import feedbackRoutes from "./routes/feedback.routes.js"
 import appointmentRoutes from "./routes/appointments.routes.js"
+import searchRoutes from "./routes/searchRoutes.js";  // Search routes
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -28,6 +29,8 @@ app.use("/api/test", userRoutes);
 app.use("/api/reviews", reviewRoutes);  
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/appointments", appointmentRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/filters', searchRoutes);
 
 // Connect to MongoDB
 db.mongoose
