@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import StudentDashboardNavbar from '../components/DashboardNavbar';
-import Header from '../components/LoggedInNavbar';  // Keep the original Navbar
+import StudentDashboardNavbar from '../components/Navbars/DashboardNavbar';
+import Header from '../components/Navbars/LoggedInNavbar';  // Keep the original Navbar
 import './TutorProfileView.css';
 
 const TutorProfileView = () => {

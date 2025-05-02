@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import RegisterOverlay from '../components/RegisterOverlayButton'
-import './Overlay.css'
-import './Component.css'
-import LoginOverlayButton from '../components/LoginOverlayButton'
-import WebsiteLogo from "../assets/go-tutor-academy-logo.png";
+import RegisterOverlay from '../Overlay/RegisterOverlayButton'
+import '../overlay/Overlay.css'
+import '../Component.css'
+import LoginOverlayButton from '../Overlay/LoginOverlayButton'
+import WebsiteLogo from "../../assets/go-tutor-academy-logo.png";
 
 
 

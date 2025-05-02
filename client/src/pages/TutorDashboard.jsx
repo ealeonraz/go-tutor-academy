@@ -4,11 +4,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import CalendarSidebar from '../components/TutorCalendarSidebar.jsx';
-import EventDetailsModal from '../components/EventDetailsModal.jsx';
+import EventDetailsModal from '../components/Modals/EventDetailsModal.jsx';
 import ScheduleEditForm from '../components/ScheduleEditForm.jsx'; // New component for editing schedule
 import ManageSubjects from '../components/ManageSubjects.jsx'; // New component for managing subjects
-import Header from '../components/LoggedInNavbar.jsx';
-import DashboardNavbar from '../components/DashboardNavbar.jsx';
+import Header from '../components/Navbars/LoggedInNavbar.jsx';
+import DashboardNavbar from '../components/Navbars/DashboardNavbar.jsx';
 
 export default function TutorDashboardCalendar() {
   const [events, setEvents] = useState([]);

@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import "../Components/Overlay.css";
+import "../components/overlay/Overlay.css";
 import "./Page.css"
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbars/Navbar";
 import Footer from "../components/Footer";
 
 const PasswordResetOverlay = ({ onClose }) => {

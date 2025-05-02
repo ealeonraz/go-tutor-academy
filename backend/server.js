@@ -13,8 +13,6 @@ import subjectRoutes from "./routes/subjects.routes.js"
 import eventRoutes from "./routes/events.routes.js"
 import noteRoutes from "./routes/notes.routes.js"
 import resetRoutes from "./routes/reset.routes.js"; // Reset password routes
-import feedbackRoutes from "./routes/feedback.routes.js"
-import appointmentRoutes from "./routes/appointments.routes.js"
 import searchRoutes from "./routes/searchRoutes.js";  // Search routes
 
 const app = express();

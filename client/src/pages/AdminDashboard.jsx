@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/LoggedInNavbar';  // Keep the original Navbar
-import StudentDashboardNavbar from '../components/DashboardNavbar';
+import Header from '../components/Navbars/LoggedInNavbar';  // Keep the original Navbar
+import StudentDashboardNavbar from '../components/Navbars/DashboardNavbar';
 import Footer from '../components/Footer';
 import { Pencil } from 'lucide-react';  // Import the Lucide Pencil icon
 import { Users, UserPlus, Calendar } from 'lucide-react';  // Importing correct icons

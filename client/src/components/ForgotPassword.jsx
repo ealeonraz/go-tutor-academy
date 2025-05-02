@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import "./Overlay.css";
+import "./Overlay/Overlay.css";
 
 const ForgotPassword = () => {
   const dialogRef = useRef(null);

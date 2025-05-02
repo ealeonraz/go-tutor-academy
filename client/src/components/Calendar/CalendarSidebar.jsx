@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FaCalendarAlt, FaEdit, FaTrashAlt, FaStickyNote } from 'react-icons/fa';
-import AppointmentForm from './CreateAppointmentModal.jsx';
-import Feedback from './Feedback.jsx';
-import DeleteConfirmationModal from './DeleteConfirmationModal.jsx'; // Import the confirmation modal
-import EditAppointmentForm from './EditAppointmentForm.jsx'; // Import the Edit Appointment form
+import AppointmentForm from '../Modals/CreateAppointmentModal.jsx';
+import Feedback from '../Feedback/Feedback.jsx';
+import DeleteConfirmationModal from '../DeleteConfirmationModal.jsx'; // Import the confirmation modal
+import EditAppointmentForm from '../EditAppointmentForm.jsx'; // Import the Edit Appointment form
 import './CalendarSidebar.css';
 import './calendar.css';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export default function CalendarSidebar({
   events = [],

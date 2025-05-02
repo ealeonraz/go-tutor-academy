@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext } from "react";
 import { useAuth } from "../../context/AuthContext";
-import "./Overlay.css";
-import ForgotPassword from "./ForgotPassword";
+import "../Overlay/Overlay.css";
+import ForgotPassword from "../ForgotPassword";
 
 const LoginOverlayButton = () => {
   const dialogRef = useRef(null);

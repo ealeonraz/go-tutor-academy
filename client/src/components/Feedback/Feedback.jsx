@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Feedback.css";
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
   
 

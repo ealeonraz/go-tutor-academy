@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from "react"
 import "./NotesPage.css"
-import "./Home.css"
-import "../components/Component.css"
-import Navbar from "../components/LoggedInNavbar"
-import DashboardNavbar from "../components/DashboardNavbar"
-import Footer from "../components/Footer"
-import "./Page.css"
+import "../HomePage/Home.css"
+import "../../components/Component.css"
+import Navbar from "../../components/Navbars/LoggedInNavbar"
+import DashboardNavbar from "../../components/Navbars/DashboardNavbar"
+import Footer from "../../components/Footer"
+import "../Page.css"
 
 const NotesPage = () => {
   const [notes, setNotes] = useState([])

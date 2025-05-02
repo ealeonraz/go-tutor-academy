@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import { FaCalendarAlt, FaChalkboardTeacher, FaStickyNote, FaEdit, FaTrashAlt } from 'react-icons/fa'; 
-import AppointmentForm from './CreateAppointmentModal.jsx'; 
-import Feedback from './Feedback.jsx'; 
+import AppointmentForm from './Modals/CreateAppointmentModal.jsx'; 
+import Feedback from './Feedback/Feedback.jsx'; 
 import './TutorCalendarSidebar.css'; 
 import { useAuth } from '../context/AuthContext.jsx';  
 

@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import DashboardNavbar from '../../components/Navbars/DashboardNavbar.jsx';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import CalendarSidebar from '../components/CalendarSidebar.jsx';
-import EventDetailsModal from '../components/EventDetailsModal.jsx';
-import AppointmentForm from '../components/CreateAppointmentModal.jsx';
-import LoggedInNavbar from "../components/LoggedInNavbar.jsx"
-import './StudentDashboardCalendar.css';
-import DashboardNavbar from '../components/DashboardNavbar.jsx';
-import Header from '../components/LoggedInNavbar.jsx';
+import CalendarSidebar from '../../components/Calendar/CalendarSidebar';
+import EventDetailsModal from '../../components/Modals/EventDetailsModal.jsx';
+import AppointmentForm from '../../components/Modals/CreateAppointmentModal.jsx';
+import LoggedInNavbar from "../../components/Navbars/LoggedInNavbar.jsx"
+import '../Calendar/DashboardCalendar.css';
+import DashboardNavbar from '../../components/Navbars/DashboardNavbar.jsx';
+import Header from '../../components/Navbars/LoggedInNavbar.jsx';
 
 export default function DashboardCalendar() {
   const [events, setEvents] = useState([]);
