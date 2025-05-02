@@ -7,6 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import CalendarSidebar from '../components/CalendarSidebar.jsx';
 import EventDetailsModal from '../components/EventDetailsModal.jsx';
 import AppointmentForm from '../components/CreateAppointmentModal.jsx';
+import LoggedInNavbar from "../components/LoggedInNavbar.jsx"
 import './StudentDashboardCalendar.css';
 
 export default function StudentDashboardCalendar() {
@@ -113,6 +114,7 @@ export default function StudentDashboardCalendar() {
 
   return (
     <div className="dashboard-page">
+      <LoggedInNavbar/>
       <StudentDashboardNavbar />
       <div className="dashboard-content">
         <div className="header-section">
@@ -148,20 +150,23 @@ export default function StudentDashboardCalendar() {
                 return classes;
               }}
               eventContent={(info) => {
-                const { feedbackSubmitted } = info.event.extendedProps;
+                const { feedbackSubmitted, subject } = info.event.extendedProps; // Extract subject and feedbackSubmitted
                 const isPast = info.event.start < new Date();
                 let statusIcon = null;
                 if (isPast) {
                   statusIcon = feedbackSubmitted ? '✅' : '🕒';
                 }
                 return (
-                  <div>
-                    <b>{info.timeText}</b>{" "}
-                    <span>{info.event.title}</span>
+                  <div style={{ display: 'flex', alignItems: 'center' }}> {/* Flexbox for inline items */}
+                    <b>{info.timeText}</b>
+                    <span style={{ marginLeft: 4 }}>{info.event.title}</span>
+                    {subject && <div style={{ marginLeft: 4 }}>{subject}</div>} {/* Add margin for spacing */}
                     {statusIcon && <span style={{ marginLeft: 4 }}>{statusIcon}</span>}
                   </div>
                 );
               }}
+              
+              
               eventClick={handleSelectEvent}
             />
           </div>

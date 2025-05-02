@@ -57,6 +57,8 @@ export default function DashboardNavbar() {
   const sendToAppointments = () => navigate(`/${roleName}-dashboard/appointments`);
   const sendToEvents = () => navigate(`/${roleName}-dashboard/events`);
   const sendToManageTutors = () => navigate(`/${roleName}-dashboard/tutors`);
+  const sendToAdminPayroll = () => navigate(`/${roleName}-dashboard/admin-payroll`)
+  
 
   // Define different navbar items based on role
   const renderNavbar = () => {
@@ -87,7 +89,7 @@ export default function DashboardNavbar() {
             <div className="dashboard-button" onClick={sendToHome}>Dashboard</div>
             <div className="dashboard-button" onClick={sendToManageTutors}>Manage Tutors</div>
             <div className="dashboard-button" onClick={sendToAppointments}>Manage Appointments</div>
-            <div className="dashboard-button" onClick={sendToCalendar}>Manage Calendar</div>
+            <div className="dashboard-button" onClick={sendToAdminPayroll}>Manage Payroll</div>
             <div className="dashboard-button" onClick={sendToEvents}>Manage Events</div>
           </>
         );

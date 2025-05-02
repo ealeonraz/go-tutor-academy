@@ -1,53 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import Footer from '../components/Footer';
+import Header from '../components/LoggedInNavbar';  // Keep the original Navbar
 import TutorDashboardNavbar from '../components/TutorDashboardNavbar';
-import Navbar from '../components/LoggedInNavbar';
-import profilePic from '../assets/mr-satan-pic.webp';  // Default profile picture in case the avatar is missing
-
-import './Page.css';
-
-// Function to parse the JWT token and return the decoded payload
-function parseJwt(token) {
-    try {
-        const base64url = token.split(".")[1];
-        const base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(
-            atob(base64)
-                .split('')
-                .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-                .join('')
-        );
-        return JSON.parse(jsonPayload);  // Return the decoded payload
-    } catch (error) {
-        console.error("Failed to parse JWT", error);
-        return null;
-    }
-}
+import Footer from '../components/Footer';
+import { Calendar, Users, UserPlus } from 'lucide-react';  // Importing correct icons
+import './TutorDashboard.css';
 
 function TutorDashboardHome() {
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const [currentTime, setCurrentTime] = useState('');
+    const [stats, setStats] = useState({
+        totalStudents: 0,
+        totalTutors: 0,
+        appointmentsThisMonth: 0,
+    });
+    const [upcomingAppointments, setUpcomingAppointments] = useState([]);
     const [timeMessage, setTimeMessage] = useState('');
-    const [userInfo, setUserInfo] = useState(null);  // Store user data, including avatar
-    const [loading, setLoading] = useState(true); // Loading state to manage user data fetch
+    const [currentTime, setCurrentTime] = useState('');
+    const [currentDate, setCurrentDate] = useState(new Date());
 
     useEffect(() => {
-        // Get the token from localStorage
-        const token = localStorage.getItem('token');
-
-        if (token) {
-            // Decode the token and get the user information
-            const decodedToken = parseJwt(token);
-            if (decodedToken && decodedToken.email) {
-                // Fetch user data using the email from decoded token (e.g., from your backend)
-                fetchUserData(decodedToken.email);
-            } else {
-                console.error("Invalid or expired token.");
-            }
-        } else {
-            console.error("No token found.");
-        }
-
+        // Update greeting message based on time
         const intervalId = setInterval(() => {
             const currentHour = new Date().getHours();
             if (currentHour >= 5 && currentHour < 12) {
@@ -63,68 +33,78 @@ function TutorDashboardHome() {
             setCurrentDate(new Date());
         }, 1000);
 
+        // Clean up the interval on unmount
         return () => clearInterval(intervalId);
     }, []);
 
-    // Function to fetch user data
-    const fetchUserData = async (email) => {
-        try {
-            setLoading(true);  // Start loading
-            const response = await fetch(`http://localhost:4000/api/users/${email}`);  // Modify the URL as per your API route
-            if (response.ok) {
-                const data = await response.json();
-                setUserInfo(data);  // Store the user info, including avatar URL
-            } else {
-                console.error("Error fetching user data.");
-            }
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        } finally {
-            setLoading(false);  // Stop loading after fetch is complete
-        }
-    };
+    // Fetch statistics like total students, tutors, appointments, etc.
+    useEffect(() => {
+        // Simulate fetching tutor and student stats (replace with actual API calls)
+        setStats(prev => ({
+            ...prev,
+            totalTutors: 10,
+            totalStudents: 50,
+            appointmentsThisMonth: 30,
+        }));
+
+        // Fetch upcoming appointments (replace with actual API calls)
+        setUpcomingAppointments([
+            { subject: "Math", tutor: "John Doe", start: "2025-05-01T10:00:00", end: "2025-05-01T11:00:00" },
+            { subject: "Science", tutor: "Jane Doe", start: "2025-05-02T14:00:00", end: "2025-05-02T15:00:00" },
+        ]);
+    }, []);
 
     return (
         <div className="tutor-dashboard-container">
-            <Navbar />
+            <Header />
             <TutorDashboardNavbar />
-            <div className="tutor-dashboard-content">
-                <div className="tutor-welcome-box">
-                    <div className="date">
-                        <p>{currentDate.toLocaleDateString()}</p>
+            <div className="tutor-dashboard-body">
+                <main className="tutor-dashboard-content">
+                    <div className="tutor-welcome-header">
+                        <h1>{currentTime}Tutor</h1>
+                        <h4 className="tutor-tagline">{timeMessage}</h4>
                     </div>
-                    <div className="name-message">
-                        <h1>{currentTime}{userInfo ? userInfo.firstName : 'Tutor'}</h1>
-                        <h4>{timeMessage}</h4>
-                    </div>
-                    <div className="user-picture">
-                        <img
-                            src={userInfo && userInfo.avatarURL ? userInfo.avatarURL : profilePic}
-                            alt="User Avatar"
-                            className="avatar-img"
-                        />
-                    </div>
-                </div>
 
-                {/* Typewriter Effect */}
-                <div className="typewriter-container">
-                    <p className="typwriter-text">What are we searching for this time?</p>
-                </div>
+                    <div className="overview-section">
+                        <div className="overview-card">
+                            <div className="card-icon"><Users /></div>
+                            <h2>{stats.totalStudents}</h2>
+                            <p>Total Students</p>
+                        </div>
+                        <div className="overview-card">
+                            <div className="card-icon"><UserPlus /></div>
+                            <h2>{stats.totalTutors}</h2>
+                            <p>Total Tutors</p>
+                        </div>
+                        <div className="overview-card">
+                            <div className="card-icon"><Calendar /></div>
+                            <h2>{stats.appointmentsThisMonth}</h2>
+                            <p>Appointments (This Month)</p>
+                        </div>
+                    </div>
 
-                {/* Search Bar */}
-                <div className="search-bar-container">
-                    <input
-                        type="text"
-                        className="search-bar"
-                        placeholder="Search for students..."
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                                console.log("Search submitted:", e.target.value);
-                                // Add your search logic here
-                            }
-                        }}
-                    />
-                </div>
+                    <div className="upcoming-section">
+                        <h3>Upcoming Appointments</h3>
+                        <ul className="upcoming-appointments">
+                            {upcomingAppointments.length > 0 ? (
+                                upcomingAppointments.map((appointment, index) => (
+                                    <li className="appointment-item" key={index}>
+                                        <h4>{appointment.subject}</h4>
+                                        <p><strong>Tutor:</strong> {appointment.tutor}</p>
+                                        <p><strong>Start:</strong> {new Date(appointment.start).toLocaleString()}</p>
+                                        <p><strong>End:</strong> {new Date(appointment.end).toLocaleString()}</p>
+                                    </li>
+                                ))
+                            ) : (
+                                <p>No upcoming appointments.</p>
+                            )}
+                        </ul>
+                    </div>
+
+                    <div className="tutor-quick-actions">
+                        <button className="action-button">Manage Availability</button>
+                    </div>
+                </main>
             </div>
             <Footer />
         </div>

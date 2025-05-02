@@ -3,8 +3,8 @@ import { FaCalendarAlt, FaEdit, FaTrashAlt, FaStickyNote } from 'react-icons/fa'
 import AppointmentForm from './CreateAppointmentModal.jsx';
 import Feedback from './Feedback.jsx';
 import './Calendar.css';
-import { useAuth } from '../context/AuthContext.jsx'; 
-
+import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 export default function CalendarSidebar({
   events = [],
@@ -13,7 +13,6 @@ export default function CalendarSidebar({
   onEditAppointment = () => {},
   onCancelAppointment = () => {},
   onSeeAll = () => {}
-
 }) {
   const { user } = useAuth();
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -22,7 +21,12 @@ export default function CalendarSidebar({
   const [feedbackEvent, setFeedbackEvent] = useState(null);
   const [appointments, setAppointments] = useState([]);  // Assuming it's an array of appointments
   const [showAllPrevious, setShowAllPrevious] = useState(false);
+  const [notes, setNotes] = useState([]); // Added state for notes
 
+  // Initialize useNavigate for routing
+  const navigate = useNavigate();
+
+  // Fetch appointments (already in place)
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -32,9 +36,8 @@ export default function CalendarSidebar({
           headers: { "Authorization": `Bearer ${token}` },
         });
         const data = await response.json();
-        console.log(data)
         if (Array.isArray(data)) {
-          setAppointments(data); // Make sure data is an array
+          setAppointments(data);
         } else {
           console.error("Error: Data is not an array", data);
         }
@@ -42,28 +45,39 @@ export default function CalendarSidebar({
         console.error("Error fetching appointments", err);
       }
     };
-  
     fetchAppointments();
   }, []); // Run once on component mount
-  
+
+  // Fetch notes using useEffect
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://localhost:4000/api/tutor-notes", {
+          method: "GET",
+          headers: { "Authorization": `Bearer ${token}` },
+        });
+        const data = await response.json();
+        setNotes(data); // Set the notes data
+      } catch (error) {
+        console.error("Error fetching notes", error);
+      }
+    };
+    fetchNotes();
+  }, []); // Run once on component mount
+
   const now = new Date();
-  
-  // Make sure appointments is an array and filter safely
-  const upcoming = Array.isArray(appointments)
-    ? appointments
-        .filter(ev => ev.start && new Date(ev.start) >= now)  // Check if `start` exists
-        .sort((a, b) => new Date(a.start) - new Date(b.start)) // Sort by start date
-        .slice(0, 3) // Get the first 3 upcoming appointments
-    : [];
-  
-  
+  const upcoming = appointments
+    .filter(ev => ev.start && new Date(ev.start) >= now)  // Check if `start` exists
+    .sort((a, b) => new Date(a.start) - new Date(b.start)) // Sort by start date
+    .slice(0, 3); // Get the first 3 upcoming appointments
 
-    const allPrevious = appointments
-      .filter(ev => new Date(ev.start) < now)
-      .sort((a, b) => new Date(b.start) - new Date(a.start))
-    const previous = showAllPrevious ? allPrevious : allPrevious.slice(0, 2);
+  const allPrevious = appointments
+    .filter(ev => new Date(ev.start) < now)
+    .sort((a, b) => new Date(b.start) - new Date(a.start));
+  
+  const previous = showAllPrevious ? allPrevious : allPrevious.slice(0, 2);
 
-  // open create/edit appointment
   const handleOpenCreate = (ev = null) => {
     if (ev) {
       setNewEventData(ev);
@@ -72,20 +86,18 @@ export default function CalendarSidebar({
       setNewEventData({
         title: '',
         start,
-        end:   new Date(start.getTime() + 60*60*1000),
-        extendedProps: { feedbackSubmitted:false }
+        end: new Date(start.getTime() + 60 * 60 * 1000),
+        extendedProps: { feedbackSubmitted: false }
       });
     }
     setShowCreateModal(true);
   };
 
-  // save appointment → delegate out
   const handleSaveAppointment = data => {
     onNewAppointment(data);
     setShowCreateModal(false);
   };
 
-  // open feedback modal
   const handleOpenFeedback = ev => {
     setFeedbackEvent(ev);
     setShowFeedbackModal(true);
@@ -110,9 +122,8 @@ export default function CalendarSidebar({
                 onClick={() => onSelectEvent(ev)}
               >
                 <span className="appointment-time">
-                  {new Date(ev.start).toLocaleString([],{
-                    month:'short',day:'numeric',
-                    hour:'numeric',minute:'2-digit'
+                  {new Date(ev.start).toLocaleString([], {
+                    month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
                   })}
                 </span>
                 <span className="appointment-title">{ev.title}</span>
@@ -154,9 +165,8 @@ export default function CalendarSidebar({
                 onClick={() => onSelectEvent(ev)}
               >
                 <span className="appointment-time past-time">
-                  {new Date(ev.start).toLocaleString([],{
-                    month:'short',day:'numeric',
-                    hour:'numeric',minute:'2-digit'
+                  {new Date(ev.start).toLocaleString([], {
+                    month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
                   })}
                 </span>
                 <span className="appointment-title">{ev.title}</span>
@@ -173,22 +183,27 @@ export default function CalendarSidebar({
           )) : <li>No previous sessions</li>}
         </ul>
         <button
-         className="see-all-button"
+          className="see-all-button"
           onClick={() => setShowAllPrevious(prev => !prev)}
-         >
+        >
           {showAllPrevious ? "Show Less" : "See All Previous"}
         </button>
-
       </div>
 
       <div className="widget notes-widget">
         <h2><FaStickyNote /> Notes</h2>
         <ul>
-          <li>No notes</li>
+          {notes.length > 0 ? notes.map(note => (
+            <li key={note._id.toString()} className="note-item">
+              <div className="note-info">
+                <span className="note-tutor-notes">{note.tutorNotes}</span>
+              </div>
+            </li>
+          )) : <li>No notes</li>}
         </ul>
         <button
           className="see-all-button"
-          onClick={() => onSeeAll('notes')}
+          onClick={() => navigate('/student-dashboard/notes')} // Navigate to /notes
         >
           See All Notes
         </button>
