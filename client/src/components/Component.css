@@ -37,6 +37,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     cursor: pointer;
 
     font-weight: bold;
@@ -79,6 +80,7 @@
     flex-direction: row;
     background-color: var(--secondary);
     height: 100%;
+    width: 80%;
     flex-wrap: wrap;
     justify-content: center;
     /* Center the buttons horizontally */
@@ -95,7 +97,7 @@ html {
 
 /* Main Navbar */
 .logged-in-main-navbar {
-    height: 4em;
+    height: 80px;
     background-color: white;
     position: relative;
     display: flex;
@@ -311,6 +313,21 @@ html {
     /* Prevent the logo from taking too much space */
 }
 
+.logo-small img{
+    display: flex;
+    align-items: center;
+    height: 7vh;
+    width: auto;
+    object-fit: contain;
+    cursor: pointer;
+    padding-left: 10px;
+    /* Adjust padding for spacing */
+    margin: 0 1.5rem;
+    padding: 0.2rem 0;
+    flex: 0 0 auto;
+    /* Prevent the logo from taking too much space */
+}
+
 .tutors-card {
     width: 12em;
     height: 14em;
@@ -376,7 +393,7 @@ html {
     .logged-in-main-navbar {
         flex-direction: row;
         /* Keep elements in a row on smaller screens */
-        height: auto;
+        height: 80px;
         /* Allow height to adjust dynamically */
         padding: 10px;
         /* Add padding for smaller screens */

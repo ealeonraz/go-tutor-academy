@@ -1,7 +1,11 @@
 import React, { useLayoutEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import StudentDashboardHome from './pages/studentDashboard';
+import AppointmentForm from './pages/AppointmentForm';
+import AptFeedback from './pages/AptFeedback';
+import TutorFeedback from './pages/TutorFeedback';
+import TutorHours from './pages/TutorHours';
+import AdminPayOverview from './pages/AdminPayOverview';import StudentDashboardHome from './pages/studentDashboard';
 import TutorDashboardHome from './pages/TutorDashboard';
 import SDH_yourTutors from './pages/SDH-yourTutors';
 import TDH_yourStudents from './pages/TDH-yourStudents';
@@ -15,7 +19,6 @@ import StudentDashboardCalendar from './pages/StudentDashboardCalendar.jsx';
 import AdminPayrollPage from './pages/AdminPayroll.jsx';
 import AdminDashboardHome from './pages/AdminDashboard.jsx';
 import TutorProfileView from './pages/TutorProfileView.jsx';
-import TutorDashboard from './pages/TutorDashboard.jsx'
 
 
 function App() {
@@ -30,9 +33,8 @@ function App() {
         <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
         <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
-        <Route path="/admin-dashboard/payroll" element={<AdminPayrollPage />} />
-        <Route path="/tutor-dashboard" element={<TutorDashboard/>}/>
       </Route>
+      <Route path="/reset-password" element={<ResetPassword/>}/>
     </Routes>
   );
 }

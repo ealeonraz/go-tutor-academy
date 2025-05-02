@@ -11,8 +11,11 @@ import infoRoutes from "./routes/info.routes.js"; // Info routes
 import studentRoutes from "./routes/student.routes.js"; // Student routes
 import subjectRoutes from "./routes/subjects.routes.js"
 import eventRoutes from "./routes/events.routes.js"
+import noteRoutes from "./routes/notes.routes.js"
+import resetRoutes from "./routes/reset.routes.js"; // Reset password routes
+
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 const corsOptions = {
   origin: 'http://localhost:5173',  // Update to match the frontend port
@@ -36,7 +39,9 @@ app.use("/api/subjects", subjectRoutes)
 app.use("/api/tutors", tutorRoutes);  // Tutor routes
 app.use("/api/info", infoRoutes);  // Info routes
 app.use("/api/students", studentRoutes);  // Student routes
-app.use("/api/events", eventRoutes)
+app.use("/api/events", eventRoutes);
+app.use("/api/tutor-notes", noteRoutes);
+app.use("/api/reset-password", resetRoutes);  // Reset password routes
 
 // Connect to MongoDB
 db.mongoose

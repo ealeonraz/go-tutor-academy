@@ -40,6 +40,8 @@ const userSchema = new mongoose.Schema(
           // You can leave the roles array empty initially
         },
       ],
+      resetToken: String,
+      resetTokenExpiration: Date,
     },
     { timestamps: true } // Automatically adds createdAt and updatedAt fields
   );
