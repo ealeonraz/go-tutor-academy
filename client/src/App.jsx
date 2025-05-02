@@ -30,8 +30,8 @@ function App() {
       <Route element = {<PrivateRoute/>}>
         <Route path="/student-dashboard" element={<StudentDashboardHome />} />
         <Route path="/student-dashboard/calendar" element={<StudentDashboardCalendar/>}/>
-        <Route path="/studentdashboard/yourutors" element={<SDH_yourTutors />} />
-        <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
+        <Route path="/student-dashboard/your-tutors" element={<SDH_yourTutors />} />
+        <Route path="/student-dashboard/search-results" element={<SearchTutorResults />} />
         <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
       </Route>
