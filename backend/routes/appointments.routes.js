@@ -23,10 +23,16 @@ router.post('/create', async (req, res) => {
     const startTime = new Date(start);
     const endTime = new Date(end);
 
-    // Create a new appointment with tutor's name (String) 
+    // Ensure the tutor exists by validating the tutor's ObjectId
+    const selectedTutor = await Tutor.findById(tutor);
+    if (!selectedTutor) {
+      return res.status(404).json({ message: 'Tutor not found' });
+    }
+
+    // Create a new appointment with tutor's ObjectId (as reference)
     const newAppointment = new Appointment({
       userId,
-      tutor,  // Store tutor's name as string
+      tutor,  // Store tutor's ObjectId
       start: startTime,
       end: endTime,
       subject,

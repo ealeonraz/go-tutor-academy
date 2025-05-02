@@ -11,6 +11,41 @@ import Appointment from '../models/appointment.model.js'; // Importing Appointme
 
 const router = express.Router();
 
+
+router.get('/:id/info', async (req, res) => {
+  try {
+    const tutorId = req.params.id; // Get tutor's ID from the request URL
+    const token = req.headers.authorization?.split(" ")[1]; // Extract token from headers
+
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized access' });
+    }
+
+    // Verify the token and decode the payload
+    const decoded = jwt.verify(token, config.secret);
+
+    // Find the tutor by ID and populate their available time slots
+    const tutor = await Tutor.findById(tutorId);
+
+    if (!tutor) {
+      return res.status(404).json({ message: 'Tutor not found' });
+    }
+
+    // Assuming Tutor schema has a field called availableHours for availability
+    const tutorInfo = {
+      id: tutor._id,
+      name: `${tutor.firstName} ${tutor.lastName}`,
+      subjects: tutor.subjects,
+      availableSlots: tutor.availableHours, // Assume availableHours is an array of time slots
+    };
+
+    res.status(200).json(tutorInfo); // Send the tutor's information and availability
+
+  } catch (err) {
+    console.error('Error retrieving tutor info:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 /**
  * @route   GET /api/tutors
  * @desc    Retrieve all tutors from the database (admin access)

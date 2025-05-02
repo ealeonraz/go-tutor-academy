@@ -1,4 +1,3 @@
-// backend/models/appointment.model.js
 import mongoose from 'mongoose';
 
 const appointmentSchema = new mongoose.Schema(
@@ -9,7 +8,8 @@ const appointmentSchema = new mongoose.Schema(
       required: true
     },
     tutor: {
-      type: String,  // Use tutor's name as a string
+      type: mongoose.Schema.Types.ObjectId,  // Change to ObjectId to reference Tutor model
+      ref: 'Tutor',  // Reference to the Tutor model (tutor)
       required: true
     },
     start: {

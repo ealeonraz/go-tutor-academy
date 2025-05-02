@@ -5,8 +5,7 @@ import AppointmentForm from './pages/AppointmentForm';
 import AptFeedback from './pages/AptFeedback';
 import TutorFeedback from './pages/TutorFeedback';
 import TutorHours from './pages/TutorHours';
-import AdminPayOverview from './pages/AdminPayOverview';
-import StudentDashboardHome from './pages/studentDashboard';
+import AdminPayOverview from './pages/AdminPayOverview';import StudentDashboardHome from './pages/studentDashboard';
 import TutorDashboardHome from './pages/TutorDashboard';
 import SDH_yourTutors from './pages/SDH-yourTutors';
 import TDH_yourStudents from './pages/TDH-yourStudents';
@@ -17,9 +16,10 @@ import SearchTutorResults from './pages/Search-Tutor-Results';
 import SearchStudentResults from './pages/Search-Student-Results';
 import PrivateRoute from "./context/PrivateRoutes.jsx"
 import StudentDashboardCalendar from './pages/StudentDashboardCalendar.jsx';
-import AdminPayrollPage from './pages/AdminPayroll.jsx';
 import AdminDashboardHome from './pages/AdminDashboard.jsx';
 import TutorProfileView from './pages/TutorProfileView.jsx';
+import ResetPassword from './pages/ResetPassword.jsx';
+
 
 
 function App() {
@@ -34,7 +34,12 @@ function App() {
         <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
         <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
+        <Route path="/student-dashboard/notes" element={<NotesPage/>}/>
+        <Route path="/TutorHours" element={<TutorHours />} />
+        <Route path="/admin-dashboard/admin-payroll" element={<AdminPayOverview />} />
+        <Route path="/tutor-dashboard" element={<TutorDashboardHome />} />
       </Route>
+      <Route path="/reset-password" element={<ResetPassword/>}/>
     </Routes>
   );
 }
