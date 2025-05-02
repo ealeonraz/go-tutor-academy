@@ -1,0 +1,94 @@
+body {
+    background-color: #dcc6f6;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .payroll-page {
+    background-color: #dcc6f6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding-top: 60px;
+  }
+  
+  .payroll-box {
+    background-color: #e3c9ff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    width: 500px;
+  }
+  
+  .title {
+    text-align: center;
+    color: #4c00b0;
+    margin-bottom: 25px;
+    font-size: 24px;
+  }
+  
+  .payroll-form label {
+    display: block;
+    margin-bottom: 15px;
+    color: #2c0066;
+    font-weight: bold;
+  }
+  
+  .payroll-form input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #b38aff;
+    border-radius: 8px;
+    margin-top: 5px;
+    font-size: 16px;
+    background-color: white;
+  }
+  
+  .payroll-form button {
+    background: #8137dd;
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background 0.3s ease;
+  }
+  
+  .payroll-form button:hover {
+    background: #672bb4;
+  }
+  
+  .summary-section {
+    margin-top: 30px;
+    color: #2c0066;
+  }
+  
+  .summary-section h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  
+  .summary-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .summary-section li {
+    background: #f2eaff;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  
+  .total {
+    margin-top: 20px;
+    color: #4c00b0;
+    font-weight: bold;
+    font-size: 18px;
+  }
