@@ -19,6 +19,10 @@ import StudentDashboardCalendar from './pages/StudentDashboardCalendar.jsx';
 import AdminPayrollPage from './pages/AdminPayroll.jsx';
 import AdminDashboardHome from './pages/AdminDashboard.jsx';
 import TutorProfileView from './pages/TutorProfileView.jsx';
+import ResetPassword from './pages/ResetPassword';
+import TutorPayrollPage from './pages/TutorPayrollPage.jsx';
+
+
 
 
 function App() {
@@ -33,6 +37,8 @@ function App() {
         <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
         <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
+        <Route path="/tutor-dashboard/payroll" element={<TutorPayrollPage />} />
+        <Route path="/tutor-dashboard" element={<TutorDashboardHome />} />
       </Route>
       <Route path="/reset-password" element={<ResetPassword/>}/>
     </Routes>
