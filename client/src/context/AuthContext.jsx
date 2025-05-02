@@ -35,7 +35,6 @@ const AuthProvider = ({ children }) => {
         setUser(res);
         setAuthToken(res.accessToken);
         localStorage.setItem("token", res.accessToken);
-        console.log(`Set token ${res.accessToken}\nAll working`)
         navigate(`/${res.role[0]}-dashboard`)
         return;
       }

@@ -1,114 +1,130 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/LoggedInNavbar';  // Keep the original Navbar
-import TutorDashboardNavbar from '../components/TutorDashboardNavbar';
-import Footer from '../components/Footer';
-import { Calendar, Users, UserPlus } from 'lucide-react';  // Importing correct icons
-import './TutorDashboard.css';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import CalendarSidebar from '../components/TutorCalendarSidebar.jsx';
+import EventDetailsModal from '../components/EventDetailsModal.jsx';
+import ScheduleEditForm from '../components/ScheduleEditForm.jsx'; // New component for editing schedule
+import ManageSubjects from '../components/ManageSubjects.jsx'; // New component for managing subjects
+import Header from '../components/LoggedInNavbar.jsx';
+import DashboardNavbar from '../components/DashboardNavbar.jsx';
 
-function TutorDashboardHome() {
-    const [stats, setStats] = useState({
-        totalStudents: 0,
-        totalTutors: 0,
-        appointmentsThisMonth: 0,
-    });
-    const [upcomingAppointments, setUpcomingAppointments] = useState([]);
-    const [timeMessage, setTimeMessage] = useState('');
-    const [currentTime, setCurrentTime] = useState('');
-    const [currentDate, setCurrentDate] = useState(new Date());
+export default function TutorDashboardCalendar() {
+  const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [newEventData, setNewEventData] = useState(null);
+  const [subjects, setSubjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [manageSubjectsVisible, setManageSubjectsVisible] = useState(false); // Add state for visibility
+  const token = localStorage.getItem("token");
 
-    useEffect(() => {
-        // Update greeting message based on time
-        const intervalId = setInterval(() => {
-            const currentHour = new Date().getHours();
-            if (currentHour >= 5 && currentHour < 12) {
-                setCurrentTime("Good Morning, ");
-                setTimeMessage("Ready to inspire minds and guide students today?");
-            } else if (currentHour >= 12 && currentHour < 18) {
-                setCurrentTime("Good Afternoon, ");
-                setTimeMessage("A great time to check in and help students succeed!");
-            } else {
-                setCurrentTime("Good Evening, ");
-                setTimeMessage("Ready to wrap up and prepare for tomorrow?");
-            }
-            setCurrentDate(new Date());
-        }, 1000);
+  // Fetch appointments and tutor's subjects from the backend
 
-        // Clean up the interval on unmount
-        return () => clearInterval(intervalId);
-    }, []);
+  // Function to handle event selection for viewing or editing
+  const handleSelectEvent = (eventInfo) => {
+    let eventData = eventInfo;
+    if (eventInfo.event) {
+      const ev = eventInfo.event;
+      eventData = {
+        id: ev.id,
+        title: ev.title,
+        start: ev.start,
+        end: ev.end,
+        extendedProps: { ...ev.extendedProps }
+      };
+    }
+    setSelectedEvent(eventData);
+  };
 
-    // Fetch statistics like total students, tutors, appointments, etc.
-    useEffect(() => {
-        // Simulate fetching tutor and student stats (replace with actual API calls)
-        setStats(prev => ({
-            ...prev,
-            totalTutors: 10,
-            totalStudents: 50,
-            appointmentsThisMonth: 30,
-        }));
+  // Handle opening schedule edit modal
+  const handleOpenScheduleModal = () => {
+    setShowScheduleModal(true);
+  };
 
-        // Fetch upcoming appointments (replace with actual API calls)
-        setUpcomingAppointments([
-            { subject: "Math", tutor: "John Doe", start: "2025-05-01T10:00:00", end: "2025-05-01T11:00:00" },
-            { subject: "Science", tutor: "Jane Doe", start: "2025-05-02T14:00:00", end: "2025-05-02T15:00:00" },
-        ]);
-    }, []);
+  const handleCloseScheduleModal = () => {
+    setShowScheduleModal(false);
+  };
 
-    return (
-        <div className="tutor-dashboard-container">
-            <Header />
-            <TutorDashboardNavbar />
-            <div className="tutor-dashboard-body">
-                <main className="tutor-dashboard-content">
-                    <div className="tutor-welcome-header">
-                        <h1>{currentTime}Tutor</h1>
-                        <h4 className="tutor-tagline">{timeMessage}</h4>
-                    </div>
+  const handleCreateAppointment = (appointmentData) => {
+    setEvents(prevEvents => [
+      ...prevEvents,
+      { id: new Date().getTime(), ...appointmentData }
+    ]);
+    setShowScheduleModal(false);
+  };
 
-                    <div className="overview-section">
-                        <div className="overview-card">
-                            <div className="card-icon"><Users /></div>
-                            <h2>{stats.totalStudents}</h2>
-                            <p>Total Students</p>
-                        </div>
-                        <div className="overview-card">
-                            <div className="card-icon"><UserPlus /></div>
-                            <h2>{stats.totalTutors}</h2>
-                            <p>Total Tutors</p>
-                        </div>
-                        <div className="overview-card">
-                            <div className="card-icon"><Calendar /></div>
-                            <h2>{stats.appointmentsThisMonth}</h2>
-                            <p>Appointments (This Month)</p>
-                        </div>
-                    </div>
+  // Toggle the visibility of the ManageSubjects component
+  const toggleManageSubjects = () => {
+    setManageSubjectsVisible(prevState => !prevState);
+  };
 
-                    <div className="upcoming-section">
-                        <h3>Upcoming Appointments</h3>
-                        <ul className="upcoming-appointments">
-                            {upcomingAppointments.length > 0 ? (
-                                upcomingAppointments.map((appointment, index) => (
-                                    <li className="appointment-item" key={index}>
-                                        <h4>{appointment.subject}</h4>
-                                        <p><strong>Tutor:</strong> {appointment.tutor}</p>
-                                        <p><strong>Start:</strong> {new Date(appointment.start).toLocaleString()}</p>
-                                        <p><strong>End:</strong> {new Date(appointment.end).toLocaleString()}</p>
-                                    </li>
-                                ))
-                            ) : (
-                                <p>No upcoming appointments.</p>
-                            )}
-                        </ul>
-                    </div>
-
-                    <div className="tutor-quick-actions">
-                        <button className="action-button">Manage Availability</button>
-                    </div>
-                </main>
-            </div>
-            <Footer />
+  return (
+    <div className="dashboard-page">
+      <Header />
+      <DashboardNavbar />
+      <div className="dashboard-content">
+        <div className="header-section">
+          <h1>Your Calendar</h1>
+          <p>Manage your tutoring sessions and view upcoming appointments.</p>
         </div>
-    );
-}
 
-export default TutorDashboardHome;
+        <div className="main-content">
+          <CalendarSidebar events={events} onSelectEvent={handleSelectEvent} />
+          <div className="calendar-panel">
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              initialView="timeGridWeek"
+              headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek'
+              }}
+              selectable={true}
+              select={handleSelectEvent}
+              nowIndicator={true}
+              events={events}
+              eventClassNames={(info) => {
+                const { subject, feedbackSubmitted } = info.event.extendedProps;
+                const isPast = info.event.start < new Date();
+                let classes = [];
+                if (subject) classes.push(`event-${subject.toLowerCase()}`);
+                if (isPast) classes.push('past-event');
+                else classes.push('upcoming-event');
+                if (isPast && !feedbackSubmitted) classes.push('feedback-pending');
+                return classes;
+              }}
+              eventContent={(info) => {
+                const { feedbackSubmitted } = info.event.extendedProps;
+                const isPast = info.event.start < new Date();
+                let statusIcon = null;
+                if (isPast) {
+                  statusIcon = feedbackSubmitted ? '✅' : '🕒';
+                }
+                return (
+                  <div>
+                    <b>{info.timeText}</b>{" "}
+                    <span>{info.event.title}</span>
+                    {statusIcon && <span style={{ marginLeft: 4 }}>{statusIcon}</span>}
+                  </div>
+                );
+              }}
+              eventClick={handleSelectEvent}
+            />
+          </div>
+        </div>
+
+
+
+        {selectedEvent && (
+          <EventDetailsModal
+            event={selectedEvent}
+            onClose={() => setSelectedEvent(null)}
+          />
+        )}
+
+      </div>
+    </div>
+  );
+}
