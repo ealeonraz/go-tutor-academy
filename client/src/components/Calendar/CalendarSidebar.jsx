@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaCalendarAlt, FaEdit, FaTrashAlt, FaStickyNote } from 'react-icons/fa';
-<<<<<<< HEAD:client/src/components/Calendar/CalendarSidebar.jsx
 import AppointmentForm from '../Modals/CreateAppointmentModal.jsx';
 import Feedback from '../Feedback/Feedback.jsx';
 import './Calendar.css';
-=======
-import AppointmentForm from './CreateAppointmentModal.jsx';
-import Feedback from './Feedback.jsx';
-import './CalendarSidebar.css';
-import './calendar.css'
-import { useAuth } from '../context/AuthContext.jsx';
->>>>>>> main:client/src/components/CalendarSidebar.jsx
 
 export default function CalendarSidebar({
   events = [],
