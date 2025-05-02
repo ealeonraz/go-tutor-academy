@@ -1,7 +1,11 @@
 import React, { useLayoutEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/HomePage/Home.jsx';
-import DashboardHome from './pages/Dashboard/Dashboard.jsx';
+import Home from './pages/Home';
+import AppointmentForm from './pages/AppointmentForm';
+import AptFeedback from './pages/AptFeedback';
+import TutorFeedback from './pages/TutorFeedback';
+import TutorHours from './pages/TutorHours';
+import AdminPayOverview from './pages/AdminPayOverview';import StudentDashboardHome from './pages/studentDashboard';
 import TutorDashboardHome from './pages/TutorDashboard';
 import AdminDashboardHome from './pages/AdminDashboard';
 import SDH_yourTutors from './pages/YourTutors/YourTutors.jsx';
@@ -17,33 +21,31 @@ import AdminSearchTutorResults from './pages/Admin-Search-Tutor-Results';
 import AdminSearchStudentResults from './pages/SearchResults/Search-Student-Results';
 import AccountSettings from './pages/AccountSettings/AccountSettings.jsx'; // Import the new AccountSettings component
 import PrivateRoute from "./context/PrivateRoutes.jsx"
-import DashboardCalendar from './pages/Calendar/DashboardCalendar.jsx';
-import ManageUsers from './pages/Admin/ManageUsers.jsx';
+import StudentDashboardCalendar from './pages/StudentDashboardCalendar.jsx';
+import AdminDashboardHome from './pages/AdminDashboard.jsx';
+import TutorProfileView from './pages/TutorProfileView.jsx';
+import ResetPassword from './pages/ResetPassword.jsx';
+
+
 
 function App() {
   return (
 
     <Routes element={<Layout />}>
       <Route path="/" element={<Home />} />
-      <Route element={<PrivateRoute />}>
-        <Route path="/Dashboard" element={<DashboardHome />} />
+      <Route element = {<PrivateRoute/>}>
+        <Route path="/student-dashboard" element={<StudentDashboardHome />} />
+        <Route path="/student-dashboard/calendar" element={<StudentDashboardCalendar/>}/>
+        <Route path="/studentdashboard/yourutors" element={<SDH_yourTutors />} />
+        <Route path="/studentdashboard/search-results" element={<SearchTutorResults />} />
+        <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
+        <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
+        <Route path="/student-dashboard/notes" element={<NotesPage/>}/>
+        <Route path="/TutorHours" element={<TutorHours />} />
+        <Route path="/admin-dashboard/admin-payroll" element={<AdminPayOverview />} />
         <Route path="/tutor-dashboard" element={<TutorDashboardHome />} />
-        <Route path="/tutor-dashboard/your-students" element={<TDH_yourStudents />} />
-        <Route path="/tutor-dashboard/search-student-results" element={<SearchStudentResults />} />
-        <Route path="/tutor-dashboard/notes" element={<NotesPage />} />
-        <Route path="/AccountSettings" element={<AccountSettings />} /> {/* Add this line for account settings */}
-        <Route path="/Dashboard/calendar" element={<DashboardCalendar />} />
-        <Route path="/Dashboard/YourTutors" element={<SDH_yourTutors />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route path="/Admin/ManageUsers" element={<ManageUsers />} />
-
-        <Route path="/admin-dashboard" element={<AdminDashboardHome />} />
-        <Route path="/admin-dashboard/your-students" element={<ADH_yourStudents />} />
-        <Route path="/admin-dashboard/your-tutors" element={<ADH_yourTutors />} />
-        <Route path="/admin-dashboard/search-student-results" element={<AdminSearchStudentResults />} />
-        <Route path="/admin-dashboard/search-tutor-results" element={<AdminSearchTutorResults />} />
-        <Route path="/admin-dashboard/notes" element={<NotesPage />} />
       </Route>
+      <Route path="/reset-password" element={<ResetPassword/>}/>
     </Routes>
   );
 }

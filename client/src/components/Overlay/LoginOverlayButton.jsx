@@ -1,6 +1,7 @@
 import React, { useState, useRef, useContext } from "react";
 import { useAuth } from "../../context/AuthContext";
 import "./Overlay.css";
+import ForgotPassword from "./ForgotPassword";
 
 const LoginOverlayButton = () => {
   const dialogRef = useRef(null);
@@ -101,7 +102,7 @@ const LoginOverlayButton = () => {
                 Sign In
               </button>
             </form>
-            <a className="login-link">Forgot Password?</a>
+            <ForgotPassword />
             <a className="login-link">Don't have an account?</a>
           </div>
         </dialog>

@@ -1,10 +1,8 @@
-// src/components/Calendar.jsx
 import React, { useState, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import rrulePlugin from '@fullcalendar/rrule';
 
 import FeedbackModal from './FeedbackModal.jsx';
 
@@ -126,14 +124,14 @@ export default function Calendar() {
   return (
     <div className="calendar-section">
       <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, rrulePlugin]}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}  // No rrulePlugin
         initialView="timeGridWeek"
         headerToolbar={{
           left: 'prev,next today',
           center: 'title',
           right: 'timeGridWeek,dayGridMonth'
         }}
-        scrollTime="06:00:00"      // scroll to 7 AM on load
+        scrollTime="06:00:00"      // scroll to 6 AM on load
         allDaySlot={false}
         selectable={true}
         editable={true}
@@ -145,9 +143,25 @@ export default function Calendar() {
         eventClick={handleEventClick}
         eventDrop={handleEventChange}
         eventResize={handleEventChange}
+
+        // Event rendering customization
+        eventRender={(info) => {
+          const { title, start } = info.event;
+          const formattedTime = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+          const eventElement = info.el;
+          const eventText = `
+            <div>
+              <strong>${title}</strong>
+              <br />
+              <span>${formattedTime}</span>
+            </div>
+          `;
+          
+          // Adding the text to the event's HTML element
+          eventElement.innerHTML = eventText;
+        }}
       />
-
-
 
       {showFeedbackModal && selectedEvent && (
         <FeedbackModal

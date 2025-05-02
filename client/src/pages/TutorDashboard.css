@@ -1,0 +1,191 @@
+/* TutorDashboardCalendar.css */
+.dashboard-page {
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header-section h1 {
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+.action-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.action-button {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.action-button:hover {
+  background-color: var(--secondary);
+}
+
+.modal {
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.manage-subjects {
+  margin-top: 2rem;
+}
+
+.manage-subjects input {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.manage-subjects button {
+  margin-top: 1rem;
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.manage-subjects button:hover {
+  background-color: var(--secondary);
+}
+
+  
+  /* Quick Info Cards */
+  .info-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .info-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .info-card__value {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .info-card__icon {
+    font-size: 2rem;
+    color: #4A90E2;
+  }
+  
+  /* Layout grid */
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .col-span-1 {
+    grid-column: span 1;
+  }
+  
+  .col-span-3 {
+    grid-column: span 3;
+  }
+  
+  .mb-6 {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Calendar Sidebar */
+  .calendar-sidebar {
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .calendar-sidebar ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .calendar-sidebar li {
+    padding: 0.5rem 0;
+  }
+  
+  .calendar-sidebar a {
+    text-decoration: none;
+    color: #2d3748;
+    font-weight: 500;
+  }
+  
+  .calendar-sidebar a:hover {
+    color: #4A90E2;
+  }
+  
+  /* FullCalendar */
+  .fc-toolbar {
+    background-color: #f3f4f6;
+  }
+  
+  .fc-dayGridMonth-button, .fc-timeGridWeek-button {
+    color: #4a5568;
+  }
+  
+  .fc-dayGridMonth-button:hover, .fc-timeGridWeek-button:hover {
+    background-color: #e2e8f0;
+  }
+  
+  .fc-daygrid-day-number {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .fc-daygrid-event {
+    background-color: #4A90E2;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  .fc-daygrid-event:hover {
+    background-color: #357ABD;
+  }
+  
+  .fc-daygrid-event-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  

@@ -1,0 +1,206 @@
+/* ======================== */
+/* CALENDAR SIDEBAR STYLES */
+/* ======================== */
+.sidebar {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 280px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+  }
+  
+  /* New Appointment Button */
+  .new-appointment-button {
+    background-color: #8a2ce2;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .new-appointment-button:hover {
+    background-color: #7a25c2;
+  }
+  
+  /* Widget Styles */
+  .widget {
+    margin-bottom: 1.5rem;
+  }
+  
+  .widget h2 {
+    font-size: 1.1rem;
+    color: #8a2ce2;
+    margin-bottom: 0.5rem;
+  }
+  
+  .widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .widget ul li {
+    margin: 0.4rem 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  
+  .widget ul li:hover {
+    text-decoration: underline;
+  }
+  
+  /* Appointment Item Styles */
+  .appointment-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: #fdf9ff;
+    border: 1px solid #e8e0ef;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .appointment-item.past {
+    opacity: 0.8;
+  }
+  
+  .appointment-info {
+    flex: 1;
+    cursor: pointer;
+  }
+  
+  .appointment-time {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .appointment-title {
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .past-time {
+    color: #777;
+  }
+  
+  /* Appointment Actions (Edit/Cancel Buttons) */
+  .icon-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.2rem;
+    margin-left: 0.3rem;
+  }
+  
+  .icon-btn:hover {
+    color: #8a2ce2;
+  }
+  
+  /* Feedback Button */
+  .feedback-button {
+    background-color: transparent;
+    border: 1px solid #8a2ce2;
+    color: #8a2ce2;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+  
+  .feedback-button:hover {
+    background-color: rgba(138, 44, 226, 0.1); /* light purple background */
+    transform: translateY(-1px);                /* tiny “lift” effect */
+  }
+  
+  .feedback-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(138, 44, 226, 0.4);
+  }
+  
+  /* See All Button */
+  .see-all-button {
+    background: none;
+    border: none;
+    color: #8a2ce2;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .see-all-button:hover {
+    text-decoration: underline;
+  }
+  
+  /* ======================== */
+  /* MODAL STYLES */
+  /* ======================== */
+  .modal-content {
+    background: #fff;
+    color: #333;
+    padding: 1.5rem;
+    width: 500px;
+    max-width: 90%;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #8a2ce2;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.4rem;
+    color: #8a2ce2;
+    margin: 0 0 0.4rem;
+  }
+  
+  .modal-header p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .modal-body {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+
+  /* ======================== */
+  /* RESPONSIVE STYLES */
+  /* ======================== */
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    .calendar-panel {
+      width: 100%;
+    }
+  }
+  

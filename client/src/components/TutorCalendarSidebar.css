@@ -1,0 +1,310 @@
+/* TUTOR SIDEBAR STYLES */
+/* ======================== */
+
+/* Sidebar Container */
+.tutor-sidebar {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 280px; /* example width, adjust as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  
+  /* Action Button Styling (for Edit My Schedule, Manage Subjects) */
+  .tutor-action-button {
+    display: block;
+    width: 100%;
+    background-color: #8a2ce2;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.75rem 0;
+    margin-bottom: 1rem;
+    border: 1px solid #7a25c2;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease;
+  }
+  
+  .tutor-action-button:hover {
+    background-color: #7a25c2;
+    border-color: #6f22b2;
+  }
+  
+  /* Widgets (Upcoming Sessions, Feedback Received, etc.) */
+  .tutor-widget {
+    margin-bottom: 1.5rem;
+  }
+  
+  .tutor-widget h2 {
+    font-size: 1.1rem;
+    color: #8a2ce2;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Upcoming Sessions Widget */
+  .tutor-upcoming-widget {
+    padding: 0.5rem;
+  }
+  
+  .tutor-upcoming-widget .appointment-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: #fdf9ff;
+    border: 1px solid #e8e0ef;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .tutor-upcoming-widget .appointment-item.past {
+    opacity: 0.8;
+  }
+  
+  .tutor-appointment-info {
+    flex: 1;
+    cursor: pointer;
+  }
+  
+  .tutor-appointment-time {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .tutor-appointment-title {
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .tutor-see-all-button {
+    background: none;
+    border: none;
+    color: #8a2ce2;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .tutor-see-all-button:hover {
+    text-decoration: underline;
+  }
+  
+  /* Feedback Widget */
+  .tutor-feedback-widget {
+    padding: 0.5rem;
+  }
+  
+  .tutor-feedback-widget .appointment-item.past {
+    opacity: 0.8;
+  }
+  
+  .tutor-feedback-button {
+    background-color: transparent;
+    border: 1px solid #8a2ce2;
+    color: #8a2ce2;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+  
+  .tutor-feedback-button:hover {
+    background-color: rgba(138, 44, 226, 0.1); /* light purple background */
+    transform: translateY(-1px);                /* tiny “lift” effect */
+  }
+  
+  .tutor-feedback-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(138, 44, 226, 0.4);
+  }
+  
+  .tutor-see-all-button {
+    background: none;
+    border: none;
+    color: #8a2ce2;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .tutor-see-all-button:hover {
+    text-decoration: underline;
+  }
+  
+  /* Manage Subjects Widget */
+  .tutor-manage-subjects-widget {
+    padding: 0.5rem;
+  }
+  
+  .tutor-manage-subjects-widget h2 {
+    font-size: 1.1rem;
+    color: #8a2ce2;
+    margin-bottom: 0.5rem;
+  }
+  
+  .tutor-manage-subjects-widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .tutor-manage-subjects-widget ul li {
+    font-size: 0.9rem;
+    margin: 0.4rem 0;
+    cursor: pointer;
+  }
+  
+  .tutor-manage-subjects-widget ul li:hover {
+    text-decoration: underline;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background: #fff;
+    color: #333;
+    padding: 1.5rem;
+    width: 500px;
+    max-width: 90%;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #8a2ce2;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.4rem;
+    color: #8a2ce2;
+    margin: 0 0 0.4rem;
+  }
+  
+  .modal-header p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .modal-body {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  /* General Appointment Info */
+  .appointment-info {
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .appointment-time {
+    display: block;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .appointment-title {
+    display: block;
+    font-size: 0.95rem;
+    color: #555;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  
+  .appointment-actions {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .appointment-actions button {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.2rem 0.3rem;
+  }
+  
+  .appointment-actions button:hover {
+    color: #8a2ce2;
+  }
+  
+  .upcoming-actions .btn-primary {
+    background-color: #8a2ce2;
+    color: #fff;
+  }
+  
+  .upcoming-actions .btn-outline {
+    background-color: transparent;
+    color: #8a2ce2;
+    border: 2px solid #8a2ce2;
+  }
+  
+  .upcoming-actions .btn-outline:hover {
+    background-color: #8a2ce2;
+    color: #fff;
+  }
+  
+  /* Widget Style Adjustments for Manage Subjects, Feedback */
+  .tutor-widget {
+    margin-bottom: 1.5rem;
+  }
+  
+  .tutor-widget h2 {
+    font-size: 1.1rem;
+    color: #8a2ce2;
+    margin-bottom: 0.5rem;
+  }
+  
+  .tutor-widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .tutor-widget ul li {
+    margin: 0.4rem 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  
+  .tutor-widget ul li:hover {
+    text-decoration: underline;
+  }
+  
+  .sidebar-widgets {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid #ddd;
+  }
+  
+  .widget {
+    margin-bottom: 1rem;
+  }
+  
+
+  

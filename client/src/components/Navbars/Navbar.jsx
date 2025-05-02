@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
-import RegisterOverlay from '../Overlay/RegisterOverlayButton'
-import '../Overlay/Overlay.css'
-import LoginOverlayButton from '../Overlay/LoginOverlayButton'
-import WebsiteLogo from '../../assets/WebsiteLogo.webp'
+import RegisterOverlay from '../components/RegisterOverlayButton'
+import './Overlay.css'
+import './Component.css'
+import LoginOverlayButton from '../components/LoginOverlayButton'
+import WebsiteLogo from "../assets/go-tutor-academy-logo.png";
 
 
 
@@ -20,7 +21,7 @@ export default function Navbar() {
     return (
       <div className="nav-main">
       <nav>
-        <div className = "website-logo">
+        <div className = "logo-small">
           <img src = {WebsiteLogo}></img>
         </div>
         

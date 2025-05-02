@@ -1,0 +1,177 @@
+/* AdminPayOverview.css */
+
+.admin-pay-overview-container {
+    padding: 25px;
+    background-color: #eef2f7; /* Lighter, softer background */
+    min-height: 100vh;
+    font-family: sans-serif; /* Basic sans-serif font */
+}
+
+.overview-title {
+    margin-bottom: 30px;
+    color: #2c3e50; /* Darker blue-gray */
+    text-align: center;
+    font-size: 2.2em;
+    font-weight: 300; /* Lighter font weight */
+}
+
+/* Overall Summary Box Styles */
+.summary-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    max-width: 700px; /* Limit width for better readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.summary-heading {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #34495e; /* Slightly different shade */
+    font-size: 1.6em;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid #ecf0f1; /* Lighter border */
+    padding-bottom: 15px;
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between summary items */
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #ecf0f1; /* Dashed separator */
+}
+.summary-item:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+.summary-label {
+    font-weight: 500; /* Medium weight */
+    color: #555;
+    font-size: 1.1em;
+}
+
+.summary-value {
+    font-weight: 600;
+    font-size: 1.2em;
+    color: #2980b9; /* Standard blue for values */
+}
+
+.summary-value.cost {
+    color: #27ae60; /* Green for cost */
+    font-weight: 700; /* Bolder for cost */
+}
+
+.summary-value.overtime {
+    color: #e67e22; /* Orange/yellow for overtime */
+}
+
+.pay-period-dates {
+    font-size: 0.9em;
+    color: #7f8c8d; /* Gray */
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Loading and Error Message Styles */
+.loading-message,
+.error-message {
+    text-align: center;
+    font-size: 1.2em;
+    padding: 40px 20px;
+    color: #555;
+}
+
+.error-message {
+    color: #c0392b; /* Red for errors */
+    font-weight: bold;
+}
+
+/* --- Tutor Breakdown Section Styles --- */
+.tutor-breakdown-section {
+    margin-top: 30px;
+    padding: 20px 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    max-width: 900px; /* Can be wider than summary */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.breakdown-heading {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #34495e;
+    font-size: 1.6em;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid #ecf0f1;
+    padding-bottom: 15px;
+}
+
+.tutor-summary-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #f9f9f9; /* Light background for each tutor card */
+    transition: box-shadow 0.2s ease-in-out;
+}
+.tutor-summary-item:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.tutor-name {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.tutor-details {
+    display: grid;
+    /* Create columns for Pay, Total Hrs, OT Hrs */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px 20px; /* Row and column gap */
+}
+
+.tutor-details p {
+    margin: 5px 0;
+    font-size: 1em;
+    display: flex;
+    flex-direction: column; /* Stack label and value */
+}
+
+.tutor-label {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.tutor-value {
+    font-weight: 600;
+    color: #333;
+}
+
+.tutor-value.pay {
+    color: #27ae60; /* Green for pay */
+}
+
+.no-tutor-data {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    padding: 20px;
+}

@@ -1,0 +1,90 @@
+/* src/components/DeleteConfirmationModal.css */
+
+.delete-confirmation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .delete-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 1px solid #8a2ce2; /* Purple border */
+  }
+  
+  .delete-modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #8a2ce2; /* Purple text */
+  }
+  
+  .delete-modal-info {
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  
+  .delete-modal-info strong {
+    font-weight: bold;
+  }
+  
+  .delete-modal-info span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .delete-modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .delete-confirm-btn,
+  .delete-cancel-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-confirm-btn {
+    background-color: #8a2ce2; /* Purple button */
+    color: white;
+  }
+  
+  .delete-confirm-btn:hover {
+    background-color: #7a25c2; /* Darker purple on hover */
+  }
+  
+  .delete-cancel-btn {
+    background-color: transparent;
+    color: #8a2ce2;
+    border: 1px solid #8a2ce2; /* Purple border for cancel button */
+  }
+  
+  .delete-cancel-btn:hover {
+    background-color: #8a2ce2;
+    color: white;
+  }
+  
+  @media (max-width: 600px) {
+    .delete-modal-content {
+      width: 90%;
+    }
+  }
+  

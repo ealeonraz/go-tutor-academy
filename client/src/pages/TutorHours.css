@@ -1,0 +1,359 @@
+/* --- TutorHours.css --- */
+/* Ensure these styles are included and updated */
+
+/* Basic Container, Header, Footer Styles */
+.timesheet-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: sans-serif;
+}
+.header, .footer {
+    background-color: #4a4a4a;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+.header .logo { font-size: 1.2em; font-weight: bold; }
+.footer p { margin: 0; font-size: 0.9em; }
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Timesheet Header */
+.timesheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.timesheet-header h2 { margin: 0; color: #4a4a4a; flex-shrink: 0; }
+
+/* Pay Period Selector Styles */
+.pay-period-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-grow: 1; /* Allow it to take available space */
+    min-width: 250px; /* Ensure it doesn't get too small */
+}
+.pay-period-selector label {
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+}
+.pay-period-selector select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95em;
+    flex-grow: 1; /* Allow select to grow */
+    background-color: #fff;
+    cursor: pointer;
+}
+
+
+.report-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+.report-button:hover { opacity: 0.9; }
+
+
+/* Validation Summary (Overall Errors) */
+.validation-summary {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background-color: #fff3cd; /* Light yellow */
+    border: 1px solid #ffeeba;
+    border-radius: 4px;
+    color: #856404; /* Dark yellow/brown */
+}
+.validation-summary strong { display: block; margin-bottom: 5px; }
+.validation-summary ul { margin: 5px 0 0 0; padding-left: 20px; }
+.validation-summary li { margin-bottom: 3px; font-size: 0.9em; }
+
+
+/* Timesheet Grid */
+.timesheet-grid {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow-x: auto; /* Horizontal scroll */
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+/* Define columns including the new Error column */
+.grid-header, .grid-row {
+    display: grid;
+    grid-template-columns:
+        minmax(130px, 1fr)    /* Date */
+        minmax(140px, 1.2fr)  /* Student */
+        minmax(130px, 1fr)    /* Subject */
+        minmax(110px, 0.8fr)  /* Conf Code */
+        minmax(90px, 0.7fr)   /* Start Time */
+        minmax(90px, 0.7fr)   /* End Time */
+        minmax(70px, 0.6fr)   /* Duration */
+        minmax(70px, 0.6fr)   /* Reg Hrs */
+        minmax(70px, 0.6fr)   /* OT Hrs */
+        minmax(80px, 0.7fr)   /* Reg Rate */
+        minmax(80px, 0.7fr)   /* OT Rate */
+        minmax(150px, 1.5fr)  /* Notes */
+        minmax(90px, 0.8fr)   /* Est. Pay */
+        minmax(150px, 1.5fr)  /* Row Errors */
+        minmax(60px, auto);   /* Actions */
+    align-items: start; /* Align items top */
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
+}
+.grid-row:last-child { border-bottom: none; }
+
+/* Style rows outside the selected period */
+.grid-row.row-outside-period {
+   opacity: 0.6; /* Dim rows outside the period */
+   background-color: #f8f9fa; /* Light grey background */
+}
+.grid-row.row-outside-period .display-field.pay-outside-period {
+    font-style: italic;
+    color: #6c757d;
+}
+
+
+.grid-header {
+    background-color: #eaeaea;
+    font-weight: bold;
+    color: #555;
+    padding: 10px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid #ccc;
+}
+.grid-header div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9em;
+}
+.grid-header .header-errors {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Styling for inputs within the grid */
+.input-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* General input/select/textarea styles */
+.grid-row select,
+.grid-row input[type="text"],
+.grid-row input[type="number"],
+.grid-row input[type="date"],
+.grid-row input[type="time"],
+.grid-row textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.9em;
+}
+.grid-row textarea {
+    min-height: 45px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Style inputs with errors */
+.grid-row input:invalid,
+.grid-row select:invalid,
+.grid-row textarea:invalid {
+     border-color: red;
+}
+.grid-row input[style*="borderColor: red"],
+.grid-row select[style*="borderColor: red"],
+.grid-row textarea[style*="borderColor: red"] {
+     border-color: #dc3545 !important;
+     border-width: 1px;
+}
+
+
+/* Calculated/Display fields */
+.grid-row .display-field {
+    padding: 6px 5px;
+    font-size: 0.9em;
+    color: #333;
+    min-height: 31px;
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    word-break: break-word;
+}
+
+/* Row Error Area Styling */
+.row-error-area {
+    grid-column: 14 / 15;
+    padding: 4px 0;
+    font-size: 0.8em;
+    color: #dc3545;
+    min-height: 31px;
+}
+.row-error-area ul {
+    margin: 0;
+    padding: 0 0 0 15px;
+    list-style: disc;
+}
+.row-error-area li {
+    margin-bottom: 2px;
+}
+.row-error-area .error-outside-period {
+    font-style: italic;
+    color: #6c757d; /* Gray color for the message */
+    font-size: 0.9em;
+}
+
+
+/* Specific input adjustments */
+.grid-row input[type="number"] {
+    text-align: right;
+    -moz-appearance: textfield;
+}
+.grid-row input[type="number"]::-webkit-outer-spin-button,
+.grid-row input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Action button wrapper */
+.input-wrapper.action-wrapper {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Action button (Remove) */
+.grid-row .action-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+    font-size: 0.8em;
+    line-height: 1;
+}
+.grid-row .action-button:hover { background-color: #c82333; }
+
+/* Message for empty grid */
+.grid-row-empty {
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    grid-column: 1 / -1;
+}
+
+
+/* Add Row Button & Submit Actions */
+.grid-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.add-row-button,
+.grid-submit-buttons button {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease, opacity 0.2s ease; /* Smooth transition */
+}
+.add-row-button:disabled,
+.grid-submit-buttons button:disabled {
+    background-color: #cccccc; /* Grey background when disabled */
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.add-row-button {
+    background-color: #28a745;
+    color: white;
+}
+.add-row-button:not(:disabled):hover { opacity: 0.9; }
+
+
+.grid-submit-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.grid-submit-buttons button.save-button { background-color: #007bff; color: white; }
+.grid-submit-buttons button.submit-button { background-color: #ffc107; color: #333; }
+.grid-submit-buttons button:not(:disabled):hover { opacity: 0.9; }
+
+/* Summary Section */
+.timesheet-summary {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 15px 20px;
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+}
+.summary-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.summary-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px 20px;
+}
+.summary-details p {
+    margin: 5px 0;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+    flex-wrap: wrap;
+}
+.summary-details p span:first-child {
+    font-weight: 500;
+    margin-right: 10px;
+    color: #444;
+}
+.summary-details p span:last-child {
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+}
