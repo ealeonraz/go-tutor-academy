@@ -15,7 +15,7 @@ import noteRoutes from "./routes/notes.routes.js"
 import resetRoutes from "./routes/reset.routes.js"; // Reset password routes
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 const corsOptions = {
   origin: 'http://localhost:5173',  // Update to match the frontend port
