@@ -1,0 +1,177 @@
+/* Admin Payroll Page Styling */
+
+/* Root container for admin dashboard */
+.admin-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--primary);  /* Matching primary color of your dashboard */
+    color: var(--text-color); /* Text color, defined for your admin theme */
+  }
+  
+  /* Main content area of the payroll page */
+  .admin-dashboard-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 2rem;
+  }
+  
+  /* Header Styling */
+  .admin-dashboard-container h2 {
+    font-size: 1.8rem;
+    color: var(--secondary);  /* Using secondary color for headings */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* Payroll summary section */
+  .payroll-summary {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .payroll-summary p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 1em 0;
+  }
+  
+  /* Breakdown of expenditures by subject */
+  .payroll-summary ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5em 0;
+    font-size: 1.1rem;
+  }
+  
+  .payroll-summary li {
+    padding: 0.5em;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Table for displaying employee payroll data */
+  .payroll-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    text-align: left;
+  }
+  
+  .payroll-table th, .payroll-table td {
+    padding: 0.8em;
+    text-align: center;
+    font-size: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .payroll-table th {
+    background-color: var(--secondary);
+    color: white;
+    font-weight: bold;
+  }
+  
+  .payroll-table td {
+    background-color: #f9f9f9;
+  }
+  
+  /* Button styles for actions (Scoped to Payroll Page Buttons) */
+  .admin-dashboard-content button {
+    background-color: var(--primary);
+    color: white;
+    border: 2px solid var(--secondary);
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  /* Specific Button Styles for Submit Pay */
+  .admin-dashboard-content .submit-pay-btn {
+    background-color: var(--primary);
+    color: white;
+    border: 2px groove var(--secondary);
+    border-radius: 5px;
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .admin-dashboard-content .submit-pay-btn:hover {
+    background-color: var(--secondary);
+  }
+  
+  /* Disabled Button Styles */
+  .admin-dashboard-content button:disabled {
+    background-color: #ccc;
+    border-color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  /* Status indicators for 'Paid' and 'Unpaid' employees */
+  .admin-dashboard-content td[style*="font-weight: bold"] {
+    font-size: 1.1rem;
+  }
+  
+  .admin-dashboard-content td[style*="color: green"] {
+    color: green;
+  }
+  
+  .admin-dashboard-content td[style*="color: red"] {
+    color: red;
+  }
+  
+  /* History Section - payment log styling */
+  .pay-history {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .pay-history h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary);
+    text-align: center;
+  }
+  
+  .pay-history ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+  
+  .pay-history li {
+    padding: 0.5em;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.1rem;
+  }
+  
+  .pay-history li span {
+    font-weight: bold;
+    color: var(--secondary);
+  }
+  
+  /* Toggle button to show/hide history */
+  .admin-dashboard-content button[title="View Pay History"] {
+    background-color: var(--secondary);
+    color: white;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .admin-dashboard-content button[title="View Pay History"]:hover {
+    background-color: var(--primary);
+  }
+  

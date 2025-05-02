@@ -2,10 +2,11 @@ import config from '../config/auth.config.js';
 import db from '../models/index.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import Action from '../models/action.model.js';  
  
 const User = db.User;
 const Role = db.Role;
- 
+
 
 export const signup = async (req, res) => {
   try {
@@ -20,17 +21,27 @@ export const signup = async (req, res) => {
     });
     
     // Find the role document in the Role collection
-    // For example, if your Role model uses a field "name" to store role names
-    const roleDoc = await Role.findOne({ name: role }); // role should be "student"
+    const roleDoc = await Role.findOne({ name: role }); 
     if (!roleDoc) {
       return res.status(400).json({ message: "Student role not found!" });
     }
     
-    // Assign the role ID to the user's roles field
     user.roles = [roleDoc._id];
 
     // Save the user
     await user.save();
+
+    // Log the action: Account Created
+    await Action.create({
+      action_type: 'account_created',
+      user_id: user._id,  // The user who triggered the action
+      related_entity_id: user._id,  // Relate to the user
+      metadata: {
+        first_name: user.firstName,
+        last_name: user.lastName,
+        email: user.email,
+      }
+    });
 
     res.status(201).json({ message: 'User was registered as a student successfully!' });
   } catch (err) {
@@ -38,6 +49,7 @@ export const signup = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 
  

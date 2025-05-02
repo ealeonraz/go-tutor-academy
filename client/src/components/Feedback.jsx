@@ -54,12 +54,16 @@ import { useAuth } from '../context/AuthContext.jsx';
   const handleNext = () => currentStep < totalSteps && setCurrentStep(s => s + 1);
   const handleBack = () => currentStep > 1 && setCurrentStep(s => s - 1);
 
+  const token = localStorage.getItem("token");
   const handleSubmit = async e => {
     e.preventDefault();
     try {
       const res = await fetch("http://localhost:4000/api/feedback", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json" 
+        },
         body: JSON.stringify(formData)
       });
       if (!res.ok) throw new Error();

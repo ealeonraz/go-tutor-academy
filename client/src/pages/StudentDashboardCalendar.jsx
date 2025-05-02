@@ -8,6 +8,8 @@ import CalendarSidebar from '../components/CalendarSidebar.jsx';
 import EventDetailsModal from '../components/EventDetailsModal.jsx';
 import AppointmentForm from '../components/CreateAppointmentModal.jsx';
 import './StudentDashboardCalendar.css';
+import DashboardNavbar from '../components/DashboardNavbar.jsx';
+import Header from '../components/LoggedInNavbar.jsx'
 
 export default function StudentDashboardCalendar() {
   const [events, setEvents] = useState([]);
@@ -113,7 +115,8 @@ export default function StudentDashboardCalendar() {
 
   return (
     <div className="dashboard-page">
-      <StudentDashboardNavbar />
+      <Header/>
+      <DashboardNavbar />
       <div className="dashboard-content">
         <div className="header-section">
           <h1>Your Calendar</h1>

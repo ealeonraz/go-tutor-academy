@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken'; // JSON Web Token for authentication
 import Tutor from '../models/tutor.model.js'; // Tutor model for database interaction
 import db from '../models/index.js'; 
 import config from '../config/auth.config.js';
+import Appointment from '../models/appointment.model.js'; // Importing Appointment model
+
+
 
 const router = express.Router();
 
@@ -57,6 +60,32 @@ router.delete('/:id', async (req, res) => {
   } catch (err) {
     console.error('Error deleting tutor:', err);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.get('/appointments', async (req, res) => {
+  try {
+  const token = req.headers.authorization?.split(" ")[1];  // Bearer <token>
+  
+  if (!token) {
+    console.log("DINOSAURS")
+      return res.status(401).json({ message: 'Unauthorized access' });
+  }
+
+  // Verify the token and extract the user ID
+  const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+  const tutor = decoded.id;
+
+  // Find appointments related to the user
+  const appointments = await Appointment.find({ tutor })
+  
+  if (!appointments || appointments.length === 0) {
+      return res.status(404).json({ message: 'No appointments found for this user' });
+  }
+  res.status(200).json(appointments);
+  } catch (err) {
+  console.error(err);
+  res.status(500).json({ message: 'Server error' });
   }
 });
 export default router;

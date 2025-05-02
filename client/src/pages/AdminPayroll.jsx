@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/LoggedInNavbar';
-import DashboardNavbar from '../components/DashboardNavbar';  // assumed admin nav component
+import DashboardNavbar from '../components/DashboardNavbar'; 
 import Footer from '../components/Footer';
+import './AdminPayroll.css';
 
 function AdminPayrollPage() {
   // State for current period payroll data
@@ -53,19 +54,19 @@ function AdminPayrollPage() {
   };
 
   return (
-    <div className="admin-dashboard-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className="admin-dashboard-container">
       <Navbar />
-      <AdminDashboardNavbar />
-      <div className="admin-dashboard-content" style={{ flex: 1, backgroundColor: 'var(--primary)', padding: '2em', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <DashboardNavbar />
+      <div className="admin-dashboard-content">
         
         {/* Payroll Summary Section */}
         <h2>Payroll Overview</h2>
-        <div className="payroll-summary" style={{ marginBottom: '1.5em', textAlign: 'center' }}>
+        <div className="payroll-summary">
           <p><strong>Total Payroll this Period:</strong> ${totalPayroll.toFixed(2)}</p>
           {/* Breakdown by subject */}
           <div>
             <strong>Expenditures by Subject:</strong>
-            <ul style={{ listStyle: 'none', padding: 0, margin: '0.5em 0' }}>
+            <ul>
               {Object.entries(breakdownBySubject).map(([subject, amount]) => (
                 <li key={subject}>
                   {subject}: ${amount.toFixed(2)}
@@ -76,42 +77,38 @@ function AdminPayrollPage() {
         </div>
 
         {/* Employees Payroll Table */}
-        <table className="payroll-table" style={{ width: '100%', maxWidth: '45em', borderCollapse: 'collapse', backgroundColor: 'white' }}>
-          <thead style={{ backgroundColor: 'var(--secondary)', color: 'white' }}>
+        <table className="payroll-table">
+          <thead>
             <tr>
-              <th style={{ padding: '0.5em' }}>Employee</th>
-              <th style={{ padding: '0.5em' }}>Subject</th>
-              <th style={{ padding: '0.5em' }}>Students Taught</th>
-              <th style={{ padding: '0.5em' }}>Pay Amount</th>
-              <th style={{ padding: '0.5em' }}>Status</th>
-              <th style={{ padding: '0.5em' }}>Action</th>
+              <th>Employee</th>
+              <th>Subject</th>
+              <th>Students Taught</th>
+              <th>Pay Amount</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {employees.map(emp => (
-              <tr key={emp.id} style={{ textAlign: 'center', borderBottom: '1px solid #ccc' }}>
-                <td style={{ padding: '0.5em' }}>{emp.name}</td>
-                <td style={{ padding: '0.5em' }}>{emp.subject}</td>
-                <td style={{ padding: '0.5em' }}>{emp.students}</td>
-                <td style={{ padding: '0.5em' }}>${emp.pay.toFixed(2)}</td>
-                <td style={{ padding: '0.5em', fontWeight: 'bold', color: emp.paid ? 'green' : 'red' }}>
+              <tr key={emp.id}>
+                <td>{emp.name}</td>
+                <td>{emp.subject}</td>
+                <td>{emp.students}</td>
+                <td>${emp.pay.toFixed(2)}</td>
+                <td style={{ fontWeight: 'bold', color: emp.paid ? 'green' : 'red' }}>
                   {emp.paid ? 'Paid' : 'Unpaid'}
                 </td>
-                <td style={{ padding: '0.5em' }}>
+                <td>
                   {!emp.paid ? (
                     <button 
                       onClick={() => markAsPaid(emp.id)} 
-                      style={{
-                        backgroundColor: 'var(--primary)', color: 'black',
-                        border: `2px groove var(--secondary)`, borderRadius: '5px',
-                        padding: '0.4em 0.8em', cursor: 'pointer', fontWeight: 'bold'
-                      }}
+                      className="submit-pay-btn"
                       title="Mark as paid"
                     >
                       Submit Pay
                     </button>
                   ) : (
-                    <span style={{ color: 'gray' }}>✔︎</span>  /* checkmark indicating already paid */
+                    <span style={{ color: 'gray' }}>✔︎</span>  
                   )}
                 </td>
               </tr>
@@ -120,13 +117,10 @@ function AdminPayrollPage() {
         </table>
 
         {/* Toggle to view payment history */}
-        <div style={{ marginTop: '2em' }}>
+        <div>
           <button 
             onClick={() => setShowHistory(prev => !prev)} 
-            style={{
-              backgroundColor: 'var(--secondary)', color: 'white', fontWeight: 'bold',
-              border: 'none', borderRadius: '4px', padding: '0.5em 1em', cursor: 'pointer'
-            }}
+            title="View Pay History"
           >
             {showHistory ? 'Hide History' : 'View Pay History'}
           </button>
@@ -134,7 +128,7 @@ function AdminPayrollPage() {
 
         {/* Payment History Section (optional) */}
         {showHistory && (
-          <div className="pay-history" style={{ marginTop: '1em', maxWidth: '45em', textAlign: 'left' }}>
+          <div className="pay-history">
             <h3>Past Payment History</h3>
             {history.length === 0 ? (
               <p>No past payments recorded.</p>

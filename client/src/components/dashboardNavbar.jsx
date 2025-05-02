@@ -28,7 +28,6 @@ export default function DashboardNavbar() {
 
         const data = await response.json();
 
-        console.log(data)
         setUserInfo({
           email: data.email,  // Assuming the API returns the user's email and role
           role: data.roles[0] || 'guest',
@@ -48,7 +47,6 @@ export default function DashboardNavbar() {
   const userRole = userInfo.role
   const roleName = userInfo.roleName
 
-  console.log(userRole)
 
   // Handle navigation based on user role
   const sendToHome = () => navigate(`/${roleName}-dashboard/`);
@@ -57,6 +55,7 @@ export default function DashboardNavbar() {
   const sendToAppointments = () => navigate(`/${roleName}-dashboard/appointments`);
   const sendToEvents = () => navigate(`/${roleName}-dashboard/events`);
   const sendToManageTutors = () => navigate(`/${roleName}-dashboard/tutors`);
+  const sendToPayroll = () => navigate(`/admin-dashboard/payroll`)
 
   // Define different navbar items based on role
   const renderNavbar = () => {
@@ -84,10 +83,10 @@ export default function DashboardNavbar() {
       case '67fc5b4862b00200769805b4':
         return (
           <>
-            <div className="dashboard-button" onClick={sendToHome}>Dashboard</div>
+            <div className="dashboard-button" onClick={sendToPayroll}>Payroll</div>
             <div className="dashboard-button" onClick={sendToManageTutors}>Manage Tutors</div>
-            <div className="dashboard-button" onClick={sendToAppointments}>Manage Appointments</div>
-            <div className="dashboard-button" onClick={sendToCalendar}>Manage Calendar</div>
+            <div className="dashboard-button" onClick={sendToHome}>Dashboard</div>
+            <div className="dashboard-button" onClick={sendToCalendar}>Manage Students</div>
             <div className="dashboard-button" onClick={sendToEvents}>Manage Events</div>
           </>
         );

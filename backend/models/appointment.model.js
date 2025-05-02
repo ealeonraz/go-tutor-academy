@@ -1,11 +1,15 @@
-// src/models/Appointment.js
+// backend/models/appointment.model.js
 import mongoose from 'mongoose';
 
 const appointmentSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',  // Reference to the User model
+      ref: 'User',  // Reference to the User model (student)
+      required: true
+    },
+    tutor: {
+      type: String,  // Use tutor's name as a string
       required: true
     },
     start: {
@@ -17,10 +21,6 @@ const appointmentSchema = new mongoose.Schema(
       required: true
     },
     subject: {
-      type: String,
-      required: true
-    },
-    tutor: {
       type: String,
       required: true
     },
