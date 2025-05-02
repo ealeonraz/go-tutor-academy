@@ -1,95 +1,128 @@
-import React, { useState, useEffect } from 'react';
-import { FaCalendarAlt, FaChalkboardTeacher, FaStickyNote, FaEdit, FaTrashAlt } from 'react-icons/fa';
-import AppointmentForm from './CreateAppointmentModal.jsx';
-import Feedback from './Feedback.jsx';
-import './TutorCalendarSidebar.css';  // Updated to a different CSS file
-import { useAuth } from '../context/AuthContext.jsx';
+import React, { useState, useEffect } from 'react'; 
+import { FaCalendarAlt, FaChalkboardTeacher, FaStickyNote, FaEdit, FaTrashAlt } from 'react-icons/fa'; 
+import AppointmentForm from './CreateAppointmentModal.jsx'; 
+import Feedback from './Feedback.jsx'; 
+import './TutorCalendarSidebar.css'; 
+import { useAuth } from '../context/AuthContext.jsx';  
 
-export default function TutorSidebar({
-  events = [],
-  onSelectEvent = () => {},
-  onEditAppointment = () => {},
-  onCancelAppointment = () => {},
-  onSeeAll = () => {}
-}) {
-  const { user } = useAuth();
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [newEventData, setNewEventData] = useState(null);
-  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-  const [feedbackEvent, setFeedbackEvent] = useState(null);
-  const [appointments, setAppointments] = useState([]);
-  const [showAllPrevious, setShowAllPrevious] = useState(false);
+export default function TutorSidebar({ 
+  events = [], 
+  onSelectEvent = () => {}, 
+  onEditAppointment = () => {}, 
+  onCancelAppointment = () => {}, 
+  onSeeAll = () => {} 
+}) { 
+  const { user } = useAuth(); 
+  const [showCreateModal, setShowCreateModal] = useState(false); 
+  const [newEventData, setNewEventData] = useState(null); 
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false); 
+  const [feedbackEvent, setFeedbackEvent] = useState(null); 
+  const [appointments, setAppointments] = useState([]); 
+  const [showAllPrevious, setShowAllPrevious] = useState(false); 
   const [manageSubjectsVisible, setManageSubjectsVisible] = useState(false); 
-  const token = localStorage.getItem("token");
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // State for delete confirmation modal
+  const [selectedAppointment, setSelectedAppointment] = useState(null); // Track the selected appointment to delete
 
-  // Fetch tutor's appointments
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:4000/api/tutors/appointments", {
-          method: "GET",
-          headers: { "Authorization": `Bearer ${token}` },
-        });
-        const data = await response.json();
-  
-        // Ensure data is an array before calling .filter()
-        if (Array.isArray(data)) {
-          setAppointments(data);
-        } else {
-          console.error("Error: Data is not an array", data);
-          setAppointments([]); // Set it to an empty array in case of error
-        }
-      } catch (err) {
-        console.error("Error fetching appointments", err);
-        setAppointments([]); // Set to empty array on error
-      }
-    };
-  
-    fetchAppointments();
-  }, []);
-  
+  const token = localStorage.getItem("token");  
 
-  const now = new Date();
+  // Fetch tutor's appointments   
+  useEffect(() => { 
+    const fetchAppointments = async () => { 
+      try { 
+        const token = localStorage.getItem("token"); 
+        const response = await fetch("http://localhost:4000/api/tutors/appointments", { 
+          method: "GET", 
+          headers: { "Authorization": `Bearer ${token}` }, 
+        }); 
+        const data = await response.json();        
 
-  const upcoming = appointments
-    .filter(ev => ev.start && new Date(ev.start) >= now)
-    .sort((a, b) => new Date(a.start) - new Date(b.start)) 
-    .slice(0, 3);
+        if (Array.isArray(data)) { 
+          setAppointments(data); 
+        } else { 
+          console.error("Error: Data is not an array", data); 
+          setAppointments([]); // Set it to an empty array in case of error 
+        } 
+      } catch (err) { 
+        console.error("Error fetching appointments", err); 
+        setAppointments([]); // Set to empty array on error 
+      } 
+    };    
 
-  const allPrevious = appointments
-    .filter(ev => new Date(ev.start) < now)
-    .sort((a, b) => new Date(b.start) - new Date(a.start));
+    fetchAppointments(); 
+  }, []);      
 
-  const previous = showAllPrevious ? allPrevious : allPrevious.slice(0, 2);
+  const now = new Date(); 
 
-  const handleOpenCreate = (ev = null) => {
-    if (ev) {
-      setNewEventData(ev);
-    } else {
-      const start = new Date();
-      setNewEventData({
-        title: '',
-        start,
-        end: new Date(start.getTime() + 60*60*1000),
-        extendedProps: { feedbackSubmitted: false }
+  const upcoming = appointments     
+    .filter(ev => ev.start && new Date(ev.start) >= now)     
+    .sort((a, b) => new Date(a.start) - new Date(b.start))      
+    .slice(0, 3);    
+
+  const allPrevious = appointments     
+    .filter(ev => new Date(ev.start) < now)     
+    .sort((a, b) => new Date(b.start) - new Date(a.start));    
+
+  const previous = showAllPrevious ? allPrevious : allPrevious.slice(0, 2);    
+
+  const handleOpenCreate = (ev = null) => {     
+    if (ev) {       
+      setNewEventData(ev);     
+    } else {       
+      const start = new Date();       
+      setNewEventData({         
+        title: '',         
+        start,         
+        end: new Date(start.getTime() + 60*60*1000),         
+        extendedProps: { feedbackSubmitted: false }       
+      });     
+    }     
+    setShowCreateModal(true);   
+  };    
+
+  const handleSaveAppointment = (data) => {     
+    onEditAppointment(data);     
+    setShowCreateModal(false);   
+  };    
+
+  const handleOpenFeedback = (ev) => {     
+    setFeedbackEvent(ev);     
+    setShowFeedbackModal(true);   
+  };    
+
+  const handleManageSubjects = () => {     
+    setManageSubjectsVisible(prev => !prev);   
+  };    
+
+  // Handle delete confirmation modal open
+  const handleDeleteConfirmation = (appointment) => {
+    console.log("I AM HERE")
+    setSelectedAppointment(appointment);  // Store the selected appointment
+    setShowDeleteConfirmation(true); // Show the delete confirmation modal
+  };
+
+  // Handle the delete appointment logic
+  const handleDeleteAppointment = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/appointments/${selectedAppointment._id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
       });
+
+      if (response.ok) {
+        alert('Appointment deleted successfully');
+        onCancelAppointment(selectedAppointment); // Remove the appointment from the UI
+      } else {
+        alert('Failed to delete appointment');
+      }
+    } catch (err) {
+      console.error('Error deleting appointment:', err);
+      alert('Error deleting appointment');
+    } finally {
+      setShowDeleteConfirmation(false); // Close the modal after the action
     }
-    setShowCreateModal(true);
-  };
-
-  const handleSaveAppointment = (data) => {
-    onEditAppointment(data);
-    setShowCreateModal(false);
-  };
-
-  const handleOpenFeedback = (ev) => {
-    setFeedbackEvent(ev);
-    setShowFeedbackModal(true);
-  };
-
-  const handleManageSubjects = () => {
-    setManageSubjectsVisible(prev => !prev);
   };
 
   return (
@@ -138,7 +171,7 @@ export default function TutorSidebar({
                 <button
                   className="icon-btn"
                   title="Cancel"
-                  onClick={() => onCancelAppointment(ev)}
+                  onClick={() => handleDeleteConfirmation(ev)} // Trigger delete confirmation
                 >
                   <FaTrashAlt />
                 </button>
@@ -215,6 +248,18 @@ export default function TutorSidebar({
           onClose={() => setShowFeedbackModal(false)}
         />
       )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirmation && (
+        <div className="confirmation-modal" style={{ display: 'block' }}>
+          <div className="modal-content">
+            <p>Are you sure you want to delete this appointment?</p>
+            <button onClick={handleDeleteAppointment}>Yes, Delete</button>
+            <button onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
+          </div>
+    </div>
+        )}
+
     </aside>
   );
 }

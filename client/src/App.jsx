@@ -5,7 +5,8 @@ import AppointmentForm from './pages/AppointmentForm';
 import AptFeedback from './pages/AptFeedback';
 import TutorFeedback from './pages/TutorFeedback';
 import TutorHours from './pages/TutorHours';
-import AdminPayOverview from './pages/AdminPayOverview';import StudentDashboardHome from './pages/studentDashboard';
+import AdminPayOverview from './pages/AdminPayOverview';
+import StudentDashboardHome from './pages/studentDashboard';
 import TutorDashboardHome from './pages/TutorDashboard';
 import SDH_yourTutors from './pages/SDH-yourTutors';
 import TDH_yourStudents from './pages/TDH-yourStudents';
@@ -34,7 +35,6 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
       </Route>
-      <Route path="/reset-password" element={<ResetPassword/>}/>
     </Routes>
   );
 }

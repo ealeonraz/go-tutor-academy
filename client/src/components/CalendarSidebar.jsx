@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FaCalendarAlt, FaEdit, FaTrashAlt, FaStickyNote } from 'react-icons/fa';
 import AppointmentForm from './CreateAppointmentModal.jsx';
 import Feedback from './Feedback.jsx';
-import './Calendar.css';
-import { useAuth } from '../context/AuthContext.jsx'; 
-
+import './CalendarSidebar.css';
+import './calendar.css'
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function CalendarSidebar({
   events = [],
@@ -13,7 +13,6 @@ export default function CalendarSidebar({
   onEditAppointment = () => {},
   onCancelAppointment = () => {},
   onSeeAll = () => {}
-
 }) {
   const { user } = useAuth();
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -22,6 +21,10 @@ export default function CalendarSidebar({
   const [feedbackEvent, setFeedbackEvent] = useState(null);
   const [appointments, setAppointments] = useState([]);  // Assuming it's an array of appointments
   const [showAllPrevious, setShowAllPrevious] = useState(false);
+
+  // State for delete confirmation modal
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null); // Store the event to delete
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -42,7 +45,7 @@ export default function CalendarSidebar({
         console.error("Error fetching appointments", err);
       }
     };
-  
+
     fetchAppointments();
   }, []); // Run once on component mount
   
@@ -56,12 +59,10 @@ export default function CalendarSidebar({
         .slice(0, 3) // Get the first 3 upcoming appointments
     : [];
   
-  
-
-    const allPrevious = appointments
-      .filter(ev => new Date(ev.start) < now)
-      .sort((a, b) => new Date(b.start) - new Date(a.start))
-    const previous = showAllPrevious ? allPrevious : allPrevious.slice(0, 2);
+  const allPrevious = appointments
+    .filter(ev => new Date(ev.start) < now)
+    .sort((a, b) => new Date(b.start) - new Date(a.start));
+  const previous = showAllPrevious ? allPrevious : allPrevious.slice(0, 2);
 
   // open create/edit appointment
   const handleOpenCreate = (ev = null) => {
@@ -72,8 +73,8 @@ export default function CalendarSidebar({
       setNewEventData({
         title: '',
         start,
-        end:   new Date(start.getTime() + 60*60*1000),
-        extendedProps: { feedbackSubmitted:false }
+        end: new Date(start.getTime() + 60 * 60 * 1000),
+        extendedProps: { feedbackSubmitted: false }
       });
     }
     setShowCreateModal(true);
@@ -89,6 +90,39 @@ export default function CalendarSidebar({
   const handleOpenFeedback = ev => {
     setFeedbackEvent(ev);
     setShowFeedbackModal(true);
+  };
+
+  // Handle Delete Confirmation
+  const handleDeleteConfirmation = (event) => {
+    setEventToDelete(event);  // Store the event to delete
+    setShowDeleteConfirmation(true);  // Show the confirmation modal
+  };
+
+  // Delete appointment (after confirmation)
+  const handleDeleteAppointment = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/appointments/${eventToDelete.id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        alert('Appointment deleted successfully');
+        setAppointments(prevAppointments => prevAppointments.filter(ev => ev.id !== eventToDelete.id)); // Update state
+        setShowDeleteConfirmation(false); // Close confirmation modal
+        setEventToDelete(null); // Clear the event to delete
+      } else {
+        alert('Failed to delete appointment');
+        setShowDeleteConfirmation(false); // Close confirmation modal on failure
+      }
+    } catch (err) {
+      console.error('Error deleting appointment:', err);
+      alert('Error deleting appointment');
+      setShowDeleteConfirmation(false); // Close confirmation modal on error
+    }
   };
 
   return (
@@ -110,9 +144,9 @@ export default function CalendarSidebar({
                 onClick={() => onSelectEvent(ev)}
               >
                 <span className="appointment-time">
-                  {new Date(ev.start).toLocaleString([],{
-                    month:'short',day:'numeric',
-                    hour:'numeric',minute:'2-digit'
+                  {new Date(ev.start).toLocaleString([], {
+                    month: 'short', day: 'numeric',
+                    hour: 'numeric', minute: '2-digit'
                   })}
                 </span>
                 <span className="appointment-title">{ev.title}</span>
@@ -128,7 +162,7 @@ export default function CalendarSidebar({
                 <button
                   className="icon-btn"
                   title="Cancel"
-                  onClick={() => onCancelAppointment(ev)}
+                  onClick={() => handleDeleteConfirmation(ev)} // Trigger delete confirmation
                 >
                   <FaTrashAlt />
                 </button>
@@ -154,9 +188,9 @@ export default function CalendarSidebar({
                 onClick={() => onSelectEvent(ev)}
               >
                 <span className="appointment-time past-time">
-                  {new Date(ev.start).toLocaleString([],{
-                    month:'short',day:'numeric',
-                    hour:'numeric',minute:'2-digit'
+                  {new Date(ev.start).toLocaleString([], {
+                    month: 'short', day: 'numeric',
+                    hour: 'numeric', minute: '2-digit'
                   })}
                 </span>
                 <span className="appointment-title">{ev.title}</span>
@@ -173,12 +207,11 @@ export default function CalendarSidebar({
           )) : <li>No previous sessions</li>}
         </ul>
         <button
-         className="see-all-button"
+          className="see-all-button"
           onClick={() => setShowAllPrevious(prev => !prev)}
-         >
+        >
           {showAllPrevious ? "Show Less" : "See All Previous"}
         </button>
-
       </div>
 
       <div className="widget notes-widget">
@@ -210,6 +243,17 @@ export default function CalendarSidebar({
           user={user}
           onClose={() => setShowFeedbackModal(false)}
         />
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirmation && (
+        <div className="confirmation-modal" style={{ display: 'block' }}>
+          <div className="modal-content">
+            <p>Are you sure you want to delete this appointment?</p>
+            <button onClick={handleDeleteAppointment}>Yes, Delete</button>
+            <button onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
+          </div>
+        </div>
       )}
     </aside>
   );

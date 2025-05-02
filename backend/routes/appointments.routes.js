@@ -57,6 +57,38 @@ router.post('/create', async (req, res) => {
   }
 });
 
+
+// Delete an appointment by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized access' });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    // Find and delete the appointment
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+
+    if (appointment.userId.toString() !== userId) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    await Appointment.deleteOne({ _id: req.params.id });
+
+    res.status(200).json({ message: 'Appointment deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting appointment:', err);
+    res.status(500).json({ error: 'Error deleting appointment' });
+  }
+});
+
 // Get appointments for the logged-in user
 router.get('/', async (req, res) => {
   try {

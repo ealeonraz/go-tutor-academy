@@ -9,7 +9,7 @@ import EventDetailsModal from '../components/EventDetailsModal.jsx';
 import AppointmentForm from '../components/CreateAppointmentModal.jsx';
 import './StudentDashboardCalendar.css';
 import DashboardNavbar from '../components/DashboardNavbar.jsx';
-import Header from '../components/LoggedInNavbar.jsx'
+import Header from '../components/LoggedInNavbar.jsx';
 
 export default function StudentDashboardCalendar() {
   const [events, setEvents] = useState([]);
@@ -18,7 +18,7 @@ export default function StudentDashboardCalendar() {
   const [newEventData, setNewEventData] = useState(null);
 
   const token = localStorage.getItem("token");
-  
+
   // Fetch appointments from the database
   useEffect(() => {
     fetch("http://localhost:4000/api/appointments", {
@@ -32,12 +32,11 @@ export default function StudentDashboardCalendar() {
       })
       .catch((error) => console.error("Unable to fetch appointments:", error));
   }, []);
-  
+
   // Log the events state when it's updated
   useEffect(() => {
     console.log("Events state:", events);  // Log events state
   }, [events]);
-  
 
   const handleSelectEvent = (eventInfo) => {
     let eventData = eventInfo;
@@ -64,9 +63,28 @@ export default function StudentDashboardCalendar() {
     );
   };
 
-  const deleteEvent = (eventId) => {
-    setEvents(prevEvents => prevEvents.filter(ev => ev.id !== eventId));
-    setSelectedEvent(null);
+  const deleteEvent = async (eventId) => {
+    try {
+      // Send DELETE request to the backend
+      const response = await fetch(`http://localhost:4000/api/appointments/${eventId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        alert('Appointment deleted successfully');
+        setEvents(prevEvents => prevEvents.filter(ev => ev.id !== eventId)); // Update state
+        setSelectedEvent(null); // Clear selected event
+      } else {
+        alert('Failed to delete appointment');
+      }
+    } catch (err) {
+      console.error('Error deleting appointment:', err);
+      alert('Error deleting appointment');
+    }
   };
 
   const handleDateSelect = (selectInfo) => {
@@ -115,7 +133,7 @@ export default function StudentDashboardCalendar() {
 
   return (
     <div className="dashboard-page">
-      <Header/>
+      <Header />
       <DashboardNavbar />
       <div className="dashboard-content">
         <div className="header-section">
@@ -176,7 +194,7 @@ export default function StudentDashboardCalendar() {
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
           onUpdateEvent={updateEvent}
-          onDeleteEvent={deleteEvent}
+          onDeleteEvent={() => deleteEvent(selectedEvent.id)} // Delete event
         />
       )}
 

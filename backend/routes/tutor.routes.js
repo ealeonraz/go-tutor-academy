@@ -16,6 +16,26 @@ const router = express.Router();
  * @desc    Retrieve all tutors from the database (admin access)
  * @access  Protected (requires JWT token)
  */
+
+router.delete('/:id', async (req, res) => {
+  const appointmentId = req.params.id;
+
+  try {
+    // Find and delete the appointment by ID
+    const deletedAppointment = await Appointment.findByIdAndDelete(appointmentId);
+
+    if (!deletedAppointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+
+    // Send response back that appointment has been deleted
+    res.status(200).json({ message: 'Appointment deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting appointment:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 router.get('/', async (req, res) => {
   try {
     // Extract the token from the Authorization header
