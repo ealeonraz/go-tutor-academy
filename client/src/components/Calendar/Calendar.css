@@ -1,0 +1,536 @@
+/* FULLCALENDAR: Month/Week View Adjustments */
+.fc-daygrid-day-frame {
+  background-color: #fff !important;
+  color: #333 !important;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.fc-daygrid-day-number {
+  font-weight: bold;
+  color: #666 !important;
+  margin-bottom: 2px;
+  font-size: 0.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+.fc-day-today {
+  background-color: rgba(138, 44, 226, 0.05) !important;
+}
+
+.fc-daygrid-event .fc-event-main {
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fc-daygrid-event {
+  white-space: normal;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.fc-daygrid-day-events {
+  max-height: calc(1.2em * 3 + 0.5rem);
+  overflow-y: auto;
+}
+
+.fc-timegrid-slots {
+  background-color: #fafafa !important;
+}
+
+.fc-timegrid-slot-lane {
+  background-color: #fff !important;
+}
+
+.fc-event {
+  background-color: #8a2ce2 !important;
+  border: 1px solid #7a25c2 !important;
+  color: #fff !important;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.fc-event:hover {
+  opacity: 0.9;
+}
+
+/* CALENDARSIDEBAR */
+/* ======================== */
+/* Expanded Sidebar Buttons */
+/* ======================== */
+
+/* New Appointment Button */
+.new-appointment-button {
+  background-color: #8a2ce2;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.new-appointment-button:hover {
+  background-color: #7a25c2;
+}
+
+/* Appointment Items */
+.appointment-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background: #fdf9ff;
+  border: 1px solid #e8e0ef;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+.appointment-item.past {
+  opacity: 0.8;
+}
+
+/* Info block is clickable */
+.appointment-info {
+  flex: 1;
+  cursor: pointer;
+}
+.appointment-time {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+.appointment-title {
+  display: block;
+  font-size: 0.9rem;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.past-time {
+  color: #777;
+}
+
+/* Icon Buttons */
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  margin-left: 0.3rem;
+}
+.icon-btn:hover {
+  color: #8a2ce2;
+}
+
+.feedback-button {
+  background-color: transparent;
+  border: 1px solid #8a2ce2;
+  color: #8a2ce2;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Subtle purple tint on hover, no full color swap */
+.feedback-button:hover {
+  background-color: rgba(138, 44, 226, 0.1); /* light purple background */
+  transform: translateY(-1px);                /* tiny “lift” effect */
+}
+
+/* Optional: focus style for accessibility */
+.feedback-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(138, 44, 226, 0.4);
+}
+
+
+/* See All Buttons */
+.see-all-button {
+  background: none;
+  border: none;
+  color: #8a2ce2;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+.see-all-button:hover {
+  text-decoration: underline;
+}
+
+/* Widgets (reminders / notes) reuse widget styles but ensure list spacing */
+.reminders-widget ul,
+.notes-widget ul {
+  list-style: disc;
+  margin-left: 1.2rem;
+  padding: 0;
+}
+
+.main-content {
+  display: flex;
+  align-items: flex-start;    /* <-- prevents all children from stretching */
+  gap: 20px;                  /* keep your existing gap */
+}
+
+.sidebar {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 280px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow-y: auto;
+}
+
+.sidebar .widget {
+  margin-bottom: 1.5rem;
+}
+
+.sidebar .widget h2 {
+  font-size: 1.1rem;
+  color: #8a2ce2;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar .widget ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .widget ul li {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.sidebar .widget ul li:hover {
+  text-decoration: underline;
+}
+
+/* EVENTDETAILSMODAL */
+.modal-content {
+  background: #fff;
+  color: #333;
+  padding: 1.5rem;
+  width: 500px;
+  max-width: 90%;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #8a2ce2;
+}
+
+.modal-header h2 {
+  font-size: 1.4rem;
+  color: #8a2ce2;
+  margin: 0 0 0.4rem;
+}
+
+.modal-header p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.modal-body {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.feedback-section,
+.notes-section,
+.files-section {
+  margin-bottom: 1.5rem;
+}
+
+.feedback-section h3,
+.notes-section h3,
+.files-section h3 {
+  font-size: 1.1rem;
+  color: #8a2ce2;
+  margin-bottom: 0.5rem;
+}
+
+/* Buttons in upcoming actions */
+.upcoming-actions {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.upcoming-actions .btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.upcoming-actions .btn-primary {
+  background-color: #8a2ce2;
+  color: #fff;
+}
+
+.upcoming-actions .btn-primary:hover {
+  background-color: #7a25c2;
+}
+
+.upcoming-actions .btn-outline {
+  background-color: transparent;
+  color: #8a2ce2;
+  border: 2px solid #8a2ce2;
+}
+
+.upcoming-actions .btn-outline:hover {
+  background-color: #8a2ce2;
+  color: #fff;
+}
+.calendar-sidebar {
+  background: #fff;
+  padding: 1rem;
+  width: 300px; /* example width, adjust as needed */
+  border-left: 1px solid #e0e0e0;  /* subtle border to separate from main content */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+/* Make the New Appointment button use the same purple accent and full width */
+.new-appointment-button {
+  display: block;                 /* ensure it’s its own line */
+  width: 100%;                    /* fill the sidebar width */
+  background-color: #8a2ce2 !important;  /* matching your calendar accent */
+  color: #fff !important;         
+  font-size: 1rem;                
+  font-weight: 600;               
+  padding: 0.75rem 0;             /* comfortable tap target */
+  margin-bottom: 1rem;            
+  border: 1px solid #7a25c2;      /* slightly darker border for definition */
+  border-radius: 8px;             /* match other card corners */
+  text-align: center;             
+  cursor: pointer;                
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.2s ease;
+}
+.new-appointment-button:hover {
+  background-color: #7a25c2 !important;  /* hover darker purple */
+  border-color: #6f22b2;
+}
+
+
+/* Section Titles */
+.section-title, .section-subtitle {
+  color: var(--accent-color, #6A1B9A);
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+.section-title {
+  font-size: 1.1rem;
+}
+.section-subtitle {
+  font-size: 1rem;
+  margin-top: 1.0rem;
+}
+
+/* Appointment Lists */
+.appointment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.appointment-list.past-list {
+  /* perhaps a lighter text style for past appointments */
+  color: #777;
+}
+
+/* Appointment Items */
+.appointment-item {
+  background: #FDF9FF;  /* a very light purple-tint background to highlight item */
+  border: 1px solid #E8E0EF;  /* light purple/gray border */
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.appointment-item.upcoming {
+  /* maybe a left border or icon indicator for upcoming sessions */
+  border-left: 4px solid var(--accent-color, #6A1B9A);
+}
+.appointment-item.past {
+  opacity: 0.9;
+}
+
+/* Appointment Info (time and title) */
+.appointment-info {
+  flex: 1;
+  overflow: hidden;
+}
+.appointment-time {
+  display: block;
+  font-weight: 600;
+  color: #333;
+}
+.appointment-title {
+  display: block;
+  font-size: 0.95rem;
+  color: #555;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.past .appointment-time {
+  color: #555;
+  font-weight: 500;
+}
+.past .appointment-title {
+  color: #777;
+}
+
+/* Appointment Actions (edit/cancel icons) */
+.appointment-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.appointment-actions button {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.3rem;
+}
+.appointment-actions button:hover {
+  color: var(--accent-color, #6A1B9A);
+}
+/* Different icon styles (if using text symbols) */
+.edit-appointment-btn::after {
+  content: '✎';
+}
+.cancel-appointment-btn::after {
+  content: '✕';
+}
+.feedback-btn::after {
+  content: '★';
+}
+
+/* Additional Widgets Section */
+.sidebar-widgets {
+  margin-top: auto;  /* push widgets to bottom of sidebar if using flex */
+  padding-top: 0.5rem;
+  border-top: 1px solid #ddd;
+}
+.widget {
+  margin-bottom: 1rem;
+}
+.widget-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-color, #6A1B9A);
+  margin-bottom: 0.3rem;
+}
+/* Reminders list */
+.reminders-list {
+  list-style: disc;
+  margin: 0 0 0 1.2rem;
+  padding: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+.reminders-list li {
+  margin-bottom: 0.2rem;
+}
+/* Notes content */
+.notes-content {
+  font-size: 0.9rem;
+  color: #555;
+  background: #f8f8f8;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+/* Textareas */
+.feedback-form textarea,
+.notes-section textarea {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.feedback-form textarea:focus,
+.notes-section textarea:focus {
+  outline: none;
+  border-color: #8a2ce2;
+  box-shadow: 0 0 3px rgba(138,44,226,0.5);
+}
+
+/* Dropzone */
+.dropzone {
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  border: 2px dashed #ccc;
+  text-align: center;
+  color: #666;
+  border-radius: 4px;
+}
+
+.dropzone:hover {
+  border-color: #8a2ce2;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.file-list li {
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .calendar-panel {
+    width: 100%;
+  }
+}

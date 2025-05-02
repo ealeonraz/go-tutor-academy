@@ -6,7 +6,7 @@ function ReviewSection(){
 
     useEffect(()=>{           
 
-        fetch("http://localhost:4000/reviews")
+        fetch("http://localhost:4000/api/reviews")
         .then((res)=>res.json())
         .then((reviews)=>setReview(reviews))
         .catch((error)=>console.error("Unable to fetch reviews:",error));

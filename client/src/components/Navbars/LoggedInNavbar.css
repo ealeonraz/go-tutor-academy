@@ -1,0 +1,207 @@
+/*
+    This CSS file styles the Logged In Navigation Bar JSX component.
+
+    It lists from the Top class name used first to the last class name used
+    based on the order of the HTML elements in the JSX file.
+*/
+
+/* Main Logged In Navbar */
+.LoggedInNavbar {
+    height: 4em;
+    background-color: white;
+    position: relative;
+    display: flex;
+    top: 0;
+    justify-content: space-between;
+    /* Space out the logo and account overlay */
+    align-items: center;
+    /* Vertically center all elements */
+    padding: 0 20px;
+    /* Add padding for spacing on the left and right */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Optional: Add a subtle shadow for better visibility */
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+    padding-left: 10px;
+    /* Adjust padding for spacing */
+    flex: 0 0 auto;
+    /* Prevent the logo from taking too much space */
+}
+
+/* Account Container */
+.account-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+/* Account Picture */
+.account-picture img {
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    /* Make the image circular */
+    object-fit: cover;
+    /* Ensure the image scales properly */
+    border: .2em solid var(--secondary);
+    /* Optional: Add a border for better visibility */
+}
+
+/* Ensure the parent container is positioned relative */
+.account-arrow-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Add spacing between the icon and text */
+}
+
+/* Ensure actual image is formatted right */
+.account-arrow-button img {
+    width: 1.5em;
+    height: 1.5em;
+    transition: transform 0.3s ease;
+}
+
+/* Rotates downwards when clicked into */
+.account-arrow-button[aria-expanded="true"] img {
+    transform: rotate(180deg);
+}
+
+/* Resets and rotates upwards to original position */
+.account-arrow-button button:active {
+    transform: rotate(180deg);
+}
+
+/* Account Overlay */
+.account-overlay {
+    position: absolute;
+    top: 100%;
+    left: -15%;
+    background-color: white;
+    border-color: var(--secondary);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    width: 9em;
+    /* Ensure it stays above the semi-transparent background */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.3 ease, transform 0.3 ease;
+}
+
+.account-overlay.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Optional: Style the popup content */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* This is the name/text of the popup buttons */
+.popup-content button {
+    background-color: var(--primary);
+    color: black;
+    border-style: groove;
+    border-color: var(--secondary);
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: var(--secondary);
+    color: white;
+}
+
+/* Popup Button */
+.popup-button {
+    background-color: var(--primary);
+    /* Use your primary color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+    /* Align text to the left */
+    width: 100%;
+    /* Make the button take the full width of the popup */
+    font-size: 14px;
+    position: relative;
+    /* Required for the ::before pseudo-element */
+    overflow: hidden;
+    /* Ensure the gradient stays within the button */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.popup-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px var(--secondary);
+}
+
+/* Gradient Animation for Hover */
+.popup-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    /* Start the gradient off-screen */
+    width: 200%;
+    /* Make the gradient wide enough to cover the button */
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(111, 0, 255, 0.6), transparent);
+    opacity: 0;
+    transition: left 0.5s ease;
+    /* Smooth transition for the gradient */
+}
+
+.popup-button:hover::before {
+    left: 0;
+    /* Move the gradient into view */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .LoggedInNavbar {
+        flex-direction: row;
+        /* Keep elements in a row on smaller screens */
+        height: auto;
+        /* Allow height to adjust dynamically */
+        padding: 10px;
+        /* Add padding for smaller screens */
+    }
+
+    .logo {
+        justify-content: flex-start;
+        /* Keep the logo aligned to the left */
+        padding-left: 0;
+        /* Remove extra padding */
+    }
+    .account-overlay {
+        justify-content: flex-end;
+        /* Keep the account overlay aligned to the right */
+    }
+}

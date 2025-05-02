@@ -1,0 +1,169 @@
+/* Define theme tokens scoped to this page */
+.Dashboard-container {
+  --primary:    #D0BCFF;
+  --secondary:  #925FE2;
+  --grey:       #333333;
+  --light-grey: #ced4da;
+}
+
+/* Overall dashboard page style */
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #b174f5 0%, #8a2ce2 100%);
+}
+
+/* Main content wrapper */
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--primary);
+}
+
+/* Header section */
+.header-section {
+  text-align: center;
+  padding: 1rem 0;
+  /* no base color here so children can override */
+}
+
+.header-section h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--grey);       /* dark gray for readability */
+}
+
+.header-section p {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--light-grey); /* softer gray for subtitle */
+}
+
+/* New Appointment button styling */
+.new-appointment-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--secondary);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.new-appointment-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Main content layout */
+.main-content {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+  flex: 1;
+  max-width: 300px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar .widget {
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar .widget h2 {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar .widget ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar .widget ul li {
+  padding: 8px 0;
+  border-bottom: 1px dashed #ccc;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* Calendar panel */
+.calendar-panel {
+  flex: 3;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal box */
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.modal form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    max-width: 100%;
+  }
+}
