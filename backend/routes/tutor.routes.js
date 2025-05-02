@@ -108,4 +108,15 @@ router.get('/appointments', async (req, res) => {
   res.status(500).json({ message: 'Server error' });
   }
 });
+
+// Get tutor performance data for admin view
+router.get("/performance", async (req, res) => {
+  try {
+    const tutors = await Tutor.find().select("firstName lastName email performance");
+    res.json(tutors);
+  } catch (error) {
+    console.error("Error fetching tutor performance:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 export default router;

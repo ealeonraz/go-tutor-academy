@@ -147,6 +147,12 @@
   line-height: 1.6;
 }
 
+.about-box ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
 /* Updated Review Grid */
 .review-grid {
   display: flex;

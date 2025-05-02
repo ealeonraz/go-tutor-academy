@@ -26,6 +26,10 @@ const tutorSchema = new mongoose.Schema({
     }
   ],
   availableHours: [dayScheduleSchema],  // Array of days with time slots (Date objects)
+  performance: {
+    feedbackScore: Number,      // Average score out of 5
+    sessionsCompleted: Number,
+  }
 }, { timestamps: true });
 
 const Tutor = mongoose.model('users', tutorSchema);

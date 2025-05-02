@@ -101,6 +101,14 @@ const TutorProfileView = () => {
               <p>{selectedTutor.bio || "This tutor has not provided a bio yet."}</p>
             </div>
 
+            <div className="about-box">
+              <h3>Performance</h3>
+              <ul>
+                <li><strong>Sessions Completed:</strong> {selectedTutor.performance?.sessionsCompleted ?? 0}</li>
+                <li><strong>Average Feedback Score:</strong> {selectedTutor.performance?.feedbackScore?.toFixed(1) ?? "N/A"} / 5</li>
+              </ul>
+            </div>
+
             <h3>Latest Reviews</h3>
             <div className="review-grid">
               <div className="review-card">
