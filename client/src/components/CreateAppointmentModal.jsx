@@ -1,35 +1,10 @@
+//zack patty's task, due to computer issues Zeke pushed = DT-83
 import React, { useState, useEffect } from "react";
 import "./CreateAppointment.css"; // Uses updated CSS with --app- variables
 
 
 
-const AVAILABILITY = {
-  tutor1: [
-    "2025-04-13T10:00:00Z",
-    "2025-04-13T11:30:00Z",
-    "2025-04-14T09:00:00Z"
-  ],
-  tutor2: [
-    "2025-04-15T14:00:00Z",
-    "2025-04-15T15:30:00Z"
-  ],
-  tutor3: [
-    "2025-04-16T13:00:00Z",
-    "2025-04-16T14:30:00Z"
-  ],
-  tutor4: [
-    "2025-04-17T09:00:00Z",
-    "2025-04-17T10:30:00Z"
-  ],
-  tutor5: [
-    "2025-04-18T10:00:00Z",
-    "2025-04-18T11:30:00Z"
-  ],
-  tutor6: [
-    "2025-04-19T09:00:00Z",
-    "2025-04-19T10:30:00Z"
-  ]
-};
+
 
 
 export default function CreateAppointmentModal({ onClose, onSave }) {
