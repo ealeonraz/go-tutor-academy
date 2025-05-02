@@ -48,16 +48,22 @@ const LoginOverlayButton = forwardRef(({ onSwitchToRegister }, ref) => {
   };
 
   // Submission handler for the login form
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Reset any previous error message
-
-    if(loginData.email != "" && loginData.password != "") {
-      auth.login(loginData);
-      return;
+    setErrorMessage("");
+  
+    if (loginData.email !== "" && loginData.password !== "") {
+      try {
+        await auth.login(loginData);
+      } catch (err) {
+        setErrorMessage("Login failed. Please check your credentials.");
+        console.error("Login error:", err);
+      }
+    } else {
+      setErrorMessage("Please enter both email and password.");
     }
-    setErrorMessage("Login failed. Please check your credentials.");
-  }
+  };
+  
 
   return (
     <>

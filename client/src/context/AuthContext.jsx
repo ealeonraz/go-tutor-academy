@@ -39,9 +39,11 @@ const AuthProvider = ({ children }) => {
         return;
       }
       throw new Error(res.message);
-    } catch (err) {
-      console.error("Error fetching response, ", err)
-    }
+      } catch (err) {
+        console.error("Error fetching response:", err);
+        throw err;
+      }
+
 
   };
 
