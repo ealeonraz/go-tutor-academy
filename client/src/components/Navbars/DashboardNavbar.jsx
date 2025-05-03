@@ -51,6 +51,7 @@ export default function DashboardNavbar() {
   // Handle navigation based on user role
   const sendToHome = () => navigate(`/${roleName}-dashboard/`);
   const sendToYourTutors = () => navigate(`/${roleName}-dashboard/your-tutors`);
+  const sendToYourStudents = () => navigate(`/${roleName}-dashboard/students`);
   const sendToCalendar = () => navigate(`/${roleName}-dashboard/calendar`);
   const sendToAppointments = () => navigate(`/${roleName}-dashboard/appointments`);
   const sendToEvents = () => navigate(`/${roleName}-dashboard/events`);
@@ -74,7 +75,7 @@ export default function DashboardNavbar() {
       case '67fc5b4862b00200769805b5':
         return (
           <>
-            <div className="dashboard-button" onClick={sendToYourTutors}>My Students</div>
+            <div className="dashboard-button" onClick={sendToYourStudents}>My Students</div>
             <div className="dashboard-button" onClick={sendToAppointments}>View Appointments</div>
             <div className="dashboard-button" onClick={sendToHome}>Home</div>
             <div className="dashboard-button" onClick={sendToCalendar}>My Calendar</div>

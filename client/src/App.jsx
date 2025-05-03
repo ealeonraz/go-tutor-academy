@@ -5,6 +5,7 @@ import TutorHours from './pages/TutorHours';
 import AdminPayOverview from './pages/AdminPayOverview';
 import StudentDashboardHome from './pages/dashboard/Dashboard.jsx';
 import TutorDashboardHome from './pages/TutorDashboard';
+import StudentProfileView from './pages/StudentProfileView.jsx';
 import "./App.css";
 import Layout from './components/Layout';
 import NotesPage from './pages/NotesPage/NotesPage.jsx';
@@ -36,6 +37,7 @@ function App() {
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
         <Route path="/tutor-dashboard/payroll" element={<TutorPayrollPage />} />
         <Route path="/tutor-dashboard" element={<TutorDashboardHome />} />
+        <Route path="/tutor-dashboard/students" element={<StudentProfileView />} />
       </Route>
       <Route path="/reset-password" element={<ResetPassword/>}/>
     </Routes>
