@@ -1,16 +1,13 @@
-// backend/routes/tutor.routes.js
-
 import express from 'express'; // Import Express for routing
 import jwt from 'jsonwebtoken'; // JSON Web Token for authentication
 import Tutor from '../models/tutor.model.js'; // Tutor model for database interaction
 import db from '../models/index.js'; 
 import config from '../config/auth.config.js';
 import Appointment from '../models/appointment.model.js'; // Importing Appointment model
-
-
+import authJwt from '../middlewares/authJwt.js'; // Middleware for JWT authentication
+import { updateTutorSubjects } from "../controllers/tutor.controller.js";
 
 const router = express.Router();
-
 
 router.get('/:id/info', async (req, res) => {
   try {
@@ -143,4 +140,33 @@ router.get('/appointments', async (req, res) => {
   res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+router.put('/:id/subjects', async (req, res) => {
+  try {
+    const tutorId = req.params.id; // Get tutor's ID from the URL
+    const updatedSubjects = req.body.subjects; // Get subjects from request body
+
+    if (!updatedSubjects || !Array.isArray(updatedSubjects)) {
+      return res.status(400).json({ message: 'No subjects provided or invalid format' });
+    }
+
+    const updatedTutor = await Tutor.findByIdAndUpdate(
+      tutorId,
+      { $set: { subjects: updatedSubjects } },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedTutor) {
+      return res.status(404).json({ message: 'Tutor not found' });
+    }
+
+    res.status(200).json({ message: 'Subjects updated successfully', tutor: updatedTutor });
+  } catch (err) {
+    console.error('Error updating tutor subjects:', err);
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+
 export default router;

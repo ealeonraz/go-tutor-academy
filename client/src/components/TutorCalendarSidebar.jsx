@@ -3,7 +3,9 @@ import { FaCalendarAlt, FaChalkboardTeacher, FaStickyNote, FaEdit, FaTrashAlt } 
 import AppointmentForm from './Modals/CreateAppointmentModal.jsx'; 
 import Feedback from './Feedback/Feedback.jsx'; 
 import './TutorCalendarSidebar.css'; 
-import { useAuth } from '../context/AuthContext.jsx';  
+import { useAuth } from '../context/AuthContext.jsx'; 
+import ManageSubjects from './ManageSubjects.jsx';
+
 
 export default function TutorSidebar({ 
   events = [], 
@@ -225,11 +227,9 @@ export default function TutorSidebar({
 
       {/* Manage Subjects */}
       {manageSubjectsVisible && (
-        <div className="tutor-widget tutor-manage-subjects-widget">
-          <h2><FaChalkboardTeacher /> Manage Subjects</h2>
-          <ManageSubjects subjects={subjects} />
-        </div>
+        <ManageSubjects onClose={() => setManageSubjectsVisible(false)} />
       )}
+
 
       {/* Appointment Create/Edit Modal */}
       {showCreateModal && (
