@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import { FaCalendarAlt, FaChalkboardTeacher, FaStickyNote, FaEdit, FaTrashAlt } from 'react-icons/fa'; 
-import AppointmentForm from './Modals/CreateAppointmentModal.jsx'; 
+import EditScheduleForm from './EditSchedule.jsx';  // Import the new EditScheduleForm
 import Feedback from './Feedback/Feedback.jsx'; 
 import './TutorCalendarSidebar.css'; 
 import { useAuth } from '../context/AuthContext.jsx'; 
@@ -37,7 +37,6 @@ export default function TutorSidebar({
           headers: { "Authorization": `Bearer ${token}` }, 
         }); 
         const data = await response.json();        
-
         if (Array.isArray(data)) { 
           setAppointments(data); 
         } else { 
@@ -81,10 +80,8 @@ export default function TutorSidebar({
     setShowCreateModal(true);   
   };    
 
-  const handleSaveAppointment = (data) => {     
-    onEditAppointment(data);     
-    setShowCreateModal(false);   
-  };    
+
+    
 
   const handleOpenFeedback = (ev) => {     
     setFeedbackEvent(ev);     
@@ -189,42 +186,6 @@ export default function TutorSidebar({
         </button>
       </div>
 
-      <div className="tutor-widget tutor-feedback-widget">
-        <h2><FaStickyNote /> Feedback Received</h2>
-        <ul>
-          {previous.length > 0 ? previous.map(ev => (
-            <li key={ev.id} className="tutor-appointment-item past">
-              <div
-                className="tutor-appointment-info"
-                onClick={() => onSelectEvent(ev)}
-              >
-                <span className="tutor-appointment-time past-time">
-                  {new Date(ev.start).toLocaleString([],{
-                    month:'short', day:'numeric',
-                    hour:'numeric', minute:'2-digit'
-                  })}
-                </span>
-                <span className="tutor-appointment-title">{ev.title}</span>
-              </div>
-              <div className="tutor-appointment-actions">
-                <button
-                  className="tutor-feedback-button"
-                  onClick={() => handleOpenFeedback(ev)}
-                >
-                  Leave Feedback
-                </button>
-              </div>
-            </li>
-          )) : <li>No feedback available</li>}
-        </ul>
-        <button
-          className="tutor-see-all-button"
-          onClick={() => setShowAllPrevious(prev => !prev)}
-        >
-          {showAllPrevious ? "Show Less" : "See All Previous"}
-        </button>
-      </div>
-
       {/* Manage Subjects */}
       {manageSubjectsVisible && (
         <ManageSubjects onClose={() => setManageSubjectsVisible(false)} />
@@ -233,10 +194,10 @@ export default function TutorSidebar({
 
       {/* Appointment Create/Edit Modal */}
       {showCreateModal && (
-        <AppointmentForm
+        <EditScheduleForm
+          tutorId={user.id} // Pass the tutor ID to fetch the availability
           initialData={newEventData}
           onClose={() => setShowCreateModal(false)}
-          onSave={handleSaveAppointment}
         />
       )}
 
@@ -257,8 +218,8 @@ export default function TutorSidebar({
             <button onClick={handleDeleteAppointment}>Yes, Delete</button>
             <button onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
           </div>
-    </div>
-        )}
+        </div>
+      )}
 
     </aside>
   );

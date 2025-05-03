@@ -11,7 +11,7 @@ import '../Calendar/DashboardCalendar.css';
 import DashboardNavbar from '../../components/Navbars/DashboardNavbar.jsx';
 import Header from '../../components/Navbars/LoggedInNavbar.jsx';
 
-export default function DashboardCalendar() {
+export default function StudentDashboardCalendar() {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -134,7 +134,7 @@ export default function DashboardCalendar() {
   return (
     <div className="dashboard-page">
       <LoggedInNavbar/>
-      <StudentDashboardNavbar />
+      <DashboardNavbar />
       <div className="dashboard-content">
         <div className="header-section">
           <h1>Your Calendar</h1>

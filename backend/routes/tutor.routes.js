@@ -11,38 +11,63 @@ const router = express.Router();
 
 router.get('/:id/info', async (req, res) => {
   try {
-    const tutorId = req.params.id; // Get tutor's ID from the request URL
-    const token = req.headers.authorization?.split(" ")[1]; // Extract token from headers
+      const token = req.headers.authorization?.split(" ")[1];
 
-    if (!token) {
-      return res.status(401).json({ message: 'Unauthorized access' });
-    }
+      if (!token) {
+          return res.status(401).json({ message: 'No token provided' });
+      }
 
-    // Verify the token and decode the payload
-    const decoded = jwt.verify(token, config.secret);
+      // Verify the JWT token
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userEmail = decoded.email;
 
-    // Find the tutor by ID and populate their available time slots
-    const tutor = await Tutor.findById(tutorId);
+      // Query the database using the email and populate the roles field to include both name and ObjectId
+      const user = await db.mongoose.connection.db.collection("users").aggregate([
+          { $match: { email: userEmail } }, // Match the user by email
+          {
+              $lookup: {
+                  from: "roles",  // The name of the roles collection
+                  localField: "roles",  // The field in the users collection that stores ObjectId references to the roles collection
+                  foreignField: "_id",  // The field in the roles collection that stores the ObjectId
+                  as: "roleDetails"  // Name of the field in the resulting object
+              }
+          },
+          { 
+              $unwind: { 
+                  path: "$roleDetails",  // Unwind the array to get a single role for each user
+                  preserveNullAndEmptyArrays: true  // In case the user has no roles
+              }
+          },
+          {
+              $project: {
+                  email: 1,  // Include email
+                  firstName: 1,  // Include firstName
+                  lastName: 1,  // Include lastName
+                  roles: 1,  // Include role(s) ObjectId
+                  roleName: "$roleDetails.name",  // Include the name of the role
+                  roleId: "$roleDetails._id",  // Include the ObjectId of the role
+                  bio: 1,  // Include bio
+                  availableHours: 1,  // Include availableHours
+                  students: 1,  // Include students field
+                  payRate: 1,  // Include payRate
+                  profileLink: 1  // Include profileLink
+              }
+          }
+      ]).toArray();
 
-    if (!tutor) {
-      return res.status(404).json({ message: 'Tutor not found' });
-    }
+      if (user.length === 0) {
+          return res.status(404).json({ message: 'User not found' });
+      }
 
-    // Assuming Tutor schema has a field called availableHours for availability
-    const tutorInfo = {
-      id: tutor._id,
-      name: `${tutor.firstName} ${tutor.lastName}`,
-      subjects: tutor.subjects,
-      availableSlots: tutor.availableHours, // Assume availableHours is an array of time slots
-    };
-
-    res.status(200).json(tutorInfo); // Send the tutor's information and availability
-
+      // Send back the user data with both the role name and role ObjectId
+      res.json(user[0]);
   } catch (err) {
-    console.error('Error retrieving tutor info:', err);
-    res.status(500).json({ message: 'Server error' });
+      console.error(err);
+      res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
 });
+
+
 /**
  * @route   GET /api/tutors
  * @desc    Retrieve all tutors from the database (admin access)
@@ -141,6 +166,34 @@ router.get('/appointments', async (req, res) => {
   }
 });
 
+router.put('/:id/availableHours', async (req, res) => {
+  try {
+    const tutorId = req.body.id; // Get tutor's ID from URL
+    const updatedAvailableHours = req.body.availableHours; // Get updated available hours from request body
+
+    console.log(updatedAvailableHours[0])
+
+    if (!updatedAvailableHours) {
+      return res.status(400).json({ message: 'No available hours provided' });
+    }
+
+    // Find the tutor by ID and update their available hours
+    const updatedTutor = await Tutor.findByIdAndUpdate(
+      tutorId,
+      { $set: { availableHours: updatedAvailableHours } }, // Update only the availableHours field
+      { new: true } // Return the updated tutor
+    );
+
+    if (!updatedTutor) {
+      return res.status(404).json({ message: 'Tutor not found' });
+    }
+
+    res.status(200).json(updatedTutor); // Send back the updated tutor
+  } catch (err) {
+    console.error('Error updating tutor available hours:', err);
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
 
 router.put('/:id/subjects', async (req, res) => {
   try {

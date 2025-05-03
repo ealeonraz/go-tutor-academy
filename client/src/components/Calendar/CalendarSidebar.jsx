@@ -33,6 +33,10 @@ export default function CalendarSidebar({
   // State for edit appointment modal
   const [showEditModal, setShowEditModal] = useState(false);
 
+  // State for notes
+  const [notes, setNotes] = useState([]); // <-- Add notes state here
+
+  
   // Fetch appointments (already in place)
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -181,7 +185,6 @@ export default function CalendarSidebar({
   
     setShowEditModal(true);  // Show the edit modal
   };
-  
   
 
   return (
