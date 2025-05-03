@@ -5,6 +5,7 @@ import TutorHours from './pages/TutorHours';
 import AdminPayOverview from './pages/AdminPayOverview';
 import StudentDashboardHome from './pages/dashboard/Dashboard.jsx';
 import TutorDashboardHome from './pages/TutorDashboard';
+import StudentProfileView from './pages/StudentProfileView.jsx';
 import "./App.css";
 import Layout from './components/Layout';
 import NotesPage from './pages/NotesPage/NotesPage.jsx';
@@ -17,7 +18,9 @@ import PrivateRoute from "./context/PrivateRoutes.jsx"
 import StudentDashboardCalendar from './pages/calendar/DashboardCalendar.jsx';
 import AdminDashboardHome from './pages/AdminDashboard.jsx';
 import TutorProfileView from './pages/TutorProfileView.jsx';
-import ResetPassword from './pages/ResetPassword.jsx';
+import ResetPassword from './pages/ResetPassword';
+import TutorPayrollPage from './pages/TutorPayrollPage.jsx';
+
 
 
 
@@ -32,10 +35,9 @@ function App() {
         <Route path="/studentdashboard/search-results" element={<SearchResults />} />
         <Route path="/admin-dashboard" element={<AdminDashboardHome/>}/>
         <Route path="/admin-dashboard/tutors" element={<TutorProfileView />} />
-        <Route path="/student-dashboard/notes" element={<NotesPage/>}/>
-        <Route path="/TutorHours" element={<TutorHours />} />
-        <Route path="/admin-dashboard/admin-payroll" element={<AdminPayOverview />} />
+        <Route path="/tutor-dashboard/payroll" element={<TutorPayrollPage />} />
         <Route path="/tutor-dashboard" element={<TutorDashboardHome />} />
+        <Route path="/tutor-dashboard/students" element={<StudentProfileView />} />
       </Route>
       <Route path="/reset-password" element={<ResetPassword/>}/>
     </Routes>

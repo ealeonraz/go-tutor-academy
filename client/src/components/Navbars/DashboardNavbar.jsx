@@ -51,11 +51,13 @@ export default function DashboardNavbar() {
   // Handle navigation based on user role
   const sendToHome = () => navigate(`/${roleName}-dashboard/`);
   const sendToYourTutors = () => navigate(`/${roleName}-dashboard/your-tutors`);
+  const sendToYourStudents = () => navigate(`/${roleName}-dashboard/students`);
   const sendToCalendar = () => navigate(`/${roleName}-dashboard/calendar`);
   const sendToAppointments = () => navigate(`/${roleName}-dashboard/appointments`);
   const sendToEvents = () => navigate(`/${roleName}-dashboard/events`);
   const sendToManageTutors = () => navigate(`/${roleName}-dashboard/tutors`);
-  const sendToPayroll = () => navigate(`/admin-dashboard/payroll`)
+  const sendToPayroll = () => navigate(`/tutor-dashboard/payroll`)
+
 
   // Define different navbar items based on role
   const renderNavbar = () => {
@@ -73,11 +75,11 @@ export default function DashboardNavbar() {
       case '67fc5b4862b00200769805b5':
         return (
           <>
-            <div className="dashboard-button" onClick={sendToYourTutors}>My Students</div>
+            <div className="dashboard-button" onClick={sendToYourStudents}>My Students</div>
             <div className="dashboard-button" onClick={sendToAppointments}>View Appointments</div>
             <div className="dashboard-button" onClick={sendToHome}>Home</div>
             <div className="dashboard-button" onClick={sendToCalendar}>My Calendar</div>
-            <div className="dashboard-button" onClick={sendToEvents}>Time Sheet</div>
+            <div className="dashboard-button" onClick={sendToPayroll}>Payroll</div>
           </>
         );
       case '67fc5b4862b00200769805b4':
